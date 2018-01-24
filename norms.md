@@ -32,7 +32,7 @@
 > Each pair can decide own norms. Make sure to commit and push to maintain accountability on git hub. 
 
 #### NORM 6: How does this group approach work "after hours" (i.e. after normal class hours and weekends)?
-#####Is it okay to work on your own after hours? How do we keep the group informed? Do we only work after hours when we can pair? When the entire group is present?
+##### Is it okay to work on your own after hours? How do we keep the group informed? Do we only work after hours when we can pair? When the entire group is present?
 
 > Sit down every evening, and check in about voluntary after hours work to prevent collisions. If there are any expectations to work after hours, explicity talk about it and agree as a group. 
 
