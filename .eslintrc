@@ -1,0 +1,8 @@
+{
+  "extends": "fullstack",
+  "rules": {
+    "quotes": 0,
+    "semi": ["warn", "never"],
+    "class-methods-use-this": "off"
+  }
+}
