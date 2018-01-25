@@ -3,6 +3,7 @@
   "rules": {
     "quotes": 0,
     "semi": ["warn", "never"],
+    "new-cap": [1, { "capIsNewExceptions": ["Router"] }],
     "class-methods-use-this": "off"
   }
 }
