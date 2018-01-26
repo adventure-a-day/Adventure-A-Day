@@ -30,6 +30,7 @@ const Main = (props) => {
               <Link to="/signup">Sign Up</Link>
               <Link to="/location">Geolocation</Link>
               <Link to="/upload-image">Upload Image</Link>
+              <Link to="/messages"> Messages </Link>
             </div>
         }
       </nav>
