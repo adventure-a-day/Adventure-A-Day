@@ -13,6 +13,8 @@ import {logout} from '../store'
 const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
 
+  Notification.requestPermission()
+
   return (
     <div>
       <h1>WHERE IN THE WORLD</h1>
