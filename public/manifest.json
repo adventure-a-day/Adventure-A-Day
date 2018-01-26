@@ -1,0 +1,43 @@
+{
+  "name": "Where in the World",
+  "short_name": "WitW",
+  "description": "A Scavenger Hunt PWA",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f5f5",
+  "theme_color": "#f5f5f5",
+  "icons": [
+    {
+      "src": "./images/earth-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./images/earth-152x152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "./images/earth-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "./images/earth-128x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "./images/earth-48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    }
+  ],
+  "author": {
+    "name": "Where In The World",
+    "github": "https://github.com/where-in-the-world",
+    "source-repo": "https://github.com/where-in-the-world/where-in-the-world"
+  },
+  "gcm_sender_id": "571712848651"
+}
