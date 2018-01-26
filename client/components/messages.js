@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import socket from '../socket'
 
 export class Messages extends Component {
     constructor() {
@@ -13,19 +14,14 @@ export class Messages extends Component {
     }
     handleChange(event) {
         let message = event.target.value
-        console.log(message, "MESSAGE!!!")
         this.setState({newMessage: message})
-        console.log(this.state.newMessage, "SUPPPP")
     }
 
     handleSubmit(event){
         event.preventDefault()
-        console.log(this.state.newMessage, "HEYYYYYYYYYYYY")
+        socket.emit('new-message', this.state.newMessage)
         this.setState({messages: [...this.state.messages, this.state.newMessage]})
         this.setState({newMessage: ""})
-    }
-
-    componentDidMount() {
     }
 
     render() {
