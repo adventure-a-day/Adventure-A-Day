@@ -13,6 +13,8 @@ import {logout} from '../store'
 const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
 
+  Notification.requestPermission()
+
   return (
     <div>
       <h1>WHERE IN THE WORLD</h1>
@@ -29,6 +31,8 @@ const Main = (props) => {
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
               <Link to="/location">Geolocation</Link>
+              <Link to="/upload-image">Upload Image</Link>
+              <Link to="/messages"> Messages </Link>
             </div>
         }
       </nav>
