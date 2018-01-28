@@ -5,7 +5,8 @@ var filesToCache = [
   "./style.css",
   "./favicon.ico",
   "./bundle.js.map",
-  "./bundle.js"
+  "./bundle.js",
+  "./images/earth-48x48.png"
 ]
 
 // Install The Service Worker
@@ -34,13 +35,22 @@ self.addEventListener("activate", event => {
 })
 
 self.addEventListener("fetch", event => {
-  console.log("Service Worker: Fetch", event.request.url)
-
-  console.log("Url", event.request.url)
-
   event.respondWith(
     caches.match(event.request).then(response => {
       return response || fetch(event.request)
     })
   )
+})
+
+self.addEventListener("push", event => {
+  console.log(event)
+  var title = "Testing"
+
+  var body = {
+    body: "Hopefully this shows up",
+    tag: "success",
+    icon: "./images/48x48.png"
+  }
+
+  event.waitUntil(self.registration.showNotification(title, body))
 })

@@ -5,6 +5,8 @@ import store from "./store"
 import Routes from "./routes"
 import register from "./serviceWorker.js"
 register()
+import subscribePush from "./pushSubscribe"
+subscribePush()
 
 // establishes socket connection
 import "./socket"
