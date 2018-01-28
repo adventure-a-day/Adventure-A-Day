@@ -1,10 +1,25 @@
-const settings = {
-  id: process.env.GOOGLE_API_KEY
-}
-const PushNotifications = new require("node-pushnotifications")
-const push = new PushNotifications(settings)
 const router = require("express").Router()
-const registrationIds = []
+module.exports = router
+const webpush = require("web-push")
+const publicVapidKey = process.env.PUBLIC_VAPID_KEY
+const privateVapidKey = process.env.PRIVATE_VAPID_KEY
+console.log(publicVapidKey, privateVapidKey)
+
+let subscription = {}
+
+webpush.setGCMAPIKey(process.env.GOOGLE_API_KEY)
+webpush.setVapidDetails(
+  "mailto:jasminejacquelin@gmail.com",
+  publicVapidKey,
+  privateVapidKey
+)
+
+// const settings = {
+//   id: process.env.GOOGLE_API_KEY
+// }
+// const PushNotifications = new require("node-pushnotifications")
+// const push = new PushNotifications(settings)
+// const registrationIds = []
 
 const testData = {
   title: "Hello World",
@@ -12,8 +27,10 @@ const testData = {
 }
 
 router.post("/register", (req, res, next) => {
-  push
-    .send(registrationIds, testData)
-    .then(() => console.log("WOOOHOOO!!!"))
-    .catch(console.error)
+  subscription = req.body
+  console.log(subscription)
+  res.send("GOT IT")
+  setInterval(() => {
+    webpush.sendNotification(subscription, "ITS WORKING")
+  }, 1000)
 })

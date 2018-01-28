@@ -1,4 +1,7 @@
 import axios from "axios"
+const vapidPublicKey =
+  "BGn1dD0rQNTCewJp4RePvgStspr0pIzjEZShLoVp43eQaFJiSYM8XjxZxtofqIGrxacLeglOcLq9LwUC7cNW17o"
+const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey)
 
 // Ask User if he/she wants to subscribe to push notifications and then
 // ..subscribe and send push notification
@@ -8,16 +11,16 @@ export default function subscribePush() {
       alert("Your browser doesn't support push notification.")
       return false
     }
-
     //To subscribe `push notification` from push manager
     registration.pushManager
       .subscribe({
-        userVisibleOnly: true //Always show notification when received
+        userVisibleOnly: true, //Always show notification when received
+        applicationServerKey: convertedVapidKey
       })
       .then(subscription => {
         console.info("Push notification subscribed.")
         console.log(subscription)
-        saveSubscriptionID(subscription)
+        axios.post("/api/push/register", subscription)
       })
       .catch(error => {
         console.error("Push notification subscription error: ", error)
@@ -52,15 +55,20 @@ export function unsubscribePush() {
   })
 }
 
-function saveSubscriptionID(subscription) {
-  var subscription_id = subscription.endpoint.split("gcm/send/")[1]
-
-  axios.post("/api/push", {
-    subscriptionId: subscription_id
-  })
-}
-
 function deleteSubscriptionID(subscription) {
   var subscription_id = subscription.endpoint.split("gcm/send/")[1]
   axios.delete("/api/user/" + subscription_id)
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - base64String.length % 4) % 4)
+  const base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/")
+
+  const rawData = window.atob(base64)
+  const outputArray = new Uint8Array(rawData.length)
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i)
+  }
+  return outputArray
 }

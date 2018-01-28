@@ -49,7 +49,7 @@ self.addEventListener("push", event => {
   var body = {
     body: "Hopefully this shows up",
     tag: "success",
-    icon: "./images/48x48.png"
+    icon: "/images/earth-48x48.png"
   }
 
   event.waitUntil(self.registration.showNotification(title, body))
