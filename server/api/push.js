@@ -14,16 +14,10 @@ webpush.setVapidDetails(
   privateVapidKey
 )
 
-// const settings = {
-//   id: process.env.GOOGLE_API_KEY
-// }
-// const PushNotifications = new require("node-pushnotifications")
-// const push = new PushNotifications(settings)
-// const registrationIds = []
-
 const testData = {
-  title: "Hello World",
-  body: "this is the body"
+  title: "Testing",
+  body: "OMG IT WAS A SUCCESS",
+  icon: "/images/earth-48x48.png"
 }
 
 router.post("/register", (req, res, next) => {
@@ -31,6 +25,6 @@ router.post("/register", (req, res, next) => {
   console.log(subscription)
   res.send("GOT IT")
   setInterval(() => {
-    webpush.sendNotification(subscription, "ITS WORKING")
-  }, 1000)
+    webpush.sendNotification(subscription, JSON.stringify(testData))
+  }, 10000)
 })

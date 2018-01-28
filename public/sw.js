@@ -43,13 +43,12 @@ self.addEventListener("fetch", event => {
 })
 
 self.addEventListener("push", event => {
-  console.log(event)
-  var title = "Testing"
+  const data = event.data.json()
+  const { title } = data
 
-  var body = {
-    body: "Hopefully this shows up",
-    tag: "success",
-    icon: "/images/earth-48x48.png"
+  const body = {
+    body: data.body,
+    icon: data.icon
   }
 
   event.waitUntil(self.registration.showNotification(title, body))
