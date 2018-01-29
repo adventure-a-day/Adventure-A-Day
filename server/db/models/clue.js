@@ -13,7 +13,7 @@ const Clue = db.define('clue', {
     type: Sequelize.TEXT
   },
   gps: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER)
+    type: Sequelize.ARRAY(Sequelize.DOUBLE)
   },
   region: {
     type: Sequelize.STRING
