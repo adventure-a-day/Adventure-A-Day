@@ -22,8 +22,7 @@ const testData = {
 
 router.post("/register", (req, res, next) => {
   subscription = req.body
-  console.log(subscription)
-  res.send("GOT IT")
+  res.sendStatus(201)
   setInterval(() => {
     webpush.sendNotification(subscription, JSON.stringify(testData))
   }, 10000)
