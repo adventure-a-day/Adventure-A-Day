@@ -1,5 +1,3 @@
-const { URLSearchParams } = require('url');
-
 const User = require('./user')
 const Team = require('./team')
 const Mission = require('./mission')
