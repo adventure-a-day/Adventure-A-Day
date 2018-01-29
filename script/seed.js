@@ -43,6 +43,14 @@ async function seed () {
     Clue.create({prompt: 'Find a new coffee shop and take a picture with the barista!', hint1: 'Can\'t wait to caffinate', hint2: 'Time\'s running out!'})
   ])
 
+  const messages = await Promise.all([
+    Message.create({text: 'Hey hey! Welcome to the party!'}),
+    Message.create({text: 'I\'m going to win. Mwahaha!'}),
+    Message.create({text: 'I love games'}),
+    Message.create({text: 'What do you call a crowd of chess players bragging about their wins in a hotel lobby?'}),
+    Message.create({text: 'Chess nuts boasting in an open foyer.'}),
+    Message.create({text: '...'})
+  ])
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
