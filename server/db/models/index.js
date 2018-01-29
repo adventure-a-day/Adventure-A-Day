@@ -1,4 +1,4 @@
-import { URLSearchParams } from 'url';
+const { URLSearchParams } = require('url');
 
 const User = require('./user')
 const Team = require('./team')

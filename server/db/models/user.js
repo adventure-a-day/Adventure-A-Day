@@ -11,7 +11,7 @@ const User = db.define('user', {
       isEmail: true
     }
   },
-  displayName: {
+  userName: {
     type: Sequelize.STRING,
     allowNull: false
   },
