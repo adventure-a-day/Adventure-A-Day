@@ -6,6 +6,13 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
+  },
+  displayName: {
+    type: Sequelize.STRING,
     allowNull: false
   },
   password: {
@@ -16,6 +23,10 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  photo: {
+    type: Sequelize.STRING,
+    defaultValue: 'https://files.slack.com/files-pri/T024FPYBQ-F91CM3D6K/cody-avatar-50x60.png'
   }
 })
 
