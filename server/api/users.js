@@ -12,3 +12,23 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next)
 })
+
+router.get('/all-users', (req, res, next) => {
+  User.findAll({
+    attributes: ['displayName', 'photo']
+  })
+  .then(users => res.json(users))
+  .catch(next)
+})
+
+router.get('/:userId', (req, res, next) => {
+  const userId = req.params.userId
+  User.findOne({
+    where: {
+      id: userId
+    },
+    include: [{all: true}]
+  })
+  .then(user => res.json(user))
+  .catch(next)
+})
