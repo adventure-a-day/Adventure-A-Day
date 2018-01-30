@@ -20,6 +20,9 @@ const Clue = db.define('clue', {
   },
   answer: {
     type: Sequelize.STRING
+  },
+  tags: {
+    type: Sequelize.ARRAY(Sequelize.STRING)
   }
 })
 

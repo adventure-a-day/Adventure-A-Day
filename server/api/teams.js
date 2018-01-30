@@ -17,7 +17,8 @@ router.get("/:teamId", (req, res, next) => {
     .catch(next)
 })
 
-router.post("/", (req, res, next) => {
+router.post("/",  (req, res, next) => {
+  // in req.body: name
   Team.create(req.body)
     .then(createdTeam => res.json(createdTeam))
     .catch(next)
@@ -25,8 +26,7 @@ router.post("/", (req, res, next) => {
 
 router.delete("/:teamId", (req, res, next) => {
   const teamId = req.params.teamId
-  Team.findById(teamId)
-    .then(foundTeam => Team.destroy(foundTeam))
+   Team.destroy({where: {id: teamId}})
     .then(deleteSuccess => res.sendStatus(204))
     .catch(next)
 })
