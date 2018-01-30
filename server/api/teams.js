@@ -18,6 +18,7 @@ router.get("/:teamId", (req, res, next) => {
 })
 
 router.post("/",  (req, res, next) => {
+  // in req.body: name
   Team.create(req.body)
     .then(createdTeam => res.json(createdTeam))
     .catch(next)

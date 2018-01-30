@@ -44,12 +44,12 @@ async function seed() {
   ])
 
   const messages = await Promise.all([
-    Message.create({text: 'Hey hey! Welcome to the party!'}),
-    Message.create({text: 'I\'m going to win. Mwahaha!'}),
-    Message.create({text: 'I love games'}),
-    Message.create({text: 'What do you call a crowd of chess players bragging about their wins in a hotel lobby?'}),
-    Message.create({text: 'Chess nuts boasting in an open foyer.'}),
-    Message.create({text: '...'})
+    Message.create({text: 'Hey hey! Welcome to the party!', teamId: 1, userId: 1}),
+    Message.create({text: 'I\'m going to win. Mwahaha!', teamId: 1, userId: 2}),
+    Message.create({text: 'I love games', teamId: 1, userId: 1}),
+    Message.create({text: 'What do you call a crowd of chess players bragging about their wins in a hotel lobby?', teamId: 1, userId: 2}),
+    Message.create({text: 'Chess nuts boasting in an open foyer.', teamId: 1, userId: 2}),
+    Message.create({text: '...', teamId: 1, userId: 1})
   ])
 //'unassigned', 'assigned', 'completed'
   const userTeamClueStatuses = await Promise.all([
