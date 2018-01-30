@@ -17,6 +17,9 @@ const Clue = db.define('clue', {
   },
   region: {
     type: Sequelize.STRING
+  },
+  answer: {
+    type: Sequelize.STRING
   }
 })
 
