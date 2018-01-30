@@ -87,17 +87,13 @@ async function seed() {
     })
    
   ])
-  // ERIKA
+
   const teamMembers = await Promise.all([
     Team.findById(1)
     .then(foundTeam => {
       return foundTeam.setUsers([1, 2])
     })
   ])
-
- 
-
-  // KATHY
 
   const teamMissions = await Promise.all([
     Mission.findById(1)
