@@ -11,11 +11,7 @@
  */
 
 const db = require('../server/db')
-<<<<<<< HEAD
-const {User, Team, Mission, Clue, Message } = require('../server/db/models')
-=======
 const {User, Team, Mission, Clue, Message, UserTeamClueStatus} = require('../server/db/models')
->>>>>>> 8764a57682c56c9599b4f35cf927b25e2d1a7628
 
 async function seed() {
   await db.sync({ force: true })
