@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
 
 /**
  * COMPONENT
@@ -13,7 +13,7 @@ export class LocationTracker extends Component {
             }
     }
 
-    componentDidMount() {
+      componentDidMount() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
               let pos = {
@@ -23,7 +23,7 @@ export class LocationTracker extends Component {
               this.setState({ currentLocation: [pos.lat, pos.lng] })
             })
         }
-    }
+      }
    
     render() {
         return (
@@ -32,11 +32,7 @@ export class LocationTracker extends Component {
             </div>
           )
     }
- 
 }
-
-
-
 
 /**
  * CONTAINER
