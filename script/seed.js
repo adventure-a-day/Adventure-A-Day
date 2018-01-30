@@ -87,7 +87,7 @@ async function seed() {
     })
    
   ])
-  // ERIKA
+
   const teamMembers = await Promise.all([
     Team.findById(1)
     .then(foundTeam => {
@@ -95,11 +95,16 @@ async function seed() {
     })
   ])
 
- 
-
-  // KATHY
-
-  
+  const teamMissions = await Promise.all([
+    Mission.findById(1)
+    .then(found => {
+      return found.setTeams([1, 2])
+    }),
+    Mission.findById(2)
+    .then(found => {
+      return found.setTeams([3])
+    })
+  ])
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
