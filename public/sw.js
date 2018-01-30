@@ -53,3 +53,29 @@ self.addEventListener("push", event => {
 
   event.waitUntil(self.registration.showNotification(title, body))
 })
+
+/** This will be for deployment
+ *
+ * self.addEventListener("notificationclick", event => {
+ *   event.notification.close()
+ *   const url = "enter deployed link"
+ *   // Check if there's already a tab open with this URL.
+ *   event.waitUntil(
+ *     self.clients
+ *       .matchAll({
+ *         type: "window"
+ *       })
+ *     .then(windowClients => {
+ *         for (var i = 0; i < windowClients.length; i++) {
+ *           const client = windowClients[i]
+ *           if (client.url === url && "focus" in client) {
+ *             return client.focus()
+ *           }
+ *         }
+ *         if (self.clients.openWindow) {
+ *           return self.clients.openWindow(url)
+ *         }
+ *       })
+ *   )
+ * })
+ */
