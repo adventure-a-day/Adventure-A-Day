@@ -21,19 +21,19 @@ const Main = (props) => {
       <nav>
         {
           isLoggedIn
-            ? <div>
+            ? (<div>
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
               <a href="#" onClick={handleClick}>Logout</a>
-            </div>
-            : <div>
+            </div>)
+            : (<div>
               {/* The navbar will show these links before you log in */}
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
               <Link to="/location">Geolocation</Link>
               <Link to="/upload-image">Upload Image</Link>
               <Link to="/messages"> Messages </Link>
-            </div>
+            </div>)
         }
       </nav>
       <hr />
