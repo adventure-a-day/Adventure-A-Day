@@ -13,9 +13,9 @@
 const db = require('../server/db')
 const {User, Team, Mission, Clue, Messages} = require('../server/db/models')
 
-async function seed () {
-  await db.sync({force: true})
-  console.log('db synced!')
+async function seed() {
+  await db.sync({ force: true })
+  console.log("db synced!")
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
 
@@ -68,9 +68,9 @@ seed()
     process.exitCode = 1
   })
   .then(() => {
-    console.log('closing db connection')
+    console.log("closing db connection")
     db.close()
-    console.log('db connection closed')
+    console.log("db connection closed")
   })
 
 /*
@@ -78,4 +78,4 @@ seed()
  * The console.log below will occur before any of the logs that occur inside
  * of the async function
  */
-console.log('seeding...')
+console.log("seeding...")
