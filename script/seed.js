@@ -11,7 +11,7 @@
  */
 
 const db = require('../server/db')
-const {User, Team, Mission, Clue} = require('../server/db/models')
+const {User, Team, Mission, Clue, Messages} = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
