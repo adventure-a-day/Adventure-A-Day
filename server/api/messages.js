@@ -13,6 +13,7 @@ router.get('/:teamId', (req, res, next) => {
 })
 
 router.post('/:teamId', (req, res, next) => {
+    // in req.body: text, teamId, userId
     Message.create(req.body)
     .then(messages => res.json(messages))
     .catch(next)
