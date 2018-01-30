@@ -3,7 +3,7 @@ const db = require('../db')
 
 const UserTeamClueStatus = db.define('user-team-clue-status', {
   status: {
-    type: Sequelize.STRING
+    type: Sequelize.ENUM('unassigned', 'assigned', 'completed')
   }
 })
 
