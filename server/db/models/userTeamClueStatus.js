@@ -1,9 +1,10 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require("sequelize")
+const db = require("../db")
 
-const UserTeamClueStatus = db.define('user-team-clue-status', {
+const UserTeamClueStatus = db.define("user-team-clue-status", {
   status: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: "unassigned"
   }
 })
 
