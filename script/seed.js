@@ -11,7 +11,7 @@
  */
 
 const db = require('../server/db')
-const {User, Team, Mission, Clue, Messages} = require('../server/db/models')
+const {User, Team, Mission, Clue, Message} = require('../server/db/models')
 
 async function seed() {
   await db.sync({ force: true })
@@ -51,6 +51,13 @@ async function seed() {
     Message.create({text: 'Chess nuts boasting in an open foyer.'}),
     Message.create({text: '...'})
   ])
+
+  // ERIKA
+
+
+  // KATHY
+
+  
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
