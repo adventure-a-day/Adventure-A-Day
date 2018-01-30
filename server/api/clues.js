@@ -26,7 +26,7 @@ router.get("/:teamId/assignedClues", isMemberOfTeam, (req, res, next) => {
 })
 
 router.post("/:teamId/verifyClue", (req, res, next) => {
-  const clue = req.clues.filter(clue => clue.userId === req.user.id)
+  //const clue = req.clues.filter(clue => clue.userId === req.user.id)
   const { imageUrl, geolocation } = req.body
 
   client
