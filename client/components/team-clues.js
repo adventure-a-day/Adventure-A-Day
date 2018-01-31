@@ -13,7 +13,6 @@ class TeamClues extends Component {
     }
 
     render(props) {
-        console.log('state in TeamClues component', this.state)
         return (
             <div>   
                 <h1>{this.props.mission && this.props.mission.name}</h1>
@@ -28,13 +27,9 @@ class TeamClues extends Component {
     
 }
 
-
-
-
 const mapState = ({mission, teams}) => {
     return {
-        mission: mission,
-        teams: teams
+        mission: mission
     }
 }
 
