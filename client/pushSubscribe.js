@@ -34,7 +34,7 @@ export function unsubscribePush() {
         .unsubscribe()
         .then(() =>
           axios
-            .delete("/api/push/unregister", subscription)
+            .put("/api/push/unregister", subscription)
             .then(() =>
               console.info("Push notification unsubscribed.\n", subscription)
             )
