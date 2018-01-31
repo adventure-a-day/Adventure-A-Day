@@ -15,7 +15,7 @@ router.param("teamId", (req, res, next, teamId) => {
     .catch(next)
 })
 
-router.get("/:teamId/completedClues", isMemberOfTeam, (req, res, next) => {
+router.get("/1/completedClues", isMemberOfTeam, (req, res, next) => {
   const completed = req.clues.filter(clue => clue.status === "completed")
   res.json(completed)
 })

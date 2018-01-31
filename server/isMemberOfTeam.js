@@ -1,5 +1,7 @@
 const { Team, User } = require("./db/models")
 
+//this function has a bug in it... the req.params are empty, and therefore the api "clues" routes are not working
+
 module.exports = (req, res, next) => {
   const { teamId } = req.params
   Team.findById(teamId, { include: [User] }).then(team => {

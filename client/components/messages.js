@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import socket from '../socket'
 
+//this needs to load messages from the db
 export class Messages extends Component {
     constructor() {
         super()

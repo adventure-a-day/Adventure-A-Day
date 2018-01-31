@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, LocationTracker, PhotoInput, Messages} from './components'
-import {me} from './store'
+import {Main, Login, Signup, UserHome, LocationTracker, PhotoInput, Messages, Teams, TeamClues} from './components'
+import {me, fetchTeams} from './store'
 
 /**
  * COMPONENT
@@ -24,14 +24,16 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/location" component={LocationTracker} />
-            <Route path="/upload-image" component={PhotoInput} />
-            <Route path="/messages" component={Messages} />
             {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home" component={UserHome} />
+                  <Route path="/location" component={LocationTracker} />
+                  <Route path="/upload-image" component={PhotoInput} />
+                  <Route path="/messages" component={Messages} />
+                  <Route exact path="/teams" component={Teams} />
+                  <Route path="/teams/:teamId" component={TeamClues} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
@@ -58,6 +60,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
+      dispatch(fetchTeams())
     }
   }
 }
