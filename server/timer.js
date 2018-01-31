@@ -4,28 +4,7 @@ const INTERVAL_TIME = 86400000
 const HOUR = 12
 const MINUTE = 0
 
-const { Subscription } = require("./db/models")
-const webpush = require("./webpush")
-
-const testData = {
-  title: "Testing",
-  body: "It's a success!",
-  icon: "/images/earth-48x48.png"
-}
-
-// Function to send Subscribers their messages
-const messageSubscribers = () => {
-  Subscription.findAll()
-    .then(subscriptions => {
-      subscriptions.forEach(subscription => {
-        console.log(subscription.info)
-        webpush
-          .sendNotification(subscription.info, JSON.stringify(testData))
-          .catch(console.error)
-      })
-    })
-    .catch(console.error)
-}
+const messageSubscribers = require("./messageSubscribers")
 
 // Function to Set a Timer for a specific time
 // and to execute the message Subscribers function
