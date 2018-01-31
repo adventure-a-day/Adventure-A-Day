@@ -1,17 +1,11 @@
-const {
-  Subscription,
-  User,
-  Team,
-  Clue,
-  UserTeamClueStatus
-} = require("./db/models")
+const { User, Team, Clue, UserTeamClueStatus } = require("./db/models")
 const webpush = require("./webpush")
 
-const testData = {
-  title: "Testing",
-  body: "It's a success!",
-  icon: "/images/earth-48x48.png"
-}
+// const testData = {
+//   title: "Testing",
+//   body: "It's a success!",
+//   icon: "/images/earth-48x48.png"
+// }
 
 // Function to send Subscribers their messages
 module.exports = () => {
