@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { fetchMission } from '../store'
+import { withRouter, BrowserRouter as Router } from 'react-router-dom'
+import { fetchMission, setCurrentTeam } from '../store'
 
 class TeamClues extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class TeamClues extends Component {
     }
 
     render(props) {
-        
+        console.log('state in TeamClues component', this.state)
         return (
             <div>   
                 <h1>{this.props.mission && this.props.mission.name}</h1>
@@ -28,9 +28,13 @@ class TeamClues extends Component {
     
 }
 
-const mapState = ({mission}) => {
+
+
+
+const mapState = ({mission, teams}) => {
     return {
-        mission: mission
+        mission: mission,
+        teams: teams
     }
 }
 

@@ -5,15 +5,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-
+import { setCurrentTeam } from '../store'
+import history from '../history'
 
 const Teams = (props) => {
-    const {teams} = props;
+    const {teams, setChosenTeam} = props;
         return (
             <div>   
-               
             {teams && teams.map(team => {
-                return <Link to={`/teams/${team.id}`} key={team.id}>{team.name}</Link>
+                return <div key={team.id}><Link to={`/teams/${team.id}`} onClick={(e) => {setChosenTeam(e, team)}}>{team.name}</Link></div>
             })}
         </div>
     ) 
@@ -25,9 +25,15 @@ const mapState = ({teams}) => {
     }
 }
 
-// const mapDispatch= (dispatch) => {
+const mapDispatch= (dispatch) => {
+    return {
+        setChosenTeam(event, team) {
+            event.preventDefault()
+            dispatch(setCurrentTeam(team))
+            history.push(`/teams/${team.id}`)
+        }
+    }
+}
 
-// }
 
-
-export default withRouter(connect(mapState)(Teams))
+export default withRouter(connect(mapState, mapDispatch)(Teams))
