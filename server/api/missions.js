@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Mission} = require('../db/models')
+const {Mission, Clue} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:missionId', (req, res, next) => {
     const missionId = req.params.missionId
-    Mission.findById(missionId)
+    Mission.findOne({where: {id: missionId}, include: [{model: Clue}]})
     .then(mission => res.json(mission))
     .catch(next)
 })
