@@ -19,7 +19,6 @@ module.exports = () => {
     .then(teams =>
       teams.forEach(team => {
         const { users } = team
-        let isAssigned = []
         UserTeamClueStatus.findAll({
           where: { status: "unassigned" },
           include: [Clue]
@@ -28,12 +27,12 @@ module.exports = () => {
             if (clues.length >= users.length) {
               users.forEach(user => {
                 let clueIndex = Math.floor(Math.random() * clues.length - 1)
-                while (isAssigned.has(clueIndex)) {
-                  clueIndex = Math.floor(Math.random() * clues.length - 1)
-                }
                 const clue = clues[clueIndex]
-                isAssigned.push(clueIndex)
-                clue.update({ userId: user.id, status: 'assigned' })
+                clues = [
+                  ...clues.slice(0, clueIndex),
+                  ...clues.slice(clueIndex + 1)
+                ]
+                clue.update({ userId: user.id, status: "assigned" })
                 user.subscriptions.forEach(sub =>
                   webpush.sendNotification(sub.info, JSON.stringify(clue.clue))
                 )
