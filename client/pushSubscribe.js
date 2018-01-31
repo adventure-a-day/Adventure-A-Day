@@ -5,7 +5,7 @@ const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey)
 
 // Ask User if he/she wants to subscribe to push notifications and then
 // ..subscribe and send push notification
-export default function subscribePush() {
+export function subscribePush() {
   navigator.serviceWorker.ready.then(registration => {
     if (!registration.pushManager) {
       alert("Your browser doesn't support push notification.")
@@ -20,7 +20,9 @@ export default function subscribePush() {
       .then(subscription => {
         console.info("Push notification subscribed.")
         console.log(subscription)
-        axios.post("/api/push/register", subscription)
+        axios
+          .post("/api/push/register", subscription)
+          .catch(() => subscription.unsubscribe())
       })
       .catch(error => {
         console.error("Push notification subscription error: ", error)
@@ -47,17 +49,12 @@ export function unsubscribePush() {
           .then(() => {
             console.info("Push notification unsubscribed.")
             console.log(subscription)
-            deleteSubscriptionID(subscription)
+            axios.delete("/api/unregister", subscription)
           })
           .catch(error => console.error(error))
       })
       .catch(() => console.error("Failed to unsubscribe push notification."))
   })
-}
-
-function deleteSubscriptionID(subscription) {
-  var subscription_id = subscription.endpoint.split("gcm/send/")[1]
-  axios.delete("/api/user/" + subscription_id)
 }
 
 function urlBase64ToUint8Array(base64String) {
