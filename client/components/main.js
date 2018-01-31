@@ -28,15 +28,12 @@ const Main = (props) => {
               <Link to="/location">Geolocation</Link>
               <Link to="/upload-image">Upload Image</Link>
               <Link to="/messages"> Messages </Link>
-              <Link to="/teams/:teamId">Clues!!!!</Link>
+              <Link to="/teams">Find your team</Link>
             </div>)
             : (<div>
               {/* The navbar will show these links before you log in */}
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
-              <Link to="/location">Geolocation</Link>
-              <Link to="/upload-image">Upload Image</Link>
-              <Link to="/messages"> Messages </Link>
             </div>)
         }
       </nav>

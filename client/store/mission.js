@@ -21,7 +21,9 @@ export const getMission = mission => ({type: GET_MISSION, mission})
  * THUNK CREATORS
  */
 export const fetchMission = (missionId) => {
-    return dispatch => axios.get(`/api/missions/${missionId}`)
+    return dispatch => axios.get(`/api/missions/${missionId}`) 
+    //this returns the current team's mission and all clues associated with that mission
+    //this still needs to load the userTeamClueStatus(es) to affect front-end rendering 
     .then(foundMission => {
         dispatch(getMission(foundMission.data))
     })
