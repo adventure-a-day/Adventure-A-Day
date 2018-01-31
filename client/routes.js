@@ -27,12 +27,16 @@ class Routes extends Component {
             <Route path="/location" component={LocationTracker} />
             <Route path="/upload-image" component={PhotoInput} />
             <Route path="/messages" component={Messages} />
-            <Route path="/clues" component={TeamClues} />
+            <Route path="/teams/:teamId" component={TeamClues} />
             {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home" component={UserHome} />
+                  <Route path="/location" component={LocationTracker} />
+                  <Route path="/upload-image" component={PhotoInput} />
+                  <Route path="/messages" component={Messages} />
+                  <Route path="/teams/:teamId" component={TeamClues} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}

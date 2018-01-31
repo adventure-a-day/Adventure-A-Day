@@ -36,10 +36,10 @@ async function seed() {
   ])
 
   const clues = await Promise.all([
-    Clue.create({prompt: 'She stands fearless in the face of money maniacs!', hint1: 'No BULL-y can make her stand down!', hint2: 'She might be small, but her STATU-rE is strong...', gps: [40.7056, 74.0134], region: 'NYC FiDi', answer: 'Fearless girl'}),
-    Clue.create({prompt: 'If you\’re feeling buggy, this school is for you...', hint1: 'If you want to answer this clue, you’d better get HOPPin\’!', hint2: 'The clock is ticking… but one hand is moving the wrong way! Who set the clocks like that?!', gps: [40.7051, 74.0092], region: 'NYC FiDi', answer: 'Grace Hopper Program'}),
-    Clue.create({prompt: 'Muriel “Mickie” Siebert was the first woman to purchase a seat here in 1967', hint1: 'You won\’t get anything for free here, but you can strike a deal!', hint2: 'This is a place where money is traded and hearts are broken...', gps: [40.70756, 74.010789], region: 'NYC FiDi', answer: 'NY Stock Exchange'}),
-    Clue.create({prompt: 'Here you can learn about wall street pioneers like Isabel Benham, Abigail Adams and Hetty Green', hint1: 'There haven\’t been many women in Finance throughout history...', hint2: 'Put the fun in finance!', gps: [40.7064, 74.0093], region: 'NYC FiDi', answer: 'Museum of Finance'}),
+    Clue.create({prompt: 'She stands fearless in the face of money maniacs!', hint1: 'No BULL-y can make her stand down!', hint2: 'She might be small, but her STATU-rE is strong...', gps: [40.7056, 74.0134], region: 'NYC FiDi', answer: 'Fearless girl', missionId: 1}),
+    Clue.create({prompt: 'If you\’re feeling buggy, this school is for you...', hint1: 'If you want to answer this clue, you’d better get HOPPin\’!', hint2: 'The clock is ticking… but one hand is moving the wrong way! Who set the clocks like that?!', gps: [40.7051, 74.0092], region: 'NYC FiDi', answer: 'Grace Hopper Program', missionId: 1}),
+    Clue.create({prompt: 'Muriel “Mickie” Siebert was the first woman to purchase a seat here in 1967', hint1: 'You won\’t get anything for free here, but you can strike a deal!', hint2: 'This is a place where money is traded and hearts are broken...', gps: [40.70756, 74.010789], region: 'NYC FiDi', answer: 'NY Stock Exchange', missionId: 1}),
+    Clue.create({prompt: 'Here you can learn about wall street pioneers like Isabel Benham, Abigail Adams and Hetty Green', hint1: 'There haven\’t been many women in Finance throughout history...', hint2: 'Put the fun in finance!', gps: [40.7064, 74.0093], region: 'NYC FiDi', answer: 'Museum of Finance', missionId: 1}),
     Clue.create({prompt: 'Find a new coffee shop and take a picture with the barista!', hint1: 'Can\'t wait to caffeinate', hint2: 'Time\'s running out!'})
   ])
 

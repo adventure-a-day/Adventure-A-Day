@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { fetchMission } from '../store'
 
 class TeamClues extends Component {
@@ -9,14 +9,20 @@ class TeamClues extends Component {
     }
 
     componentDidMount(props) {
-        console.log('props in component did mount', this.props)
-        this.props.getAllClues()
+        this.props.getMissionData()
     }
 
     render(props) {
-        console.log(this.props, '!!!!!!!!!!!!!!')
+        
         return (
-            <h1>TESTING CLUES COMPONENT</h1>
+            <div>   
+                <h1>{this.props.mission && this.props.mission.name}</h1>
+                {this.props.mission.clues && this.props.mission.clues.map(clue => {
+                    return <div key={clue.id}>{clue.prompt}</div>
+                })}
+
+
+            </div>
         ) 
     }
     
@@ -28,10 +34,11 @@ const mapState = ({mission}) => {
     }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
     return {
-        getAllClues() {
-            dispatch(fetchMission(1))
+        getMissionData() {
+            const teamId = ownProps.match.params.teamId
+            dispatch(fetchMission(teamId))
         }
     }
 }

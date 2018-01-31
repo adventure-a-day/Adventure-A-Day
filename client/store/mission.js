@@ -21,13 +21,11 @@ export const getMission = mission => ({type: GET_MISSION, mission})
  * THUNK CREATORS
  */
 export const fetchMission = (missionId) => {
-    dispatch => 
-    axios.get('/api/missions/1')
+    return dispatch => axios.get(`/api/missions/${missionId}`)
     .then(foundMission => {
-        console.log('foundMission in thunk', foundMission)
-        dispatch(getMission(foundMission))
+        dispatch(getMission(foundMission.data))
     })
-    .catch(next)
+    .catch(err => console.log(err))
 }
 
 

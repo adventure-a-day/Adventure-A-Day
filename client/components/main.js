@@ -28,7 +28,7 @@ const Main = (props) => {
               <Link to="/location">Geolocation</Link>
               <Link to="/upload-image">Upload Image</Link>
               <Link to="/messages"> Messages </Link>
-              <Link to="/clues">Clues!!!!</Link>
+              <Link to="/teams/:teamId">Clues!!!!</Link>
             </div>)
             : (<div>
               {/* The navbar will show these links before you log in */}
