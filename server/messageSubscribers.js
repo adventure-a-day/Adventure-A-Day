@@ -14,7 +14,7 @@ module.exports = () => {
       teams.forEach(team => {
         const { users } = team
         UserTeamClueStatus.findAll({
-          where: { status: "unassigned" },
+          where: { status: "unassigned", teamId: team.id },
           include: [Clue]
         })
           .then(clues => {
@@ -22,14 +22,18 @@ module.exports = () => {
               users.forEach(user => {
                 let clueIndex = Math.floor(Math.random() * clues.length - 1)
                 const clue = clues[clueIndex]
-                clues = [
-                  ...clues.slice(0, clueIndex),
-                  ...clues.slice(clueIndex + 1)
-                ]
-                clue.update({ userId: user.id, status: "assigned" })
-                user.subscriptions.forEach(sub =>
-                  webpush.sendNotification(sub.info, JSON.stringify(clue.clue))
-                )
+                clues = clues.filter((clu, index) => index !== clueIndex)
+                clue
+                  .update({ userId: user.id, status: "assigned" })
+                  .then(() => {
+                    user.subscriptions.forEach(sub =>
+                      webpush.sendNotification(
+                        sub.info,
+                        JSON.stringify(clue.clue)
+                      )
+                    )
+                  })
+                  .catch(console.error)
               })
             }
           })
