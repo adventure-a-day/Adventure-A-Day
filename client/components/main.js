@@ -29,7 +29,7 @@ const Main = props => {
             </a>
             <Link to="/location">Geolocation</Link>
             <Link to="/upload-image">Upload Image</Link>
-            <Link to="/messages"> Messages </Link>
+            <Link to={`/messages/${team.id}`}> Messages </Link>
             <Link to="/teams">Find your team</Link>
             <PushBtn />
           </div>

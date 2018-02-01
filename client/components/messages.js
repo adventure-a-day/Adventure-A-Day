@@ -6,63 +6,78 @@ import { addNewMessageThunk } from '../store'
 
 
 //this needs to load messages from the db
-function Messages(props) {
-    console.log(props, "PROPS!!!!")
-    return (
-        <div>
-            <h1>Team Message Board</h1>
-            <form onSubmit={event => props.handleSubmit(event, props.currentUser.id)}>
-            <div>
-                <label htmlFor="message">
-                    <small>Chat away!</small>
-                </label>
-                <input name="message" type="text" />
-            </div>
+class Messages extends Component {
+    constructor(props) {
+        super(props)
+    }
 
-            <button type="submit" className="btn-success">
-                Submit
+    componentDidMount(props) {
+        this.props.setCurrentTeam()
+    }
+    render(props) {
+        return (
+            <div>
+                <h1>Team Message Board</h1>
+                <form onSubmit={event => props.handleSubmit(event, props.currentUser.id, props.currentTeam.id)}>
+                    <div>
+                        <label htmlFor="message">
+                            <small>Chat away!</small>
+                        </label>
+                        <input name="message" type="text" />
+                    </div>
+
+                    <button type="submit" className="btn-success">
+                        Submit
     </button>
-        </form>
-            <div>
-                {props.messages.map(message => {
-                    return (
-                        <p key={message.id}>
-                        <p>{message.userId}: {message.text}</p>
-                        </p>
-                    )
-                })
-            }
+                </form>
+                <div>
+                    {props.messages.map(message => {
+                        return (
+                            <p key={message.id}>
+                                <p>{message.userId}: {message.text}</p>
+                            </p>
+                        )
+                    })
+                    }
 
+                </div>
             </div>
-        </div>
-    )
-}
-
-const mapState = function (state) {
-    return {
-        messages: state.messages,
-        currentUser: state.user
+        )
     }
 }
 
-const mapDispatch = function(dispatch){
+const mapState = function (state) {
+    console.log(state, "STATE!!!!")
     return {
-                handleSubmit(event, userId){
-                    event.preventDefault()
-                    //console.log(this.state.user, "USER!!!")
-                    console.log(event.target, "HEYYYY")
-                    const newMessage = {
-                        text: event.target.message.value,
-                        userId
-                    }
-                    console.log(newMessage, "NEW MESSAGE")
-    
-                    //socket.emit(newMessage)
-                   // socket.emit('new-message', this.state.newMessage)
-                    // this.setState({messages: [...this.state.messages, this.state.newMessage]})
-                    // this.setState({newMessage: ""})
-                    dispatch(addNewMessageThunk(newMessage))
-                }
+        messages: state.messages,
+        currentUser: state.user,
+        currentTeam: state.currentTeam,
+        teams: state.teams
+    }
+}
+
+const mapDispatch = function (dispatch, ownProps) {
+    return {
+        handleSubmit(event, userId, teamId) {
+            event.preventDefault()
+            const newMessage = {
+                text: event.target.message.value,
+                userId,
+                teamId
+            }
+            console.log(newMessage, "NEW MESSAGE")
+
+            socket.emit(newMessage)
+            // socket.emit('new-message', this.state.newMessage)
+            // this.setState({messages: [...this.state.messages, this.state.newMessage]})
+            // this.setState({newMessage: ""})
+            dispatch(addNewMessageThunk(newMessage))
+        },
+        setCurrentTeam(){
+            console.log(this.state.teams, "TEAMS!!!!")
+            const teamId = ownProps.match.params.teamId
+            //dispatch(setCurrentTeam(teamId))
+        }
     }
 }
 
