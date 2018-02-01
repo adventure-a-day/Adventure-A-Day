@@ -4,7 +4,7 @@ import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, LocationTracker, PhotoInput, Messages, Teams, TeamClues} from './components'
-import {me, fetchTeams} from './store'
+import {me, fetchTeams, fetchAllMessages } from './store'
 
 /**
  * COMPONENT
@@ -61,6 +61,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData () {
       dispatch(me())
       dispatch(fetchTeams())
+      dispatch(fetchAllMessages())
     }
   }
 }
