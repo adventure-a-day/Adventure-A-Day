@@ -27,7 +27,7 @@ export class LocationTracker extends Component {
    
     render() {
         return (
-            <div>
+            <div className="main-content">
               <h3>You are currently at: {this.state.currentLocation[0] && this.state.currentLocation[0]} degrees latitude and {this.state.currentLocation[1] && this.state.currentLocation[1]} degrees longitude</h3>
             </div>
           )

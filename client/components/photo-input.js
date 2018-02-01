@@ -37,7 +37,7 @@ export class PhotoInput extends Component {
    
     render() {
         return (
-            <div>
+            <div className="main-content">
               <input type="file" accept="image/*" id="file-input" onChange={this.handleChange}></input>
             </div>
           )

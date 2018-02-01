@@ -11,7 +11,7 @@ import history from '../history'
 const Teams = (props) => {
     const {teams, setChosenTeam} = props;
         return (
-            <div>   
+            <div className="main-content">   
             {teams && teams.map(team => {
                 return <div key={team.id}><Link to={`/teams/${team.id}`} onClick={(e) => {setChosenTeam(e, team)}}>{team.name}</Link></div>
             })}

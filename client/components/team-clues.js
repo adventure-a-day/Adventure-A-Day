@@ -14,7 +14,7 @@ class TeamClues extends Component {
 
     render(props) {
         return (
-            <div>   
+            <div className="main-content">   
                 <h1>{this.props.mission && this.props.mission.name}</h1>
                 {this.props.mission.clues && this.props.mission.clues.map(clue => {
                     return <div key={clue.id}>{clue.prompt}</div>

@@ -9,39 +9,53 @@ a {
   text-decoration: none;
 }
 
-label {
+
+ @media (max-width: 768px) {
+   .main-content {
+     padding: 20px 8px;
+   }
+ }
+ 
+
+.form-group label {
+  flex: none;
   display: block;
+  width: 125px;
+  font-weight: bold;
+  font-size: 1em;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
+
+button {
+  padding: 5px 15px;
+  margin: 5px;
+  min-width: 100px
 }
 
-form div {
-  margin: 1em;
-  display: inline-block;
+@media (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+  }
+  .form-group .input-control {
+    margin-top: 2px;
+  }
+  .form-group label.right-inline {
+    text-align: left;  
+    padding-right: 0;
+    padding-left: 0;   
+  }
 }
-/**
- width: 300px;
-   height: 300px;
-   position: absolute;
-   left: 50%;
-   top: 50%; 
-   margin-left: -150px;
-   margin-top: -150px;
-*/
 
-#auth-form {
-  display: flex;
+.main-content {
   width: 300px;
   height: 300px;
   position: absolute;
   left: 50%;
   top: 50%; 
   margin-left: -150px;
-  margin-top: -150px;
-  flex-direction: column;
+  margin-top: -90px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 #google-icon {
@@ -75,6 +89,11 @@ form div {
   bottom:0px;
   height:80px;
   width:100%;
-  background: #63D1F4	;
+  background: #63D1F4;
+  display: flex;
+}
+
+#footer div {
+  justify-content: space-between;
 }
 
