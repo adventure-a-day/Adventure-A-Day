@@ -20,7 +20,7 @@ module.exports = () => {
           .then(clues => {
             if (clues.length >= users.length) {
               users.forEach(user => {
-                let clueIndex = Math.floor(Math.random() * clues.length - 1)
+                let clueIndex = Math.floor(Math.random() * clues.length)
                 const clue = clues[clueIndex]
                 clues = clues.filter((clu, index) => index !== clueIndex)
                 clue
@@ -29,7 +29,11 @@ module.exports = () => {
                     user.subscriptions.forEach(sub =>
                       webpush.sendNotification(
                         sub.info,
-                        JSON.stringify(clue.clue)
+                        JSON.stringify({
+                          title: "New Task Received!",
+                          body: clue.clue.prompt,
+                          clue: clue.clue
+                        })
                       )
                     )
                   })

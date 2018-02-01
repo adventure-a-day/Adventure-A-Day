@@ -48,7 +48,7 @@ self.addEventListener("push", event => {
 
   const body = {
     body: data.body,
-    icon: data.icon
+    icon: "/images/earth-48x48.png"
   }
 
   event.waitUntil(self.registration.showNotification(title, body))
