@@ -15,7 +15,7 @@ router.param("teamId", (req, res, next, teamId) => {
     .catch(next)
 })
 
-router.get("/1/completedClues", isMemberOfTeam, (req, res, next) => {
+router.get("/:teamId/completedClues", isMemberOfTeam, (req, res, next) => {
   const completed = req.clues.filter(clue => clue.status === "completed")
   res.json(completed)
 })
@@ -32,20 +32,24 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
   client
     .webDetection(imageUrl)
     .then(results => {
-      const webDetection = results[0].webDetection;
+      const webDetection = results[0].webDetection
       let foundMatch = []
       if (webDetection.webEntities.length) {
         webDetection.webEntities.forEach(webEntity => {
-          foundMatch.push(clue.clue.tags.find(tag => tag.toLowerCase() === webEntity.description.toLowerCase()))
-          console.log(`  Description: ${webEntity.description}`);
+          foundMatch.push(
+            clue.clue.tags.find(
+              tag => tag.toLowerCase() === webEntity.description.toLowerCase()
+            )
+          )
+          console.log(`  Description: ${webEntity.description}`)
         })
-        if(foundMatch.length >= 2){
+        if (foundMatch.length >= 2) {
           console.log("Found a match!")
         }
       }
     })
     .catch(err => {
-      console.error('ERROR:', err);
-    });
+      console.error("ERROR:", err)
+    })
   // [END vision_web_detection_gcs]
 })
