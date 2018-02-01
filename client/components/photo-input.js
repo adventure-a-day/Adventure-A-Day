@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import config from './config'
+let AWS = require('aws-sdk')
 
 /**
  * COMPONENT
@@ -9,30 +11,46 @@ export class PhotoInput extends Component {
     constructor() {
         super() 
         this.state = {
-            photoURL: ''
+            blob: {},
+            data: ''
         }
         this.handleChange = this.handleChange.bind(this)
-
     }
 
     handleChange(event) {
-      const fileList = event.target.files
-      //console.log(event.target.files)
-
-      let file = null;
-
-      for (let i = 0; i < fileList.length; i++) {
-        if (fileList[i].type.match(/^image\//)) {
-          file = fileList[i];
-          break;
-        }
-      }
+      const file = event.target.files[0]
 
       if (file !== null) {
-        //output.src = URL.createObjectURL(file);
-        console.log(URL.createObjectURL(file))
-      }
 
+        let reader = new FileReader()
+        reader.onloadend = () => {
+          this.setState({
+            blob: file,
+            data: reader.result
+          })
+
+          let s3 = new AWS.S3()
+
+          let bucketName = 'where-in-the-world-gh'
+          let keyName = file.name
+          let body = file
+
+          s3.config.credentials = config
+
+          let params = {Bucket: bucketName, Key: keyName, Body: body}
+          s3.putObject(params, function(err, data) {
+            if(err) {
+              console.log("ERROR: ", err)
+            }
+            else {
+              console.log('Successfully uploaded photo to AWS!')
+            }
+          })
+
+        }
+
+        reader.readAsDataURL(file)
+      }
     }
    
     render() {
@@ -42,7 +60,6 @@ export class PhotoInput extends Component {
             </div>
           )
     }
- 
 }
 
 
