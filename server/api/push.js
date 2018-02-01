@@ -16,7 +16,7 @@ const noUser = next => {
 const noSubscription = next => {
   let err = new Error("No Subscription Found")
   err.status = 400
-  next(err)
+  throw err
 }
 
 router
@@ -29,7 +29,7 @@ router
       noUser(next)
     }
   })
-  .delete("/unregister", (req, res, next) => {
+  .put("/unregister", (req, res, next) => {
     const userId = req.user.id
     if (req.user) {
       Subscription.findAll({ where: { userId } })
@@ -37,8 +37,8 @@ router
           const found = subscriptions.find(
             subscription => subscription.info.endpoint === req.body.endpoint
           )
-          if (found) found.destroy()
-          else noSubscription(next)
+          if (found) return found.destroy()
+          else noSubscription()
         })
         .then(() => res.sendStatus(200))
         .catch(next)
