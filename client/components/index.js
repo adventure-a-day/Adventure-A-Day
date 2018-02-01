@@ -3,11 +3,12 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
-export {default as Main} from './main'
-export {default as UserHome} from './user-home'
-export {Login, Signup} from './auth-form'
-export {LocationTracker} from './on-the-hunt'
-export {PhotoInput} from './photo-input'
-export {Messages} from './messages'
-export {default as TeamClues} from './team-clues'
-export {default as Teams} from './teams'
+export { default as Main } from "./main"
+export { default as UserHome } from "./user-home"
+export { Login, Signup } from "./auth-form"
+export { LocationTracker } from "./on-the-hunt"
+export { PhotoInput } from "./photo-input"
+export { Messages } from "./messages"
+export { default as TeamClues } from "./team-clues"
+export { default as TeamSelect } from "./teams"
+export { default as PushBtn } from "./pushBtn"

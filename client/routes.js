@@ -32,8 +32,6 @@ class Routes extends Component {
                   <Route path="/location" component={LocationTracker} />
                   <Route path="/upload-image" component={PhotoInput} />
                   <Route path="/messages" component={Messages} />
-                  <Route exact path="/teams" component={Teams} />
-                  <Route path="/teams/:teamId" component={TeamClues} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}

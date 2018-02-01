@@ -1,39 +1,42 @@
 //this is where the user can pick from a list of their associated teams
 //this component needs to include a links to each single team page, and set
-//that team id as the "currentTeam" on state 
+//that team id as the "currentTeam" on state
 
-import React from 'react'
-import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
-import { setCurrentTeam } from '../store'
-import history from '../history'
+import React from "react"
+import { connect } from "react-redux"
+import { setCurrentTeam } from "../store"
 
-const Teams = (props) => {
-    const {teams, setChosenTeam} = props;
-        return (
-            <div>   
-            {teams && teams.map(team => {
-                return <div key={team.id}><Link to={`/teams/${team.id}`} onClick={(e) => {setChosenTeam(e, team)}}>{team.name}</Link></div>
-            })}
-        </div>
-    ) 
+const Teams = props => {
+  const { teams, setChosenTeam } = props
+  return (
+    <select defaultValue="Select Team..." onChange={setChosenTeam}>
+      <option disabled>Select Team...</option>
+      {teams &&
+        teams.map(team => {
+          return (
+            <option value={JSON.stringify(team)} key={team.id}>
+              {team.name}
+            </option>
+          )
+        })}
+    </select>
+  )
 }
 
-const mapState = ({teams}) => {
-    return {
-        teams: teams
+const mapState = ({ teams }) => {
+  return {
+    teams: teams
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    setChosenTeam(event) {
+      event.preventDefault()
+      const team = JSON.parse(event.target.value)
+      dispatch(setCurrentTeam(team))
     }
+  }
 }
 
-const mapDispatch= (dispatch) => {
-    return {
-        setChosenTeam(event, team) {
-            event.preventDefault()
-            dispatch(setCurrentTeam(team))
-            history.push(`/teams/${team.id}`)
-        }
-    }
-}
-
-
-export default withRouter(connect(mapState, mapDispatch)(Teams))
+export default connect(mapState, mapDispatch)(Teams)
