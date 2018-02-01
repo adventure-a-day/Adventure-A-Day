@@ -11,6 +11,8 @@ import PushBtn from "./pushBtn"
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
+
+//return <div><img src={require('./img/smile.png'}</div>
 const Main = props => {
   const { children, handleClick, isLoggedIn } = props
 
@@ -18,7 +20,11 @@ const Main = props => {
 
   return (
     <div>
-      <h1>WHERE IN THE WORLD</h1>
+     <div className="heading-container">
+      <img src='wwiw-text.png' className="header-text"/>
+        <img src='earth.png' className="header-icon"/>
+      </div>
+      <div id="footer">
       <nav>
         {isLoggedIn ? (
           <div>
@@ -41,7 +47,7 @@ const Main = props => {
           </div>
         )}
       </nav>
-      <hr />
+      </div>       
       {children}
     </div>
   )
