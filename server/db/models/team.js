@@ -9,6 +9,10 @@ const Team = db.define("team", {
   activeMission: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  streak: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
 
