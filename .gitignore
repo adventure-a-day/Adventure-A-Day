@@ -6,3 +6,4 @@ secrets.js
 npm-debug.log
 yarn-error.log
 serviceAccountKey.json
+config.js
