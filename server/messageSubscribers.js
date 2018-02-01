@@ -1,15 +1,12 @@
 const { User, Team, Clue, UserTeamClueStatus } = require("./db/models")
 const webpush = require("./webpush")
 
-// const testData = {
-//   title: "Testing",
-//   body: "It's a success!",
-//   icon: "/images/earth-48x48.png"
-// }
-
 // Function to send Subscribers their messages
 module.exports = () => {
-  Team.findAll({ include: [{ model: User.scope("subscriptions") }] })
+  Team.findAll({
+    where: { activeMission: true },
+    include: [{ model: User.scope("subscriptions") }]
+  })
     .then(teams =>
       teams.forEach(team => {
         const { users } = team
@@ -39,6 +36,20 @@ module.exports = () => {
                   })
                   .catch(console.error)
               })
+            } else {
+              users.forEach(user => {
+                user.subscriptions.forEach(sub =>
+                  webpush.sendNotification(
+                    sub.info,
+                    JSON.stringify({
+                      title: "Congratulations!",
+                      body: "Your team completed the mission!"
+                    })
+                  )
+                )
+              })
+              clues.forEach(clue => clue.destroy())
+              team.update({ activeMission: false })
             }
           })
           .catch(console.error)
