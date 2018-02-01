@@ -10,10 +10,33 @@ module.exports = () => {
     .then(teams =>
       teams.forEach(team => {
         const { users } = team
-        UserTeamClueStatus.findAll({
-          where: { status: "unassigned", teamId: team.id },
-          include: [Clue]
-        })
+        UserTeamClueStatus.findAll({ where: { status: "assigned" } })
+          .then(assignedClues => {
+            const streak = assignedClues.length > 0 ? 0 : team.streak + 1
+            team.update({ streak })
+            // If the team lost their streak notify them and add their tasks back to the pool
+            if (assignedClues.length) {
+              assignedClues.forEach(clue =>
+                clue.update({ status: "unassigned" })
+              )
+              users.forEach(user =>
+                user.subscriptions.forEach(sub =>
+                  webpush.sendNotification(
+                    sub.info,
+                    JSON.stringify({
+                      title: "Your team lost its streak!"
+                    })
+                  )
+                )
+              )
+            }
+          })
+          .then(() =>
+            UserTeamClueStatus.findAll({
+              where: { status: "unassigned", teamId: team.id },
+              include: [Clue]
+            })
+          )
           .then(clues => {
             if (clues.length >= users.length) {
               users.forEach(user => {
