@@ -21,12 +21,14 @@ module.exports = () => {
               )
               users.forEach(user =>
                 user.subscriptions.forEach(sub =>
-                  webpush.sendNotification(
-                    sub.info,
-                    JSON.stringify({
-                      title: "Your team lost its streak!"
-                    })
-                  )
+                  webpush
+                    .sendNotification(
+                      sub.info,
+                      JSON.stringify({
+                        title: "Your team lost its streak!"
+                      })
+                    )
+                    .catch(() => sub.destroy())
                 )
               )
             }
@@ -47,14 +49,16 @@ module.exports = () => {
                   .update({ userId: user.id, status: "assigned" })
                   .then(() => {
                     user.subscriptions.forEach(sub =>
-                      webpush.sendNotification(
-                        sub.info,
-                        JSON.stringify({
-                          title: "New Task Received!",
-                          body: clue.clue.prompt,
-                          clue: clue.clue
-                        })
-                      )
+                      webpush
+                        .sendNotification(
+                          sub.info,
+                          JSON.stringify({
+                            title: "New Task Received!",
+                            body: clue.clue.prompt,
+                            clue: clue.clue
+                          })
+                        )
+                        .catch(() => sub.destroy())
                     )
                   })
                   .catch(console.error)
@@ -62,13 +66,15 @@ module.exports = () => {
             } else {
               users.forEach(user => {
                 user.subscriptions.forEach(sub =>
-                  webpush.sendNotification(
-                    sub.info,
-                    JSON.stringify({
-                      title: "Congratulations!",
-                      body: "Your team completed the mission!"
-                    })
-                  )
+                  webpush
+                    .sendNotification(
+                      sub.info,
+                      JSON.stringify({
+                        title: "Congratulations!",
+                        body: "Your team completed the mission!"
+                      })
+                    )
+                    .catch(() => sub.destroy())
                 )
               })
               clues.forEach(clue => clue.destroy())
