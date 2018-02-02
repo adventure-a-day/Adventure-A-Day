@@ -26,30 +26,54 @@ router.get("/:teamId/assignedClues", isMemberOfTeam, (req, res, next) => {
 })
 
 router.post("/:teamId/verifyClue", (req, res, next) => {
-  const clue = req.clues.filter(clue => clue.userId === req.user.id)
+  //const clue = req.clues.filter(clue => clue.userId === req.user.id)
   const { imageUrl, geolocation } = req.body
 
   client
     .webDetection(imageUrl)
     .then(results => {
-      const webDetection = results[0].webDetection
-      let foundMatch = []
+      const webDetection = results[0].webDetection;
+
       if (webDetection.webEntities.length) {
+        console.log(`Web entities found: ${webDetection.webEntities.length}`);
         webDetection.webEntities.forEach(webEntity => {
-          foundMatch.push(
-            clue.clue.tags.find(
-              tag => tag.toLowerCase() === webEntity.description.toLowerCase()
-            )
-          )
           console.log(`  Description: ${webEntity.description}`)
+          console.log(`  Score: ${webEntity.score}`)
         })
-        if (foundMatch.length >= 2) {
-          console.log("Found a match!")
-        }
       }
     })
     .catch(err => {
-      console.error("ERROR:", err)
-    })
-  // [END vision_web_detection_gcs]
+      console.error('ERROR:', err);
+    });
+  // [END vision_web_detection]
+
 })
+
+//   client
+//     .webDetection(imageUrl)
+//     .then(results => {
+//       const webDetection = results[0].webDetection
+//       let foundMatch = []
+//       if (webDetection.webEntities.length) {
+//         webDetection.webEntities.forEach(webEntity => {
+//           foundMatch.push(
+//             clue.clue.tags.find(
+//               tag => tag.toLowerCase() === webEntity.description.toLowerCase()
+//             )
+//           )
+//           console.log(`  Description: ${webEntity.description}`)
+//         })
+//         if (foundMatch.length >= 2) {
+//           console.log("Found a match!")
+//         }
+//       }
+    
+//     })
+//     .catch(err => {
+//       console.error("ERROR:", err)
+//     })
+//   // [END vision_web_detection_gcs]
+// })
+
+
+
