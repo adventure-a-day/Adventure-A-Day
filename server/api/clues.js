@@ -28,7 +28,9 @@ router.get("/:teamId/assignedClues", isMemberOfTeam, (req, res, next) => {
 })
 
 router.post("/:teamId/verifyClue", (req, res, next) => {
-  const clue = req.clues.find(foundClue => foundClue.userId === req.user.id)
+  const clue = req.clues
+    .filter(foundClue => foundClue.status === "assigned")
+    .find(foundClue => foundClue.userId === req.user.id)
   const { imageUrl } = req.body
 
   client
@@ -46,6 +48,7 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
         })
         if (foundMatch.length >= 2) {
           res.send("Found a match!")
+          clue.update({ status: "completed" })
           Team.findById(req.teamId, {
             include: [User.scope("subscriptions")]
           }).then(team => {
@@ -64,6 +67,8 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
         } else {
           res.send("Better try harder!")
         }
+      } else {
+        res.send("Picture Unrecognizeable")
       }
     })
     .catch(next)
