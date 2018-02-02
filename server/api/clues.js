@@ -1,8 +1,9 @@
 const router = require("express").Router()
-const { Clue, UserTeamClueStatus } = require("../db/models")
+const { Clue, Team, User, UserTeamClueStatus } = require("../db/models")
 const isMemberOfTeam = require("../isMemberOfTeam")
 const vision = require("@google-cloud/vision")
 const client = new vision.ImageAnnotatorClient()
+const webpush = require("../webpush")
 
 module.exports = router
 
@@ -70,6 +71,19 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
         })
         if (foundMatch.length >= 2) {
           res.send("Found a match!")
+          Team.findById(req.teamId, {
+            include: [User.scope("subscription")]
+          }).then(team => {
+            team.users.forEach(user => {
+              if (user.id !== req.user.id) {
+                user.subscriptions.forEach(sub => {
+                  webpush.sendNotification(sub.info, {
+                    title: `${req.user.username} has completed their task!`
+                  })
+                })
+              }
+            })
+          })
         } else {
           res.send("Better try harder!")
         }
