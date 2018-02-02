@@ -8,47 +8,54 @@ class SolveClue extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            hintCounter: 0,
-            isClicked: false
+            hints: [],
+            assignedClue: {}
         }
 
         this.handleClick = this.handleClick.bind(this)
 
     }
+
+    componentWillReceiveProps(nextProps) {
+         console.log(nextProps, "NEXT PROPS~~~!!")
+         if(this.props.clues.assignedClues !== nextProps.clues.assignedClues){
+            const assignedClue = nextProps.clues.assignedClues && nextProps.clues.assignedClues.filter(clue => clue.userId === nextProps.user.id)[0] 
+            this.setState({ assignedClue: assignedClue })
+         }
+        console.log(this.state, "STATE AFTER COMPONENT DID MOUNT")
+    }
+
     handleClick(event) {
         event.preventDefault()
-     console.log(this.props.clues, "CLUES IN HANDLECLICK")
+        if (this.state.hints.length === 0) {
+            this.setState({hints: [this.state.assignedClue.clue.hint1]})
+        } else {
+            this.setState({hints: [this.state.assignedClue.clue.hint1, this.state.assignedClue.clue.hint2]})
+        }
+        console.log(this.props.clues, "CLUES IN HANDLECLICK")
 
     }
 
+
     render(props) {
-        const { clues, user } = this.props
-        const assignedClue = clues.assignedClues.length && clues.assignedClues.filter(clue => clue.userId === user.id)[0]
-        const hints = assignedClue && [assignedClue.clue.hint1, assignedClue.clue.hint2]
-        console.log(hints, "HINTS")
+        //const { clues, user } = this.props
+        const {assignedClue} = this.state
 
         return (
             <div>
                 <h1>Solve the Clue!</h1>
-                {assignedClue ?
+                {assignedClue && assignedClue ?
                     (<div>
                         <h1>Current Clue: </h1>
-                        <h3> {assignedClue.clue.prompt}</h3>
+                        <h3> {assignedClue.clue && assignedClue.clue.prompt}</h3>
                         <div>
                             <PhotoInput />
                         </div>
                         <div>
                             <button onClick={this.handleClick}>Give me a hint!</button>
-                            <div>
-                                {
-                                    (this.state.isClicked &&
-                                        (this.state.currentCounter === 1) ? <div>{hints[0]}</div> : <div>{hints[1]}</div>
-
-                                    )
-                                }
-
-                            </div>
                         </div>
+                        {this.state.hints && this.state.hints.map(hint => <div>{hint}</div>)}
+
                     </div>
                     )
                     : <h2>Please remember to select a team</h2>
