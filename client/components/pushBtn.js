@@ -11,20 +11,20 @@ export default class PushBtn extends Component {
   }
 
   componentDidMount() {
-    navigator.serviceWorker.ready
-      .then(reg => {
-        if (reg.pushManager) {
-          this.setState({ supportsPush: true })
-          return reg.pushManager.getSubscription()
-        } else {
-          throw new Error("Push Not Supported")
-        }
-      })
-      .then(sub => {
-        const isSubscribed = !!sub
-        this.setState({ isSubscribed })
-      })
-      .catch(err => console.error(err))
+    if (navigator.serviceWorker) {navigator.serviceWorker.ready
+        .then(reg => {
+          if (reg.pushManager) {
+            this.setState({ supportsPush: true })
+            return reg.pushManager.getSubscription()
+          } else {
+            throw new Error("Push Not Supported")
+          }
+        })
+        .then(sub => {
+          const isSubscribed = !!sub
+          this.setState({ isSubscribed })
+        })
+        .catch(err => console.error(err))}
   }
 
   render() {
