@@ -21,7 +21,10 @@ const Clue = db.define('clue', {
   answer: {
     type: Sequelize.STRING
   },
-  tags: {
+  labels: {
+    type: Sequelize.ARRAY(Sequelize.STRING)
+  },
+  webLabels: {
     type: Sequelize.ARRAY(Sequelize.STRING)
   }
 })
