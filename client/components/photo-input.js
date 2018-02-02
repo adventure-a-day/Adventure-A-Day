@@ -2,23 +2,25 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { withRouter } from "react-router-dom"
 import config from './config'
+import axios from "axios"
 let AWS = require('aws-sdk')
 
 /**
  * COMPONENT
  */
 export class PhotoInput extends Component {
-    constructor() {
-        super() 
+    constructor(props) {
+        super(props) 
         this.state = {
-            photoURL: '',
+            imageUrl: '',
+            currentTeam: this.props.currentTeam,
             message: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handleSubmit(event) {
-      event.preventDefault()
+    handleSubmit(event, teamId) {
+      // event.preventDefault()
       const file = event.target.file.files[0]
 
       if (file !== null) {
@@ -34,7 +36,7 @@ export class PhotoInput extends Component {
 
           let url = "https://s3.amazonaws.com/where-in-the-world-gh/" + file.name
           this.setState({
-            photoURL: url
+            imageUrl: url
           })
 
           // s3.config.credentials = config
@@ -54,41 +56,48 @@ export class PhotoInput extends Component {
         reader.readAsDataURL(file)
       }
 
-      axios
-        .post(`/api/clues/${teamId}/verifyClue`)
-        .then(res => {
-          this.setState({
-            message: res.data
-          })
-        })
-        .catch(err => console.log(err))
+      console.log("TEAM: ", teamId)
+      // axios
+      //   .post(`/api/clues/${teamId}/verifyClue`, {imageUrl})
+      //   .then(res => {
+      //     history.push("/upload-image")
+      //     this.setState({
+      //       message: res.data
+      //     })
+      //   })
+      //   .catch(err => console.log(err))
 
     }
    
     render() {
         return (
             <div className="main-content">
-              <form onSubmit={this.handleSubmit}>
+              <form onSubmit={evt => this.handleSubmit(evt, this.props.currentTeam.id)}>
               <input type="file" accept="image/*" id="file-input" name="file"></input>
               <button type="submit">Submit</button>
               </form>
-              <h4>{this.state.photoURL}</h4>
+              <h4>{this.state.imageUrl}</h4>
               <h4>{this.state.message}</h4>
+              <h4>{this.props.currentTeam}</h4>
             </div>
           )
     }
 }
+
+
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
   return {
-    photoURL: state.user.photoURL
+    photoURL: state.imageUrl,
+    currentTeam: state.currentTeam,
+    message: state.message
   }
 }
 
-const mapDispatch = (dispatch, ownProps) => ({
+const mapDispatch = (dispatch) => ({
 //   handleSubmit
 })
 
