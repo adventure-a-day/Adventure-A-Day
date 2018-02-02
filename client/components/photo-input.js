@@ -35,17 +35,16 @@ class PhotoInput extends Component {
         imageUrl = "https://s3.amazonaws.com/where-in-the-world-gh/" + file.name
         this.setState({ imageUrl })
 
-        // s3.config.credentials = config
+        s3.config.credentials = config
 
-        // let params = {Bucket: bucketName, Key: keyName, Body: body}
-        // s3.putObject(params, function(err, data) {
-        //   if(err) {
-        //     console.log("ERROR: ", err)
-        //   }
-        //   else {
-        //     console.log('Successfully uploaded photo to AWS!')
-        //   }
-        // })
+        let params = { Bucket: bucketName, Key: keyName, Body: body }
+        s3.putObject(params, function(err, data) {
+          if (err) {
+            console.log("ERROR: ", err)
+          } else {
+            console.log("Successfully uploaded photo to AWS!")
+          }
+        })
 
         console.log("TEAM: ", teamId)
         console.log("URL: ", imageUrl)
@@ -59,13 +58,10 @@ class PhotoInput extends Component {
             })
           })
           .catch(err => console.log(err))
-      
       }
 
       reader.readAsDataURL(file)
-
     }
-
   }
 
   render() {
