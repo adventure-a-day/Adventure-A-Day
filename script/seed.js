@@ -54,7 +54,10 @@ async function seed() {
       gps: [40.7056, 74.0134],
       region: "NYC FiDi",
       answer: "Fearless girl",
-      missionId: 1
+      missionId: 1,
+      labels: ['statue', 'landmark', 'monument','sculpture', 'building',
+      'architecture','memorial','tourist attraction','window', 'facade'],
+      webLabels: ['Fearless Girl', 'Charging Bull', 'Wall Street', 'Statue', 'Bronze sculpture']
     }),
     Clue.create({
       prompt: "If you’re feeling buggy, this school is for you...",
@@ -64,7 +67,10 @@ async function seed() {
       gps: [40.7051, 74.0092],
       region: "NYC FiDi",
       answer: "Grace Hopper Program",
-      missionId: 1
+      missionId: 1,
+      labels: ['Text', 'Logo', 'Product', 'Font', 'Line', 'Area', 'Brand', 'Product Design', 'Graphics', 'Product', 'Diagram', 'Graphic Design'],
+      webLabels: ['The Grace Hopper Program', 'Fullstack Academy', 'Fullstack Academy of Code', 'Fullstack Academy of Code', 'Coding bootcamp', 'Software engineering',
+       'Computer programming', 'JavaScript', 'Programmer', 'Computer program', 'Node.js', 'Woman', 'Learning', 'Grace Hopper', 'New York City']
     }),
     Clue.create({
       prompt:
@@ -74,17 +80,21 @@ async function seed() {
       gps: [40.70756, 74.010789],
       region: "NYC FiDi",
       answer: "NY Stock Exchange",
-      missionId: 1
+      missionId: 1,
+      labels: ['building', 'classical architecture', 'landmark', 'city', 'tourist attraction', 'commercial building'],
+      webLabels: ['NYSE', 'Wall Street', 'Stock', 'Stock Exchange', 'Exchange', 'Trader', 'Finance', 'Stock market']
     }),
     Clue.create({
       prompt:
-        "Here you can learn about wall street pioneers like Isabel Benham, Abigail Adams and Hetty Green",
+        "Here you can learn about Wall Street pioneers like Isabel Benham, Abigail Adams and Hetty Green",
       hint1: "There haven’t been many women in Finance throughout history...",
       hint2: "Put the fun in finance!",
       gps: [40.7064, 74.0093],
       region: "NYC FiDi",
-      answer: "Museum of Finance",
-      missionId: 1
+      answer: "Museum of American Finance",
+      missionId: 1,
+      labels: ['Crowd', 'City', 'Downtown', 'Urban Area', 'Street', 'Metropolitan Area', 'Building', 'Pedestrian', 'Demonstration', 'Car', 'Event', 'Protest', 'Town Square', 'Recreation', 'Vehicle'],
+      webLabels: ["Museum of American Finance", "Federal Hall", "Street", "Protest", "Demonstration", "Finance", "Museum", "Car", "Shopping", "Meeting", "Gift shop", "Recreation", "New York City", "United States"]
     }),
     Clue.create({
       prompt: "Find a new coffee shop and take a picture with the barista!",

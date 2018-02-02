@@ -4,6 +4,9 @@ import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 import { logout } from "../store"
 import { PushBtn, TeamSelect } from "./index"
+import LoginHeader from './login-header'
+import MainHeader from './main-header'
+
 
 /**
  * COMPONENT
@@ -11,6 +14,8 @@ import { PushBtn, TeamSelect } from "./index"
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
+
+//return <div><img src={require('./img/smile.png'}</div>
 const Main = props => {
   const { children, handleClick, isLoggedIn } = props
 
@@ -18,15 +23,16 @@ const Main = props => {
 
   return (
     <div>
-      <h1>WHERE IN THE WORLD</h1>
+      {isLoggedIn ? <MainHeader/> : <LoginHeader /> }
+      <div id="footer">
       <nav>
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
+            <div><Link to="/home">Home</Link></div>
+            <div><a href="#" onClick={handleClick}>
               Logout
-            </a>
+            </a></div>
             <Link to="/location">Geolocation</Link>
             <Link to="/upload-image">Upload Image</Link>
             <Link to="/messages"> Messages </Link>
@@ -35,14 +41,14 @@ const Main = props => {
             <PushBtn />
           </div>
         ) : (
-          <div>
+          <div className="footer-items">
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
           </div>
         )}
       </nav>
-      <hr />
+      </div>       
       {children}
     </div>
   )
@@ -77,3 +83,10 @@ Main.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
+
+/**
+ *  <div className="heading-container">
+      <img src='wwiw-text.png' className="header-text"/>
+        <img src='earth.png' className="header-icon"/>
+      </div>
+ */

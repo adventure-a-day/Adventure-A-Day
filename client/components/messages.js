@@ -28,7 +28,7 @@ export class Messages extends Component {
     render() {
         return (
 
-            <div>
+            <div className="main-content">
                 <ul>
                     {
                         this.state.messages.map(message => <p key={Math.floor(Math.random() * 100)}>{message}</p>)
