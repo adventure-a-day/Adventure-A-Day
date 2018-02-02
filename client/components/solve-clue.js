@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import history from '../history'
-import { PhotoInput } from './photo-input'
+import { PhotoInput } from './index'
 
 class SolveClue extends Component {
     constructor(props) {
@@ -39,7 +39,7 @@ class SolveClue extends Component {
         return (
             <div>
                 <h1>Solve the Clue!</h1>
-                {assignedClue.id ?
+                {assignedClue && assignedClue.id ?
                     (<div>
                         <h1>Current Clue: </h1>
                         <h3> {assignedClue.clue && assignedClue.clue.prompt}</h3>
