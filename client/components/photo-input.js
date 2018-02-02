@@ -47,17 +47,19 @@ class PhotoInput extends Component {
         //   }
         // })
 
-              console.log("TEAM: ", teamId)
-      console.log("URL: ", imageUrl)
-      axios
-        .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
-        .then(res => {
-          history.push("/upload-image")
-          this.setState({
-            message: res.data
+        console.log("TEAM: ", teamId)
+        console.log("URL: ", imageUrl)
+        axios
+          .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
+          .then(res => {
+            // history.push("/upload-image")
+            console.log("DATA: ", res.data)
+            this.setState({
+              message: res.data
+            })
           })
-        })
-        .catch(err => console.log(err))
+          .catch(err => console.log(err))
+      
       }
 
       reader.readAsDataURL(file)
