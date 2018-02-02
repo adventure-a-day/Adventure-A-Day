@@ -46,21 +46,24 @@ class PhotoInput extends Component {
         //     console.log('Successfully uploaded photo to AWS!')
         //   }
         // })
+
+              console.log("TEAM: ", teamId)
+      console.log("URL: ", imageUrl)
+      axios
+        .post(`/api/clues/${teamId}/verifyClue`, imageUrl)
+        .then(res => {
+          history.push("/upload-image")
+          this.setState({
+            message: res.data
+          })
+        })
+        .catch(err => console.log(err))
       }
 
       reader.readAsDataURL(file)
+
     }
 
-    console.log("TEAM: ", teamId)
-    axios
-      .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
-      .then(res => {
-        history.push("/upload-image")
-        this.setState({
-          message: res.data
-        })
-      })
-      .catch(err => console.log(err))
   }
 
   render() {
