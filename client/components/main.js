@@ -3,9 +3,10 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 import { logout } from "../store"
-import PushBtn from "./pushBtn"
+import { PushBtn, TeamSelect } from "./index"
 import LoginHeader from './login-header'
 import MainHeader from './main-header'
+
 
 /**
  * COMPONENT
@@ -35,7 +36,8 @@ const Main = props => {
             <Link to="/location">Geolocation</Link>
             <Link to="/upload-image">Upload Image</Link>
             <Link to="/messages"> Messages </Link>
-            <Link to="/teams">Find your team</Link>
+            <Link to="/my-team">My Team </Link>
+            <TeamSelect />
             <PushBtn />
           </div>
         ) : (

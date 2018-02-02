@@ -1,54 +1,57 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Route, Switch, Router} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import history from './history'
-import {Main, Login, Signup, UserHome, LocationTracker, PhotoInput, Messages, Teams, TeamClues} from './components'
-import {me, fetchTeams} from './store'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { Route, Switch, Router, Redirect } from "react-router-dom"
+import PropTypes from "prop-types"
+import history from "./history"
+import {
+  Main,
+  Login,
+  Signup,
+  UserHome,
+  LocationTracker,
+  PhotoInput,
+  Messages,
+  TeamHome
+} from "./components"
+import { me } from "./store"
 
 /**
  * COMPONENT
  */
-class Routes extends Component {
-  componentDidMount () {
-    this.props.loadInitialData()
-  }
+const Routes = props => {
+  const { isLoggedIn } = props
+  console.log(isLoggedIn)
 
-  render () {
-    const {isLoggedIn} = this.props
-
-    return (
-      <Router history={history}>
-        <Main>
-          <Switch>
-            {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            {
-              isLoggedIn &&
-                <Switch>
-                  {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
-                  <Route path="/location" component={LocationTracker} />
-                  <Route path="/upload-image" component={PhotoInput} />
-                  <Route path="/messages" component={Messages} />
-                  <Route exact path="/teams" component={Teams} />
-                  <Route path="/teams/:teamId" component={TeamClues} />
-                </Switch>
-            }
-            {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
-          </Switch>
-        </Main>
-      </Router>
-    )
-  }
+  return (
+    <Router history={history}>
+      <Main>
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          {isLoggedIn && (
+            <Switch>
+              {/* Routes placed here are only available after logging in */}
+              <Route exact path="/" component={UserHome} />
+              <Route path="/location" component={LocationTracker} />
+              <Route path="/upload-image" component={PhotoInput} />
+              <Route path="/messages" component={Messages} />
+              <Route path="/my-team" component={TeamHome} />
+              <Redirect to="/" />
+            </Switch>
+          )}
+          {/* Displays our Login component as a fallback */}
+          <Route component={Login} />
+        </Switch>
+      </Main>
+    </Router>
+  )
 }
 
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
@@ -56,21 +59,14 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
-  return {
-    loadInitialData () {
-      dispatch(me())
-      dispatch(fetchTeams())
-    }
-  }
-}
+const mapDispatch = dispatch => ({})
 
-export default connect(mapState, mapDispatch)(Routes)
+export default connect(mapState)(Routes)
 
 /**
  * PROP TYPES
  */
 Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
+  //  loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
