@@ -1,4 +1,4 @@
-import { fetchAssigned, fetchCompleted } from "./index"
+import { fetchAssigned, fetchCompleted, fetchTeamMembers } from "./index"
 
 /**
  * ACTION TYPES
@@ -19,6 +19,7 @@ export const setCurrentTeam = team => dispatch => {
   dispatch(setChosenTeam(team))
   dispatch(fetchAssigned(team.id))
   dispatch(fetchCompleted(team.id))
+  dispatch(fetchTeamMembers(team.id))
 }
 
 /**

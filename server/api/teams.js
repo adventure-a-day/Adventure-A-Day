@@ -18,6 +18,15 @@ router.get("/:teamId", isMemberOfTeam, (req, res, next) => {
     .catch(next)
 })
 
+router.get("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
+  const teamId = req.params.teamId
+  Team.findById(teamId, {
+    include: [User.scope("display")]
+  })
+    .then(team => res.json(team.users))
+    .catch(next)
+})
+
 router.post("/", (req, res, next) => {
   // in req.body: name
   Team.create(req.body)
