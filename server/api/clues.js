@@ -44,7 +44,8 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
           console.log(`  Description: ${webEntity.description}`)
         })
         if (foundMatch.length >= 2) {
-          console.log("Found a match!")
+          // console.log("Found a match!")
+          res.send("Found a match!")
         }
       }
     })
