@@ -11,7 +11,8 @@ import {
   LocationTracker,
   PhotoInput,
   Messages,
-  TeamHome
+  TeamHome,
+  SolveClue
 } from "./components"
 import { me } from "./store"
 
@@ -37,6 +38,7 @@ const Routes = props => {
               <Route path="/upload-image" component={PhotoInput} />
               <Route path="/messages" component={Messages} />
               <Route path="/my-team" component={TeamHome} />
+              <Route path="/solve-clue" component={SolveClue} />
               <Redirect to="/" />
             </Switch>
           )}
