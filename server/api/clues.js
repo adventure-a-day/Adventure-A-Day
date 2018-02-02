@@ -29,13 +29,43 @@ router.get("/:teamId/assignedClues", isMemberOfTeam, (req, res, next) => {
 router.post("/:teamId/verifyClue", (req, res, next) => {
   const clue = req.clues.find(foundClue => foundClue.userId === req.user.id)
   const { imageUrl } = req.body
-  console.log(`
 
-  =============================================================================
-  IMAGEURL: ${req.body}
-  ============================================================================
-
-  `)
+  client
+    .labelDetection(imageUrl)
+    .then(results => {
+      const labels = results[0].labelAnnotations
+      let foundMatch = []
+      if (labels.length) {
+        labels.forEach(label => {
+          foundMatch.push(
+            clue.clue.labels.find(
+              tag => tag.toLowerCase() === label.description.toLowerCase()
+            )
+          )
+        })
+        if (foundMatch.length >= 2) {
+          res.send("Found a match!")
+          Team.findById(req.teamId, {
+            include: [User.scope("subscriptions")]
+          }).then(team => {
+            team.users.forEach(user => {
+              if (user.id !== req.user.id) {
+                user.subscriptions.forEach(sub => {
+                  webpush
+                    .sendNotification(sub.info, {
+                      title: `${req.user.username} has completed their task!`
+                    })
+                    .catch(() => sub.destroy())
+                })
+              }
+            })
+          })
+        } else {
+          res.send("Better try harder!")
+        }
+      }
+    })
+    .catch(next)
 
   /**
    * THIS IS FOR WEB DETECTION
@@ -62,39 +92,4 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
   //   .catch(err => {
   //     console.error("ERROR:", err)
   //   })
-
-  client
-    .labelDetection(imageUrl)
-    .then(results => {
-      const labels = results[0].labelAnnotations
-      let foundMatch = []
-      if (labels.length) {
-        labels.forEach(label => {
-          foundMatch.push(
-            clue.clue.tags.find(
-              tag => tag.toLowerCase() === label.description.toLowerCase()
-            )
-          )
-        })
-        if (foundMatch.length >= 2) {
-          res.send("Found a match!")
-          Team.findById(req.teamId, {
-            include: [User.scope("subscription")]
-          }).then(team => {
-            team.users.forEach(user => {
-              if (user.id !== req.user.id) {
-                user.subscriptions.forEach(sub => {
-                  webpush.sendNotification(sub.info, {
-                    title: `${req.user.username} has completed their task!`
-                  })
-                })
-              }
-            })
-          })
-        } else {
-          res.send("Better try harder!")
-        }
-      }
-    })
-    .catch(next)
 })
