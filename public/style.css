@@ -68,17 +68,26 @@ button {
   align-items: center;
 }
 
+#main-heading-container {
+  position: absolute; 
+  margin-top: 40px;
+}
+
+#banner-header {
+  height: 150px;
+  width: 360px;
+}
 
 .header-text {
-  height: 120px;
-  width: 210px;
+  height: 150px;
+  width: 250px;
   position: absolute;
   margin-top: 40px;
 }
 
 .header-icon {
-  height: 90px;
-  width: 90px;
+  height: 150px;
+  width: 150px;
   position: absolute;
   margin-top: 75px;
 }
@@ -91,9 +100,14 @@ button {
   width:100%;
   background: #63D1F4;
   display: flex;
-}
-
-#footer div {
+  flex-direction: row;
   justify-content: space-between;
 }
+
+
+
+
+
+
+
 
