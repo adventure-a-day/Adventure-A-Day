@@ -7,8 +7,16 @@ import mission from "./mission"
 import teams from "./teams"
 import currentTeam from "./currentTeam"
 import clues from "./clues"
+import teamMembers from "./teamMembers"
 
-const reducer = combineReducers({ user, mission, teams, currentTeam, clues })
+const reducer = combineReducers({
+  user,
+  mission,
+  teams,
+  currentTeam,
+  teamMembers,
+  clues
+})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 )
@@ -18,5 +26,6 @@ export default store
 export * from "./user"
 export * from "./mission"
 export * from "./teams"
+export * from "./teamMembers"
 export * from "./currentTeam"
 export * from "./clues"

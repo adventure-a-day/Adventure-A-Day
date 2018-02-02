@@ -37,6 +37,9 @@ const User = db.define(
     scopes: {
       subscriptions: {
         include: [Subscription]
+      },
+      display: {
+        attributes: ["userName", "photo"]
       }
     }
   }
