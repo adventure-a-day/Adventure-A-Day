@@ -50,7 +50,7 @@ class PhotoInput extends Component {
               console.log("TEAM: ", teamId)
       console.log("URL: ", imageUrl)
       axios
-        .post(`/api/clues/${teamId}/verifyClue`, imageUrl)
+        .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
         .then(res => {
           history.push("/upload-image")
           this.setState({
