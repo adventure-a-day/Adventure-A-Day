@@ -30,6 +30,7 @@ const Main = props => {
             <Link to="/location">Geolocation</Link>
             <Link to="/upload-image">Upload Image</Link>
             <Link to="/messages"> Messages </Link>
+            <Link to="/my-team">My Team </Link>
             <TeamSelect />
             <PushBtn />
           </div>

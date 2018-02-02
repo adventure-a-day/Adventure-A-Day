@@ -1,5 +1,6 @@
 import axios from "axios"
 import history from "../history"
+import { fetchTeams } from "./index"
 
 /**
  * ACTION TYPES
@@ -32,6 +33,7 @@ export const auth = (email, password, userName, method) => dispatch =>
     .post(`/auth/${method}`, { email, password, userName })
     .then(
       res => {
+        dispatch(fetchTeams())
         dispatch(getUser(res.data))
         history.push("/home")
       },

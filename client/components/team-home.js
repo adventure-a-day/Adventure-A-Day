@@ -1,15 +1,23 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { withRouter, BrowserRouter as Router } from "react-router-dom"
-import { fetchMission, setCurrentTeam } from "../store"
 
 const TeamHome = props => (
   <div>
-    <h1>{this.props.mission && this.props.mission.name}</h1>
-    {this.props.mission.clues &&
-      this.props.mission.clues.map(clue => {
-        return <div key={clue.id}>{clue.prompt}</div>
-      })}
+    <h1>Assigned Tasks</h1>
+    <ul>
+      {props.clues.assignedClues &&
+        props.clues.assignedClues.map(clue => (
+          <li key={clue.clue.id}>{clue.clue.prompt}</li>
+        ))}
+    </ul>
+    <h1>Completed Tasks</h1>
+    <ul>
+      {props.clues.completedClues &&
+        props.clues.completedClues.map(clue => (
+          <li key={clue.clue.id}>{clue.clue.prompt}</li>
+        ))}
+    </ul>
   </div>
 )
 
