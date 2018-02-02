@@ -26,31 +26,54 @@ router.get("/:teamId/assignedClues", isMemberOfTeam, (req, res, next) => {
 })
 
 router.post("/:teamId/verifyClue", (req, res, next) => {
-  const clue = req.clues.filter(clue => clue.userId === req.user.id)
+  const clue = req.clues.filter(foundClue => foundClue.userId === req.user.id)
   const { imageUrl, geolocation } = req.body
 
+  /**
+   * THIS IS FOR WEB DETECTION
+   */
+  // client
+  //   .webDetection(imageUrl)
+  //   .then(results => {
+  //     const webDetection = results[0].webDetection
+  //     let foundMatch = []
+  //     if (webDetection.webEntities.length) {
+  //       webDetection.webEntities.forEach(webEntity => {
+  //         foundMatch.push(
+  //           clue.clue.tags.find(
+  //             tag => tag.toLowerCase() === webEntity.description.toLowerCase()
+  //           )
+  //         )
+  //         console.log(`  Description: ${webEntity.description}`)
+  //       })
+  //       if (foundMatch.length >= 2) {
+  //         res.send("Found a match!")
+  //       }
+  //     }
+  //   })
+  //   .catch(err => {
+  //     console.error("ERROR:", err)
+  //   })
+
   client
-    .webDetection(imageUrl)
+    .labelDetection(imageUrl)
     .then(results => {
-      const webDetection = results[0].webDetection
+      const labels = results[0].labelAnnotations
       let foundMatch = []
-      if (webDetection.webEntities.length) {
-        webDetection.webEntities.forEach(webEntity => {
+      if (labels.length) {
+        labels.forEach(label => {
           foundMatch.push(
             clue.clue.tags.find(
-              tag => tag.toLowerCase() === webEntity.description.toLowerCase()
+              tag => tag.toLowerCase() === label.description.toLowerCase()
             )
           )
-          console.log(`  Description: ${webEntity.description}`)
         })
         if (foundMatch.length >= 2) {
-          // console.log("Found a match!")
           res.send("Found a match!")
+        } else {
+          res.send("Better try harder!")
         }
       }
     })
-    .catch(err => {
-      console.error("ERROR:", err)
-    })
-  // [END vision_web_detection_gcs]
+    .catch(next)
 })
