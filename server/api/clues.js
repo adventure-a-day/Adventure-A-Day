@@ -8,6 +8,7 @@ const webpush = require("../webpush")
 module.exports = router
 
 router.param("teamId", (req, res, next, teamId) => {
+  req.teamId = teamId
   UserTeamClueStatus.findAll({ where: { teamId }, include: [Clue] })
     .then(clues => {
       req.clues = clues
@@ -93,4 +94,3 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
   //     console.error("ERROR:", err)
   //   })
 })
-
