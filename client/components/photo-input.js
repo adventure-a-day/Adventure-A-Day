@@ -75,7 +75,6 @@ class PhotoInput extends Component {
           <input type="file" accept="image/*" id="file-input" name="file" />
           <button type="submit">Submit</button>
         </form>
-        <h4>{this.state.imageUrl}</h4>
         <h4>{this.state.message}</h4>
       </div>
     )

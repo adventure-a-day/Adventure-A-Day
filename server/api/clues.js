@@ -40,11 +40,10 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
       let foundMatch = []
       if (labels.length) {
         labels.forEach(label => {
-          foundMatch.push(
-            clue.clue.labels.find(
+          let match = clue.clue.labels.find(
               tag => tag.toLowerCase() === label.description.toLowerCase()
             )
-          )
+          if(match) foundMatch.push(match)
         })
         if (foundMatch.length >= 2) {
           res.send("Found a match!")
