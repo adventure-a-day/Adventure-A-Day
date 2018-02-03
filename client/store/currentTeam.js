@@ -1,5 +1,5 @@
 import socket from "../socket"
-import { fetchAssigned, fetchCompleted, fetchTeamMembers } from "./index"
+import { fetchTeamMessages, fetchAssigned, fetchCompleted, fetchTeamMembers } from "./index"
 
 /**
  * ACTION TYPES
@@ -21,6 +21,7 @@ export const setCurrentTeam = team => dispatch => {
   dispatch(fetchAssigned(team.id))
   dispatch(fetchCompleted(team.id))
   dispatch(fetchTeamMembers(team.id))
+  dispatch(fetchTeamMessages(team.id))
   socket.emit("room", team.id)
 }
 

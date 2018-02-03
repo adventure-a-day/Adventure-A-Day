@@ -36,9 +36,8 @@ export const fetchTeamMessages = teamId => dispatch =>
     .then(messages => dispatch(gotTeamMessages(messages)))
     .catch(err => console.error(err))
 
-export const postNewMessage = (text, teamId, userId) => dispatch => {
-  const message = { text, teamId, userId }
-  axios.post(`/api/messages/${teamId}`, message).then(() => {
+export const postNewMessage = message => dispatch => {
+  axios.post(`/api/messages/${message.teamId}`, message).then(() => {
     dispatch(postedMessage(message))
     socket.emit("new-message", message)
   })

@@ -9,6 +9,7 @@ module.exports = io => {
       currentRoom = room
       socket.join(room)
     })
+
     socket.on("new-message", message => {
       socket.to(currentRoom).emit("new-message", message)
     })
