@@ -13,7 +13,8 @@ import {
   Messages,
   TeamHome,
   SolveClue,
-  GalleryView
+  GalleryView,
+  TestMain
 } from "./components"
 import { me } from "./store"
 
