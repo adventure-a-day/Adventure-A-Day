@@ -41,6 +41,7 @@ const mapDispatch = (dispatch, ownProps) => ({
   handleSubmit(evt, teamId, userId) {
     evt.preventDefault()
     const text = evt.target.text.value
+    evt.target.text.value = ""
     const message = { text, teamId, userId }
     dispatch(postNewMessage(message))
   }
