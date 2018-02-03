@@ -46,12 +46,9 @@ class PhotoInput extends Component {
           }
         })
 
-        console.log("TEAM: ", teamId)
-        console.log("URL: ", imageUrl)
         axios
           .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
           .then(res => {
-            console.log("DATA: ", res.data)
             this.setState({
               message: res.data
             })
