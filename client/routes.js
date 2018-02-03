@@ -12,7 +12,9 @@ import {
   PhotoInput,
   Messages,
   TeamHome,
-  SolveClue
+  SolveClue,
+  GalleryView,
+  TestMain
 } from "./components"
 import { me } from "./store"
 
@@ -39,6 +41,7 @@ const Routes = props => {
               <Route path="/messages" component={Messages} />
               <Route path="/my-team" component={TeamHome} />
               <Route path="/solve-clue" component={SolveClue} />
+              <Route path="/gallery" component={GalleryView} />
               <Redirect to="/" />
             </Switch>
           )}
