@@ -17,10 +17,6 @@ const styles = theme => ({
 })
 
 /**
- * 
- */
-
-/**
  * COMPONENT
  */
 class AuthForm extends Component {
@@ -32,15 +28,13 @@ class AuthForm extends Component {
       email: '',
       password: ''
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   render(props) {
-    const {name, displayName, handleSubmit, error} = this.props
-
+    const {name, displayName, error, handleSubmit} = this.props
     return (
       <div>
-        <form onSubmit={handleSubmit} name={name} className="form-group">
+        <form onSubmit={handleSubmit.bind(this)} name={name} className="form-group">
         <TextField 
           id="username"
           margin="normal"
@@ -54,12 +48,16 @@ class AuthForm extends Component {
           margin="normal"
           type="text"
           floatingLabelText="email"
+          value={this.state.email}
+          onChange={(e, input) => this.setState({email: input})}
         /><br />
         <TextField 
           id="password"
           margin="normal"
           type="text"
           floatingLabelText="password"
+          value={this.state.password}
+          onChange={(e, input) => this.setState({password: input})}
         /><br />
         <div>
           <RaisedButton style={{margin: 12}} label={displayName} type="submit"/>
@@ -98,11 +96,11 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit (evt) {
       evt.preventDefault()
-      console.log(evt.target.name, 'evt.target.name')
+      console.log(this.state, 'state in dispatch')
       const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      const userName = evt.target.userName.value
+      const email = this.state.email
+      const password = this.state.password
+      const userName = this.state.userName
       dispatch(auth(email, password, userName, formName))
     }
   }
@@ -121,30 +119,3 @@ AuthForm.propTypes = {
   error: PropTypes.object
 }
 
-/**
- *       
- */
-
- /**
-  * <div className="main-content">
-        <form onSubmit={handleSubmit} name={name} className="form-group" >
-          <div>
-            <label htmlFor="email"><small>Email</small></label>
-            <input name="email" type="text" className="input-control"/>
-          </div>
-          <div>
-            <label htmlFor="userName"><small>Display name</small></label>
-            <input name="userName" type="text" className="input-control"/>
-          </div>
-          <div>
-            <label htmlFor="password"><small>Password</small></label>
-            <input name="password" type="password" className="input-control" />
-          </div>
-          <div>
-            <button type="submit">{displayName}</button>
-          </div>
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>
-        <a href="/auth/google">{displayName} with Google <img id="google-icon" src="google-icon.jpg"/></a>
-      </div> 
-  */
