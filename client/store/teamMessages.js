@@ -37,10 +37,13 @@ export const fetchTeamMessages = teamId => dispatch =>
     .catch(err => console.error(err))
 
 export const postNewMessage = message => dispatch => {
-  axios.post(`/api/messages/${message.teamId}`, message).then(() => {
-    dispatch(postedMessage(message))
-    socket.emit("new-message", message)
-  })
+  axios
+    .post(`/api/messages/${message.teamId}`, message)
+    .then(res => res.data)
+    .then(createdMessage => {
+      dispatch(postedMessage(createdMessage))
+      socket.emit("new-message", createdMessage)
+    })
 }
 
 /*

@@ -20,9 +20,9 @@ const Messages = props => {
         )
         return (
           <div key={message.id}>
-            <img src={teamMember.photo} />
-            <h4>{teamMember.userName}</h4>
-            <p>{message}</p>
+            {teamMember && <img src={teamMember.photo} />}
+            {teamMember && <h4>{teamMember.userName}</h4>}
+            <p>{message.text}</p>
           </div>
         )
       })}
@@ -39,6 +39,7 @@ const mapState = ({ teamMembers, teamMessages, currentTeam, user }) => ({
 
 const mapDispatch = (dispatch, ownProps) => ({
   handleSubmit(evt, teamId, userId) {
+    evt.preventDefault()
     const text = evt.target.text.value
     const message = { text, teamId, userId }
     dispatch(postNewMessage(message))
