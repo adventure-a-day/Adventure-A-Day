@@ -33,10 +33,10 @@ const Main = props => {
             <div><a href="#" onClick={handleClick}>
               Logout
             </a></div>
-            <Link to="/location">Geolocation</Link>
-            <Link to="/upload-image">Upload Image</Link>
+            <Link to="/solve-clue"> Solve Clue </Link>
             <Link to="/messages"> Messages </Link>
-            <Link to="/my-team">My Team </Link>
+            <Link to="/gallery"> Gallery </Link>
+            <Link to="/my-team"> My Team </Link>
             <TeamSelect />
             <PushBtn />
           </div>
