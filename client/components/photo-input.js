@@ -17,7 +17,7 @@ class PhotoInput extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(event, teamId) {
+  handleSubmit(event, teamId, userId) {
     event.preventDefault()
     const file = event.target.file.files[0]
     let imageUrl
@@ -31,7 +31,8 @@ class PhotoInput extends Component {
         let keyName = file.name
         let body = file
 
-        imageUrl = "https://s3.amazonaws.com/where-in-the-world-gh/" + file.name
+        let photoName = file.name.split(' ').join('+')
+        imageUrl = "https://s3.amazonaws.com/where-in-the-world-gh/" + photoName
         this.setState({ imageUrl })
 
         s3.config.credentials = config
@@ -54,6 +55,13 @@ class PhotoInput extends Component {
             })
           })
           .catch(err => console.log(err))
+
+        axios
+          .post(`/api/photos/${teamId}`, { url: imageUrl, teamId: teamId, userId: userId })
+          .then(res => {
+            console.log(res.data)
+          })
+          .catch(err => console.log(err))
       
       }
 
@@ -67,7 +75,7 @@ class PhotoInput extends Component {
     return (
       <div className="main-content">
         <form
-          onSubmit={evt => this.handleSubmit(evt, this.props.currentTeam.id)}
+          onSubmit={evt => this.handleSubmit(evt, this.props.currentTeam.id, this.props.user.id)}
         >
           <input type="file" accept="image/*" id="file-input" name="file" />
           <button type="submit">Submit</button>
@@ -81,8 +89,9 @@ class PhotoInput extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({ currentTeam }) => ({
-  currentTeam
+const mapState = ({ currentTeam, user }) => ({
+  currentTeam,
+  user
 })
 
 const mapDispatch = dispatch => ({
