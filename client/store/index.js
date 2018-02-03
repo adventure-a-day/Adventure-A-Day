@@ -8,6 +8,7 @@ import teams from "./teams"
 import currentTeam from "./currentTeam"
 import clues from "./clues"
 import teamMembers from "./teamMembers"
+import teamMessages from "./teamMessages"
 
 const reducer = combineReducers({
   user,
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   teams,
   currentTeam,
   teamMembers,
-  clues
+  clues,
+  teamMessages
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
@@ -29,3 +31,4 @@ export * from "./teams"
 export * from "./teamMembers"
 export * from "./currentTeam"
 export * from "./clues"
+export * from "./teamMessages"

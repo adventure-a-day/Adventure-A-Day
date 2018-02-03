@@ -1,54 +1,49 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import socket from '../socket'
+import React, { Component } from "react"
+import { postNewMessage } from "../store"
+import { connect } from "react-redux"
 
 //this needs to load messages from the db
-export class Messages extends Component {
-    constructor() {
-        super()
-        this.state = {
-            messages: [],
-            newMessage: ""
-        }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
-    handleChange(event) {
-        let message = event.target.value
-        this.setState({newMessage: message})
-    }
+const Messages = props => {
+  const { teamMessages, teamMembers, currentTeam, user, handleSubmit } = props
 
-    handleSubmit(event){
-        event.preventDefault()
-        socket.emit('new-message', this.state.newMessage)
-        this.setState({messages: [...this.state.messages, this.state.newMessage]})
-        this.setState({newMessage: ""})
-    }
-
-    render() {
-        return (
-
-            <div className="main-content">
-                <ul>
-                    {
-                        this.state.messages.map(message => <p key={Math.floor(Math.random() * 100)}>{message}</p>)
-                    }
-                </ul>
-
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <label htmlFor="message">
-                            <small>Chat away!</small>
-                        </label>
-                        <input name="message" type="text" onChange={this.handleChange} value={this.state.newMessage}/>
-                    </div>
-
-                    <button type="submit" className="btn-success">
-                        Submit
-            </button>
-                </form>
-
-            </div>
+  return (
+    <div className="main-content">
+      <form onSubmit={evt => handleSubmit(evt, currentTeam.id, user.id)}>
+        <input name="text" type="text" placeholder="Chat Away!" />
+        <button type="submit" className="btn-success">
+          Submit
+        </button>
+      </form>
+      {teamMessages.map(message => {
+        const teamMember = teamMembers.find(
+          foundUser => foundUser.id === message.userId
         )
-    }
+        return (
+          <div key={message.id}>
+            {teamMember && <img src={teamMember.photo} />}
+            {teamMember && <h4>{teamMember.userName}</h4>}
+            <p>{message.text}</p>
+          </div>
+        )
+      })}
+    </div>
+  )
 }
+
+const mapState = ({ teamMembers, teamMessages, currentTeam, user }) => ({
+  teamMembers,
+  teamMessages,
+  currentTeam,
+  user
+})
+
+const mapDispatch = (dispatch, ownProps) => ({
+  handleSubmit(evt, teamId, userId) {
+    evt.preventDefault()
+    const text = evt.target.text.value
+    evt.target.text.value = ""
+    const message = { text, teamId, userId }
+    dispatch(postNewMessage(message))
+  }
+})
+export default connect(mapState, mapDispatch)(Messages)

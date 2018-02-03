@@ -39,7 +39,7 @@ const User = db.define(
         include: [Subscription]
       },
       display: {
-        attributes: ["userName", "photo"]
+        attributes: ["id", "userName", "photo"]
       }
     }
   }
