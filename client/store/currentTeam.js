@@ -1,3 +1,4 @@
+import socket from "../socket"
 import { fetchAssigned, fetchCompleted, fetchTeamMembers } from "./index"
 
 /**
@@ -20,6 +21,7 @@ export const setCurrentTeam = team => dispatch => {
   dispatch(fetchAssigned(team.id))
   dispatch(fetchCompleted(team.id))
   dispatch(fetchTeamMembers(team.id))
+  socket.emit("room", team.id)
 }
 
 /**
