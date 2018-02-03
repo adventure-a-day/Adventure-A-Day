@@ -4,8 +4,8 @@ import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 import { logout } from "../store"
 import { PushBtn, TeamSelect } from "./index"
-import LoginHeader from './login-header'
-import MainHeader from './main-header'
+// import LoginHeader from './login-header'
+// import MainHeader from './main-header'
 
 
 /**
@@ -15,7 +15,7 @@ import MainHeader from './main-header'
  *  rendered out by the component's `children`.
  */
 
-//return <div><img src={require('./img/smile.png'}</div>
+
 const Main = props => {
   const { children, handleClick, isLoggedIn } = props
 
@@ -23,7 +23,7 @@ const Main = props => {
 
   return (
     <div>
-      {isLoggedIn ? <MainHeader/> : <LoginHeader /> }
+      
       <div id="footer">
       <nav>
         {isLoggedIn ? (
@@ -90,3 +90,5 @@ Main.propTypes = {
         <img src='earth.png' className="header-icon"/>
       </div>
  */
+
+ /**{isLoggedIn ? <MainHeader/> : <LoginHeader /> } */

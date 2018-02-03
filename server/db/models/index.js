@@ -5,6 +5,7 @@ const Subscription = require("./subscription")
 const Clue = require("./clue")
 const UserTeamClueStatus = require("./userTeamClueStatus")
 const Message = require("./message")
+const Photo = require("./photo")
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -37,6 +38,11 @@ Message.belongsTo(User)
 Team.hasMany(Message)
 User.hasMany(Message)
 
+Photo.belongsTo(Team)
+Photo.belongsTo(User)
+Team.hasMany(Photo)
+User.hasMany(Photo)
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -50,5 +56,6 @@ module.exports = {
   Subscription,
   Clue,
   UserTeamClueStatus,
-  Message
+  Message,
+  Photo
 }

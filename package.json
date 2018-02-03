@@ -30,6 +30,7 @@
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "history": "^4.6.3",
+    "material-ui": "^0.20.0",
     "morgan": "^1.8.1",
     "node-pushnotifications": "^1.0.18",
     "passport": "^0.3.2",

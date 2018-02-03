@@ -8,6 +8,7 @@ router
   .use("/push", require("./push"))
   .use("/messages", require("./messages"))
   .use("/missions", require("./missions"))
+  .use("/photos", require("./photos"))
   .use((req, res, next) => {
     const error = new Error("Not Found")
     error.status = 404

@@ -5,6 +5,10 @@ import axios from "axios"
 import store, { getUser, fetchTeams } from "./store"
 import Routes from "./routes"
 import register from "./serviceWorker.js"
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+
 register()
 
 // establishes socket connection
@@ -18,7 +22,9 @@ axios
     store.dispatch(getUser(user))
     ReactDOM.render(
       <Provider store={store}>
-        <Routes />
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+          <Routes />
+        </MuiThemeProvider>
       </Provider>,
       document.getElementById("app")
     )
