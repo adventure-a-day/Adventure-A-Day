@@ -1,12 +1,14 @@
 const router = require("express").Router()
-const { Clue, UserTeamClueStatus } = require("../db/models")
+const { Clue, Team, User, UserTeamClueStatus } = require("../db/models")
 const isMemberOfTeam = require("../isMemberOfTeam")
 const vision = require("@google-cloud/vision")
 const client = new vision.ImageAnnotatorClient()
+const webpush = require("../webpush")
 
 module.exports = router
 
 router.param("teamId", (req, res, next, teamId) => {
+  req.teamId = teamId
   UserTeamClueStatus.findAll({ where: { teamId }, include: [Clue] })
     .then(clues => {
       req.clues = clues
@@ -26,54 +28,73 @@ router.get("/:teamId/assignedClues", isMemberOfTeam, (req, res, next) => {
 })
 
 router.post("/:teamId/verifyClue", (req, res, next) => {
-  //const clue = req.clues.filter(clue => clue.userId === req.user.id)
-  const { imageUrl, geolocation } = req.body
+  const clue = req.clues
+    .filter(foundClue => foundClue.status === "assigned")
+    .find(foundClue => foundClue.userId === req.user.id)
+  const { imageUrl } = req.body
 
   client
-    .webDetection(imageUrl)
+    .labelDetection(imageUrl)
     .then(results => {
-      const webDetection = results[0].webDetection;
-
-      if (webDetection.webEntities.length) {
-        console.log(`Web entities found: ${webDetection.webEntities.length}`);
-        webDetection.webEntities.forEach(webEntity => {
-          console.log(`  Description: ${webEntity.description}`)
-          console.log(`  Score: ${webEntity.score}`)
+      const labels = results[0].labelAnnotations
+      let foundMatch = []
+      if (labels.length) {
+        labels.forEach(label => {
+          let match = clue.clue.labels.find(
+              tag => tag.toLowerCase() === label.description.toLowerCase()
+            )
+          if(match) foundMatch.push(match)
         })
+        if (foundMatch.length >= 2) {
+          res.send("Found a match!")
+          clue.update({ status: "completed" })
+          Team.findById(req.teamId, {
+            include: [User.scope("subscriptions")]
+          }).then(team => {
+            team.users.forEach(user => {
+              if (user.id !== req.user.id) {
+                user.subscriptions.forEach(sub => {
+                  webpush
+                    .sendNotification(sub.info, {
+                      title: `${req.user.username} has completed their task!`
+                    })
+                    .catch(() => sub.destroy())
+                })
+              }
+            })
+          })
+        } else {
+          res.send("Better try harder!")
+        }
+      } else {
+        res.send("Picture Unrecognizeable")
       }
     })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
-  // [END vision_web_detection]
+    .catch(next)
 
+  /**
+   * THIS IS FOR WEB DETECTION
+   */
+  // client
+  //   .webDetection(imageUrl)
+  //   .then(results => {
+  //     const webDetection = results[0].webDetection
+  //     let foundMatch = []
+  //     if (webDetection.webEntities.length) {
+  //       webDetection.webEntities.forEach(webEntity => {
+  //         foundMatch.push(
+  //           clue.clue.tags.find(
+  //             tag => tag.toLowerCase() === webEntity.description.toLowerCase()
+  //           )
+  //         )
+  //         console.log(`  Description: ${webEntity.description}`)
+  //       })
+  //       if (foundMatch.length >= 2) {
+  //         res.send("Found a match!")
+  //       }
+  //     }
+  //   })
+  //   .catch(err => {
+  //     console.error("ERROR:", err)
+  //   })
 })
-
-//   client
-//     .webDetection(imageUrl)
-//     .then(results => {
-//       const webDetection = results[0].webDetection
-//       let foundMatch = []
-//       if (webDetection.webEntities.length) {
-//         webDetection.webEntities.forEach(webEntity => {
-//           foundMatch.push(
-//             clue.clue.tags.find(
-//               tag => tag.toLowerCase() === webEntity.description.toLowerCase()
-//             )
-//           )
-//           console.log(`  Description: ${webEntity.description}`)
-//         })
-//         if (foundMatch.length >= 2) {
-//           console.log("Found a match!")
-//         }
-//       }
-    
-//     })
-//     .catch(err => {
-//       console.error("ERROR:", err)
-//     })
-//   // [END vision_web_detection_gcs]
-// })
-
-
-

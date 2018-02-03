@@ -55,9 +55,25 @@ async function seed() {
       region: "NYC FiDi",
       answer: "Fearless girl",
       missionId: 1,
-      labels: ['statue', 'landmark', 'monument','sculpture', 'building',
-      'architecture','memorial','tourist attraction','window', 'facade'],
-      webLabels: ['Fearless Girl', 'Charging Bull', 'Wall Street', 'Statue', 'Bronze sculpture']
+      labels: [
+        "statue",
+        "landmark",
+        "monument",
+        "sculpture",
+        "building",
+        "architecture",
+        "memorial",
+        "tourist attraction",
+        "window",
+        "facade"
+      ],
+      webLabels: [
+        "Fearless Girl",
+        "Charging Bull",
+        "Wall Street",
+        "Statue",
+        "Bronze sculpture"
+      ]
     }),
     Clue.create({
       prompt: "If you’re feeling buggy, this school is for you...",
@@ -68,9 +84,37 @@ async function seed() {
       region: "NYC FiDi",
       answer: "Grace Hopper Program",
       missionId: 1,
-      labels: ['Text', 'Logo', 'Product', 'Font', 'Line', 'Area', 'Brand', 'Product Design', 'Graphics', 'Product', 'Diagram', 'Graphic Design'],
-      webLabels: ['The Grace Hopper Program', 'Fullstack Academy', 'Fullstack Academy of Code', 'Fullstack Academy of Code', 'Coding bootcamp', 'Software engineering',
-       'Computer programming', 'JavaScript', 'Programmer', 'Computer program', 'Node.js', 'Woman', 'Learning', 'Grace Hopper', 'New York City']
+      labels: [
+        "Text",
+        "Logo",
+        "Product",
+        "Font",
+        "Line",
+        "Area",
+        "Brand",
+        "Product Design",
+        "Graphics",
+        "Product",
+        "Diagram",
+        "Graphic Design"
+      ],
+      webLabels: [
+        "The Grace Hopper Program",
+        "Fullstack Academy",
+        "Fullstack Academy of Code",
+        "Fullstack Academy of Code",
+        "Coding bootcamp",
+        "Software engineering",
+        "Computer programming",
+        "JavaScript",
+        "Programmer",
+        "Computer program",
+        "Node.js",
+        "Woman",
+        "Learning",
+        "Grace Hopper",
+        "New York City"
+      ]
     }),
     Clue.create({
       prompt:
@@ -81,8 +125,24 @@ async function seed() {
       region: "NYC FiDi",
       answer: "NY Stock Exchange",
       missionId: 1,
-      labels: ['building', 'classical architecture', 'landmark', 'city', 'tourist attraction', 'commercial building'],
-      webLabels: ['NYSE', 'Wall Street', 'Stock', 'Stock Exchange', 'Exchange', 'Trader', 'Finance', 'Stock market']
+      labels: [
+        "building",
+        "classical architecture",
+        "landmark",
+        "city",
+        "tourist attraction",
+        "commercial building"
+      ],
+      webLabels: [
+        "NYSE",
+        "Wall Street",
+        "Stock",
+        "Stock Exchange",
+        "Exchange",
+        "Trader",
+        "Finance",
+        "Stock market"
+      ]
     }),
     Clue.create({
       prompt:
@@ -93,14 +153,45 @@ async function seed() {
       region: "NYC FiDi",
       answer: "Museum of American Finance",
       missionId: 1,
-      labels: ['Crowd', 'City', 'Downtown', 'Urban Area', 'Street', 'Metropolitan Area', 'Building', 'Pedestrian', 'Demonstration', 'Car', 'Event', 'Protest', 'Town Square', 'Recreation', 'Vehicle'],
-      webLabels: ["Museum of American Finance", "Federal Hall", "Street", "Protest", "Demonstration", "Finance", "Museum", "Car", "Shopping", "Meeting", "Gift shop", "Recreation", "New York City", "United States"]
-    }),
-    Clue.create({
-      prompt: "Find a new coffee shop and take a picture with the barista!",
-      hint1: "Can't wait to caffeinate",
-      hint2: "Time's running out!"
+      labels: [
+        "Crowd",
+        "City",
+        "Downtown",
+        "Urban Area",
+        "Street",
+        "Metropolitan Area",
+        "Building",
+        "Pedestrian",
+        "Demonstration",
+        "Car",
+        "Event",
+        "Protest",
+        "Town Square",
+        "Recreation",
+        "Vehicle"
+      ],
+      webLabels: [
+        "Museum of American Finance",
+        "Federal Hall",
+        "Street",
+        "Protest",
+        "Demonstration",
+        "Finance",
+        "Museum",
+        "Car",
+        "Shopping",
+        "Meeting",
+        "Gift shop",
+        "Recreation",
+        "New York City",
+        "United States"
+      ]
     })
+    // Clue.create({
+    //   prompt: "Find a new coffee shop and take a picture with the barista!",
+    //   hint1: "Can't wait to caffeinate",
+    //   hint2: "Time's running out!"
+    // })
   ])
 
   const messages = await Promise.all([
