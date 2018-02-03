@@ -54,7 +54,7 @@ class AuthForm extends Component {
         <TextField 
           id="password"
           margin="normal"
-          type="text"
+          type="password"
           floatingLabelText="password"
           value={this.state.password}
           onChange={(e, input) => this.setState({password: input})}
