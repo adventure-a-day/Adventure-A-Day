@@ -1,12 +1,19 @@
-module.exports = (io) => {
-  io.on('connection', (socket) => {
+module.exports = io => {
+  io.on("connection", socket => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
 
-    socket.on('new-message', (message) =>{
-    	socket.broadcast.emit("new-message", message)
+    let currentRoom
+
+    socket.on("room", room => {
+      if (currentRoom) socket.leave(currentRoom)
+      currentRoom = room
+      socket.join(room)
+    })
+    socket.on("new-message", message => {
+      socket.to(currentRoom).emit("new-message", message)
     })
 
-    socket.on('disconnect', () => {
+    socket.on("disconnect", () => {
       console.log(`Connection ${socket.id} has left the building`)
     })
   })
