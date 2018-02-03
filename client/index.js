@@ -6,7 +6,7 @@ import store, { getUser, fetchTeams } from "./store"
 import Routes from "./routes"
 import register from "./serviceWorker.js"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+// import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 register()
@@ -22,7 +22,7 @@ axios
     store.dispatch(getUser(user))
     ReactDOM.render(
       <Provider store={store}>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <MuiThemeProvider>
           <Routes />
         </MuiThemeProvider>
       </Provider>,
