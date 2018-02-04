@@ -7,7 +7,6 @@ import { PushBtn, TeamSelect } from "./index"
 // import LoginHeader from './login-header'
 // import MainHeader from './main-header'
 
-
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
@@ -15,40 +14,46 @@ import { PushBtn, TeamSelect } from "./index"
  *  rendered out by the component's `children`.
  */
 
-
 const Main = props => {
-  const { children, handleClick, isLoggedIn } = props
+  const { children, handleClick, isLoggedIn, teamId } = props
 
   Notification.requestPermission()
 
   return (
     <div>
-      
       <div id="footer">
-      <nav>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <div><Link to="/home">Home</Link></div>
-            <div><a href="#" onClick={handleClick}>
-              Logout
-            </a></div>
-            <Link to="/solve-clue"> Solve Clue </Link>
-            <Link to="/messages"> Messages </Link>
-            <Link to="/gallery"> Gallery </Link>
-            <Link to="/my-team"> My Team </Link>
-            <TeamSelect />
-            <PushBtn />
-          </div>
-        ) : (
-          <div className="footer-items">
-            {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </div>
-        )}
-      </nav>
-      </div>       
+        <nav>
+          {isLoggedIn ? (
+            <div>
+              {/* The navbar will show these links after you log in */}
+              <div>
+                <Link to="/home">Home</Link>
+              </div>
+              <div>
+                <a href="#" onClick={handleClick}>
+                  Logout
+                </a>
+              </div>
+              {teamId && (
+                <div>
+                  <Link to={`/team/${teamId}/solve-clue`}> Solve Clue </Link>
+                  <Link to={`/team/${teamId}/messages`}> Messages </Link>
+                  <Link to={`/team/${teamId}/gallery`}> Gallery </Link>
+                  <Link to={`/team/${teamId}/home`}> My Team </Link>
+                </div>
+              )}
+              <TeamSelect />
+              <PushBtn />
+            </div>
+          ) : (
+            <div className="footer-items">
+              {/* The navbar will show these links before you log in */}
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+            </div>
+          )}
+        </nav>
+      </div>
       {children}
     </div>
   )
@@ -59,7 +64,8 @@ const Main = props => {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    teamId: state.currentTeam.id || null
   }
 }
 
@@ -91,4 +97,4 @@ Main.propTypes = {
       </div>
  */
 
- /**{isLoggedIn ? <MainHeader/> : <LoginHeader /> } */
+/**{isLoggedIn ? <MainHeader/> : <LoginHeader /> } */

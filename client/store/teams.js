@@ -1,5 +1,6 @@
 import axios from "axios"
 import history from "../history"
+import { setCurrentTeam } from "./currentTeam"
 
 /**
  * ACTION TYPES

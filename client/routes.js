@@ -3,27 +3,24 @@ import { connect } from "react-redux"
 import { Route, Switch, Router, Redirect } from "react-router-dom"
 import PropTypes from "prop-types"
 import history from "./history"
+import store, { setCurrentTeam, fetchAllTeams } from "./store"
 import {
   Main,
   Login,
   Signup,
   UserHome,
-  LocationTracker,
-  PhotoInput,
   Messages,
   TeamHome,
   SolveClue,
   GalleryView,
-  TestMain
+  Team
 } from "./components"
-import { me } from "./store"
 
 /**
  * COMPONENT
  */
 const Routes = props => {
   const { isLoggedIn } = props
-  console.log(isLoggedIn)
 
   return (
     <Router history={history}>
@@ -36,12 +33,11 @@ const Routes = props => {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route exact path="/" component={UserHome} />
-              <Route path="/location" component={LocationTracker} />
-              <Route path="/upload-image" component={PhotoInput} />
-              <Route path="/messages" component={Messages} />
-              <Route path="/my-team" component={TeamHome} />
-              <Route path="/solve-clue" component={SolveClue} />
-              <Route path="/gallery" component={GalleryView} />
+              <Route path="/team/:teamId/" component={Team} />
+              <Route path="/team/:teamId/home" component={TeamHome} />
+              <Route path="/team/:teamId/messages" component={Messages} />
+              <Route path="/team/:teamId/solve-clue" component={SolveClue} />
+              <Route path="/team/:teamId/gallery" component={GalleryView} />
               <Redirect to="/" />
             </Switch>
           )}
