@@ -4,33 +4,42 @@ import {connect} from 'react-redux'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
+const assignedClues = [
+  {prompt: 'a doodle cartoon you drew', status: 'not completed'},
+  {prompt: 'some local artwork you found', status: 'not completed'}
+]
+
 /**
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const {email} = props
-
+  const {userName, clues} = props
+  console.log('clues ', clues)
   return (
-    <div className="main-content">
-      <h3>Welcome, {email}</h3>
-      <Card>
-      <CardHeader
-        title="Without Avatar"
-        subtitle="Subtitle"
-        actAsExpander={true}
-        showExpandableButton={true}
-      />
-      <CardActions>
-        <FlatButton label="Action1" />
-        <FlatButton label="Action2" />
-      </CardActions>
-      <CardText expandable={true}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-        Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-        Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-      </CardText>
-    </Card>
+    <div>
+      <h3>Welcome, {userName}</h3>
+      {assignedClues.length ? 
+        assignedClues.map(clue => {
+          return (
+            <Card>
+              <CardHeader
+                title={`Take a picture of... ${clue.prompt}`}
+                subtitle={clue.status}
+                actAsExpander={true}
+                showExpandableButton={true}
+              />
+              <CardActions>
+                <FlatButton label="Solve" />
+                <FlatButton label="Team Page" />
+              </CardActions>
+              <CardText expandable={true}>
+                {clues.prompt}
+              </CardText>
+            </Card>
+          )}) : 
+        <div>Sign up with a team to start your adventures!</div>
+      }
+      
     </div>
   )
 }
@@ -38,9 +47,10 @@ export const UserHome = (props) => {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = ({user, clues}) => {
   return {
-    email: state.user.userName
+    userName: user.userName,
+    clues: clues
   }
 }
 
