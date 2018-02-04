@@ -29,8 +29,12 @@ router.get("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   // in req.body: name
-  Team.create(req.body)
-    .then(createdTeam => res.json(createdTeam))
+  Team.create({ name: req.body.name })
+    .then(createdTeam => {
+      createdTeam.addUser(req.user)
+      createdTeam.addMission(1)
+      res.json(createdTeam)
+    })
     .catch(next)
 })
 

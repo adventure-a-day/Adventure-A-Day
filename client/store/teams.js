@@ -31,11 +31,9 @@ export const fetchTeams = () => {
       .catch(err => console.log(err))
 }
 
-export const postNewTeam = name => (dispatch, getState) => {
-  const userId = getState.user.id
-  const missionId = 1
+export const postNewTeam = name => dispatch => {
   return axios
-    .post("/api/teams", { name, userId, missionId })
+    .post("/api/teams", { name })
     .then(res => res.data)
     .then(team => dispatch(createdNewTeam(team)))
     .catch(err => console.error(err))
