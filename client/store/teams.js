@@ -35,7 +35,10 @@ export const postNewTeam = name => dispatch => {
   return axios
     .post("/api/teams", { name })
     .then(res => res.data)
-    .then(team => dispatch(createdNewTeam(team)))
+    .then(team => {
+      dispatch(createdNewTeam(team))
+      history.push(`/teams/${team.id}/home`)
+    })
     .catch(err => console.error(err))
 }
 
