@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import Avatar from 'material-ui/Avatar';
 
 const assignedClues = [
   {prompt: 'a doodle cartoon you drew', status: 'not completed'},
@@ -13,11 +14,14 @@ const assignedClues = [
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const {userName, clues} = props
+  const {userName, clues, photo} = props
   console.log('clues ', clues)
   return (
     <div>
-      <h3>Welcome, {userName}</h3>
+      <div>
+        <h3>Welcome, {userName}</h3>  
+        <span><Avatar src={photo} /></span>
+      </div>
       {assignedClues.length ? 
         assignedClues.map(clue => {
           return (
@@ -50,6 +54,7 @@ export const UserHome = (props) => {
 const mapState = ({user, clues}) => {
   return {
     userName: user.userName,
+    photo: user.photo,
     clues: clues
   }
 }
