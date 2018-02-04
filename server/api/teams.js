@@ -1,4 +1,5 @@
 const router = require("express").Router()
+const Op = require("sequelize").Op
 const isMemberOfTeam = require("../isMemberOfTeam")
 const { Team, User } = require("../db/models")
 module.exports = router
@@ -35,6 +36,27 @@ router.post("/", (req, res, next) => {
       createdTeam.addMission(1)
       res.json(createdTeam)
     })
+    .catch(next)
+})
+
+router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
+  const { targetUser } = req.body
+  User.findOne({
+    where: { [Op.or]: [{ email: targetUser }, { userName: targetUser }] }
+  })
+    .then(foundUser => {
+      if (foundUser) {
+        if (foundUser.hasTeam(req.params.teamid)) {
+          throw new Error("User Already Added")
+        }
+        return foundUser.addTeam(req.params.teamId)
+      } else {
+        let err = new Error("User Not Found")
+        err.status = 404
+        throw err
+      }
+    })
+    .then(() => res.send("User Added"))
     .catch(next)
 })
 
