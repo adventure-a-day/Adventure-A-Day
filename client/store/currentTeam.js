@@ -26,13 +26,15 @@ export const setCurrentTeam = teamId => dispatch => {
   axios
     .get(`/api/teams/${teamId}`)
     .then(res => res.data)
-    .then(team => dispatch(setChosenTeam(team)))
+    .then(team => {
+      dispatch(setChosenTeam(team))
+      dispatch(fetchAssigned(teamId))
+      dispatch(fetchCompleted(teamId))
+      dispatch(fetchTeamMembers(teamId))
+      dispatch(fetchTeamMessages(teamId))
+      socket.emit("room", teamId)
+    })
     .catch(err => console.error(err))
-  dispatch(fetchAssigned(teamId))
-  dispatch(fetchCompleted(teamId))
-  dispatch(fetchTeamMembers(teamId))
-  dispatch(fetchTeamMessages(teamId))
-  socket.emit("room", teamId)
 }
 
 /**

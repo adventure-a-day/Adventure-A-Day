@@ -4,15 +4,14 @@ import { setCurrentTeam } from "../store"
 
 class Team extends Component {
   componentDidMount() {
-    console.log(this.props.match.params.teamId)
     this.props.handleTeam(this.props.match.params.teamId)
   }
   render() {
-    return <div />
+    return <h1>{this.props.currentTeam.name}</h1>
   }
 }
 
-const mapState = () => ({})
+const mapState = ({ currentTeam }) => ({ currentTeam })
 const mapDispatch = dispatch => ({
   handleTeam(teamId) {
     dispatch(setCurrentTeam(teamId))

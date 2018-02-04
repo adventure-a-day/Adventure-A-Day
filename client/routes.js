@@ -33,11 +33,24 @@ const Routes = props => {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route exact path="/" component={UserHome} />
-              <Route path="/team/:teamId/" component={Team} />
-              <Route path="/team/:teamId/home" component={TeamHome} />
-              <Route path="/team/:teamId/messages" component={Messages} />
-              <Route path="/team/:teamId/solve-clue" component={SolveClue} />
-              <Route path="/team/:teamId/gallery" component={GalleryView} />
+              <Route
+                path="/team/:teamId/"
+                component={() => (
+                  <div>
+                    <Route path="/team/:teamId/" component={Team} />
+                    <Route path="/team/:teamId/home" component={TeamHome} />
+                    <Route path="/team/:teamId/messages" component={Messages} />
+                    <Route
+                      path="/team/:teamId/solve-clue"
+                      component={SolveClue}
+                    />
+                    <Route
+                      path="/team/:teamId/gallery"
+                      component={GalleryView}
+                    />
+                  </div>
+                )}
+              />
               <Redirect to="/" />
             </Switch>
           )}
