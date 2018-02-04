@@ -3,10 +3,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 import { logout } from "../store"
-import { PushBtn, TeamSelect, BottomNavbar } from "./index"
-// import LoginHeader from './login-header'
-// import MainHeader from './main-header'
-
+import { PushBtn, TeamSelect, BottomNavbar, LocationTracker } from "./index"
 
 /**
  * COMPONENT
@@ -23,10 +20,10 @@ const Main = props => {
 
   return (
     <div>
-      
       <div id="footer">
         <BottomNavbar />
-      </div>       
+      </div>
+      <LocationTracker />       
       {children}
     </div>
   )
@@ -35,19 +32,11 @@ const Main = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = state => { //mapping "isLoggedIn" here is currently redundant, but may be useful for future purposes
   return {
     isLoggedIn: !!state.user.id
   }
 }
-
-// const mapDispatch = dispatch => {
-//   return {
-//     handleClick() {
-//       dispatch(logout())
-//     }
-//   }
-// }
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
@@ -60,38 +49,3 @@ Main.propTypes = {
   children: PropTypes.object,
   isLoggedIn: PropTypes.bool.isRequired
 }
-
-/**
- *  <div className="heading-container">
-      <img src='wwiw-text.png' className="header-text"/>
-        <img src='earth.png' className="header-icon"/>
-      </div>
- */
-
- /**{isLoggedIn ? <MainHeader/> : <LoginHeader /> } */
-
- /**
-  *  <nav>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */
-  //           <div><Link to="/home">Home</Link></div>
-  //           <div><a href="#" onClick={handleClick}>
-  //             Logout
-  //           </a></div>
-  //           <Link to="/location">Geolocation</Link>
-  //           <Link to="/upload-image">Upload Image</Link>
-  //           <Link to="/messages"> Messages </Link>
-  //           <Link to="/my-team">My Team </Link>
-  //           <TeamSelect />
-  //           <PushBtn />
-  //         </div>
-  //       ) : (
-  //         <div className="footer-items">
-  //           {/* The navbar will show these links before you log in */}
-  //           <Link to="/login">Login</Link>
-  //           <Link to="/signup">Sign Up</Link>
-  //         </div>
-  //       )}
-  //     </nav>
-  // */

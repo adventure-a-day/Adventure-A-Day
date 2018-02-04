@@ -1,8 +1,11 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Roboto', sans-serif;
+  /* background-image: url('/public/Neon-City-Pattern.png');
+  background-repeat: repeat-y; */
 }
 
 a {
@@ -90,6 +93,12 @@ button {
   width: 150px;
   position: absolute;
   margin-top: 75px;
+}
+
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
+  height: 100%;
 }
 
 

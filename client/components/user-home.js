@@ -15,7 +15,7 @@ const assignedClues = [
  */
 export const UserHome = (props) => {
   const {userName, clues, photo} = props
-  console.log('clues ', clues)
+  console.log('clues ', clues) /**THIS NEEDS TO BE FILLED IN WITH THE USER'S REAL CLUES */
   return (
     <div>
       <div>

@@ -99,7 +99,6 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit (evt) {
       evt.preventDefault()
-      console.log(this.state, 'state in dispatch')
       const formName = evt.target.name
       const email = this.state.email
       const password = this.state.password
