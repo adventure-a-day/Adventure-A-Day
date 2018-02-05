@@ -23,7 +23,6 @@ import { me } from "./store"
  */
 const Routes = props => {
   const { isLoggedIn } = props
-  console.log(isLoggedIn)
 
   return (
     <Router history={history}>

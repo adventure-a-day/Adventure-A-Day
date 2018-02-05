@@ -1,54 +1,47 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
-
+import {setCurrentLocation} from '../store'
 /**
  * COMPONENT
  */
 export class LocationTracker extends Component {
-    constructor() {
-        super() 
-            this.state = {
-                currentLocation: []
-            }
+    constructor(props) {
+        super(props) 
     }
 
-      componentDidMount() {
+    componentDidMount(props) {
+      console.log(this.props, 'updated props in component did mount2')
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
               let pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
               };
-              this.setState({ currentLocation: [pos.lat, pos.lng] })
+              console.log('pos', pos)
+              this.props.setCurrentLocation([pos.lat, pos.lng])
             })
-        }
+          }
       }
    
     render() {
         return (
-            <div className="main-content">
-              <h3>You are currently at: {this.state.currentLocation[0] && this.state.currentLocation[0]} degrees latitude and {this.state.currentLocation[1] && this.state.currentLocation[1]} degrees longitude</h3>
+            <div id="map">
+             
             </div>
           )
     }
 }
 
-/**
- * CONTAINER
- */
-// const mapState = (state) => {
-//   return {
-//     currentLocation: state.user.currentLocation
-//   }
-// }
+const mapState = ({user}) => {user}
 
-// export default connect(mapState)(UserHome)
+const mapDispatch = (dispatch) => {
+  return {
+    setCurrentLocation(coords) {
+      console.log('setting currentLocation to ' + coords)
+      dispatch(setCurrentLocation(coords))
+    }
+  }
+}
 
-/**
- * PROP TYPES
- */
-// UserHome.propTypes = {
-//   latitude: PropTypes.string,
-//   longitude: PropTypes.string
-// }
+export default connect(mapState, mapDispatch)(LocationTracker)

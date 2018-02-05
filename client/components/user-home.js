@@ -1,16 +1,50 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import Avatar from 'material-ui/Avatar';
+import {MapView} from '../components'
+
+const assignedClues = [
+  {prompt: 'a doodle cartoon you drew', status: 'not completed'},
+  {prompt: 'some local artwork you found', status: 'not completed'}
+]
 
 /**
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const {email} = props
-
+  const {userName, clues, photo} = props
+  console.log('clues ', clues) /**THIS NEEDS TO BE FILLED IN WITH THE USER'S REAL CLUES */
   return (
-    <div className="main-content">
-      <h3>Welcome, {email}</h3>
+    <div>
+      <div>
+        <h3>Welcome, {userName}</h3>  
+        <span><Avatar src={photo} /></span>
+      </div>
+      {assignedClues.length ? 
+        assignedClues.map(clue => {
+          return (
+            <Card>
+              <CardHeader
+                title={`Take a picture of... ${clue.prompt}`}
+                subtitle={clue.status}
+                actAsExpander={true}
+                showExpandableButton={true}
+              />
+              <CardActions>
+                <FlatButton label="Solve" />
+                <FlatButton label="Team Page" />
+              </CardActions>
+              <CardText expandable={true}>
+                <MapView />
+              </CardText>
+            </Card>
+          )}) : 
+        <div>Sign up with a team to start your adventures!</div>
+      }
+      
     </div>
   )
 }
@@ -18,9 +52,11 @@ export const UserHome = (props) => {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = ({user, clues}) => {
   return {
-    email: state.user.userName
+    userName: user.userName,
+    photo: user.photo,
+    clues: clues
   }
 }
 
