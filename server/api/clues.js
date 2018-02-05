@@ -18,7 +18,7 @@ router.param("teamId", (req, res, next, teamId) => {
 })
 
 router.get('/', (req, res, next) => {
-    UserTeamClueStatus.findAll({ where: { userId: req.user.id, status: 'assigned' }, include: [Clue] })
+    UserTeamClueStatus.findAll({ where: { userId: req.user.id, status: "assigned" }, include: [Clue] })
     .then(clues => {
       res.json(clues)
     })

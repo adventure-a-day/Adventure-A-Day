@@ -36,7 +36,36 @@ class UserHome extends Component {
     // clues && clues.map(clue => console.log(clue))
     return (
       <div>
-        <h3>Testing</h3>
+        <div>
+          <h3>Welcome, {userName}</h3>
+          <span>
+            <Avatar src={photo} />
+          </span>
+          <CreateTeam />
+        </div>
+        {clues.userClues.length ? (
+          clues.userClues.map(clue => {
+            console.log("CLUE: ", clue)
+            return (
+              <Card>
+                <CardHeader
+                  title={`${clue.clue.prompt}`}
+                  actAsExpander={true}
+                  showExpandableButton={true}
+                />
+                <CardActions>
+                  <FlatButton label="Solve" />
+                  <FlatButton label="Team Page" />
+                </CardActions>
+                <CardText expandable={true}>
+                  <MapView />
+                </CardText>
+              </Card>
+            )
+          })
+        ) : (
+          <div>Sign up with a team to start your adventures!</div>
+        )}
       </div>
     )
   }
