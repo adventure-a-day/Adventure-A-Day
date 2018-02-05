@@ -28,7 +28,7 @@ async function seed() {
   // executed until that promise resolves!
 
   const missions = await Promise.all([
-    Mission.create({ name: "Daily Adventure" }),
+    Mission.create({ name: "Daily Adventures" }),
     // Mission.create({ name: "Testing an open-ended mission" })
   ])
 
