@@ -1,4 +1,5 @@
 const router = require("express").Router()
+const Op = require("sequelize").Op
 const isMemberOfTeam = require("../isMemberOfTeam")
 const { Team, User } = require("../db/models")
 module.exports = router
@@ -29,14 +30,39 @@ router.get("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   // in req.body: name
-  Team.create(req.body)
-    .then(createdTeam => res.json(createdTeam))
+  Team.create({ name: req.body.name })
+    .then(createdTeam => {
+      createdTeam.addUser(req.user)
+      createdTeam.addMission(1)
+      res.json(createdTeam)
+    })
+    .catch(next)
+})
+
+router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
+  const { targetUser } = req.body
+  User.findOne({
+    where: { [Op.or]: [{ email: targetUser }, { userName: targetUser }] }
+  })
+    .then(foundUser => {
+      if (foundUser) {
+        if (foundUser.hasTeam(req.params.teamid)) {
+          throw new Error("User Already Added")
+        }
+        foundUser.addTeam(req.params.teamId)
+        res.json(foundUser)
+      } else {
+        let err = new Error("User Not Found")
+        err.status = 404
+        throw err
+      }
+    })
     .catch(next)
 })
 
 router.delete("/:teamId", isMemberOfTeam, (req, res, next) => {
   const teamId = req.params.teamId
   Team.destroy({ where: { id: teamId } })
-    .then(deleteSuccess => res.sendStatus(204))
+    .then(() => res.sendStatus(204))
     .catch(next)
 })

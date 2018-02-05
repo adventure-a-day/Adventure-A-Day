@@ -1,29 +1,36 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import Avatar from 'material-ui/Avatar';
-import {MapView} from '../components'
+import React from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import CreateTeam from "./CreateTeam"
+import { Card, CardActions, CardHeader, CardText } from "material-ui/Card"
+import FlatButton from "material-ui/FlatButton"
+import Avatar from "material-ui/Avatar"
+import { MapView } from "../components"
 
 const assignedClues = [
-  {prompt: 'a doodle cartoon you drew', status: 'not completed'},
-  {prompt: 'some local artwork you found', status: 'not completed'}
+  { prompt: "a doodle cartoon you drew", status: "not completed" },
+  { prompt: "some local artwork you found", status: "not completed" }
 ]
 
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
-  const {userName, clues, photo} = props
-  console.log('clues ', clues) /**THIS NEEDS TO BE FILLED IN WITH THE USER'S REAL CLUES */
+export const UserHome = props => {
+  const { userName, clues, photo } = props
+  console.log(
+    "clues ",
+    clues
+  ) /**THIS NEEDS TO BE FILLED IN WITH THE USER'S REAL CLUES */
   return (
     <div>
       <div>
-        <h3>Welcome, {userName}</h3>  
-        <span><Avatar src={photo} /></span>
+        <h3>Welcome, {userName}</h3>
+        <span>
+          <Avatar src={photo} />
+        </span>
+        <CreateTeam />
       </div>
-      {assignedClues.length ? 
+      {assignedClues.length ? (
         assignedClues.map(clue => {
           return (
             <Card>
@@ -41,10 +48,11 @@ export const UserHome = (props) => {
                 <MapView />
               </CardText>
             </Card>
-          )}) : 
+          )
+        })
+      ) : (
         <div>Sign up with a team to start your adventures!</div>
-      }
-      
+      )}
     </div>
   )
 }
@@ -52,13 +60,11 @@ export const UserHome = (props) => {
 /**
  * CONTAINER
  */
-const mapState = ({user, clues}) => {
-  return {
-    userName: user.userName,
-    photo: user.photo,
-    clues: clues
-  }
-}
+const mapState = ({ user, clues }) => ({
+  userName: user.userName,
+  photo: user.photo,
+  clues: clues
+})
 
 export default connect(mapState)(UserHome)
 
