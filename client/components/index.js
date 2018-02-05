@@ -14,3 +14,5 @@ export { default as TeamSelect } from "./team-select"
 export { default as PushBtn } from "./pushBtn"
 export { default as SolveClue } from './solve-clue'
 export {default as GalleryView} from './gallery-view'
+export {default as BottomNavbar} from './bottom-nav'
+export {default as MapView} from './map'

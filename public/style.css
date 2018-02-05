@@ -1,9 +1,11 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: darkslategrey;
+  /* background-image: url('/public/Neon-City-Pattern.png');
+  background-repeat: repeat-y; */
 }
 
 a {
@@ -93,17 +95,27 @@ button {
   margin-top: 75px;
 }
 
-#footer {
-  position:fixed;
-  left:0px;
-  bottom:0px;
-  height:80px;
-  width:100%;
-  background: #63D1F4;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
+  height: 100%;
 }
+
+
+/* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    #footer {
+    position:fixed;
+    bottom:0px;
+    width:100%;
+    }
+}
+ 
 
 
 
