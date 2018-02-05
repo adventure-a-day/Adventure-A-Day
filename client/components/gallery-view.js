@@ -4,9 +4,9 @@ import Gallery from 'react-photo-gallery';
 import Lightbox from 'react-images';
 
 const photos = [
-  { src: 'test-photos/IMG_0165.jpg', width: 4, height: 3 },
-  { src: 'test-photos/IMG_0269.jpg', width: 1, height: 1 },
-  { src: 'test-photos/IMG_0305.jpg', width: 3, height: 4 },
+  { src: '/test-photos/IMG_0165.jpg', width: 4, height: 3 },
+  { src: '/test-photos/IMG_0269.jpg', width: 1, height: 1 },
+  { src: '/test-photos/IMG_0305.jpg', width: 3, height: 4 },
   { src: 'https://s3.amazonaws.com/where-in-the-world-gh/girl.jpg', width: 3, height: 4 },
 ];
 

@@ -5,13 +5,15 @@ import axios from "axios"
  */
 const GOT_ASSIGNED = "GOT_ASSIGNED"
 const GOT_COMPLETED = "GOT_COMPLETED"
+const GOT_USER_CLUES = "GOT_USER_CLUES"
 
 /**
  * DEFAULT STATE
  */
 const clueState = {
   assignedClues: [],
-  completedClues: []
+  completedClues: [],
+  userClues: []
 }
 
 /**
@@ -25,6 +27,11 @@ export const gotAssigned = assignedClues => ({
 export const gotCompleted = completedClues => ({
   type: GOT_COMPLETED,
   completedClues
+})
+
+export const gotUserClues = userClues => ({
+  type: GOT_USER_CLUES,
+  userClues
 })
 
 /**
@@ -50,6 +57,16 @@ export const fetchCompleted = teamId => {
       .catch(err => console.log(err))
 }
 
+export const fetchUserClues = () => {
+  return dispatch =>
+    axios
+      .get('/api/clues')
+      .then(userClues => {
+        dispatch(gotUserClues(userClues.data))
+      })
+      .catch(err => console.log(err))
+}
+
 /**
  * REDUCER
  */
@@ -59,6 +76,8 @@ export default function(state = clueState, action) {
       return Object.assign({}, state, { assignedClues: action.assignedClues })
     case GOT_COMPLETED:
       return Object.assign({}, state, { completedClues: action.completedClues })
+    case GOT_USER_CLUES:
+      return Object.assign({}, state, { userClues: action.userClues })
     default:
       return state
   }
