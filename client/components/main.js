@@ -12,9 +12,8 @@ import { PushBtn, TeamSelect, BottomNavbar, LocationTracker } from "./index"
  *  rendered out by the component's `children`.
  */
 
-
 const Main = props => {
-  const { children, handleClick, isLoggedIn } = props
+  const { children, handleClick, isLoggedIn, teamId } = props
 
   Notification.requestPermission()
 
@@ -23,7 +22,7 @@ const Main = props => {
       <div id="footer">
         <BottomNavbar />
       </div>
-      <LocationTracker />      
+      <LocationTracker />
       {children}
     </div>
   )
@@ -32,9 +31,11 @@ const Main = props => {
 /**
  * CONTAINER
  */
-const mapState = state => { //mapping "isLoggedIn" here is currently redundant, but may be useful for future purposes
+const mapState = state => {
+  //mapping "isLoggedIn" here is currently redundant, but may be useful for future purposes
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    teamId: state.currentTeam.id || null
   }
 }
 
