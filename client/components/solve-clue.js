@@ -35,7 +35,6 @@ class SolveClue extends Component {
 
     render(props) {
         const { assignedClue } = this.state
-        console.log(assignedClue, "ASSIGNED CLUEEEE")
         return (
             <div>
                 <h1>Solve the Clue!</h1>

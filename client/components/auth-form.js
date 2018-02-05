@@ -37,6 +37,7 @@ class AuthForm extends Component {
         <form onSubmit={handleSubmit.bind(this)} name={name} className="form-group">
         <TextField 
           id="username"
+          className="input"
           margin="normal"
           type="text"
           floatingLabelText="username"
@@ -45,6 +46,7 @@ class AuthForm extends Component {
         /><br />
         <TextField 
           id="email"
+          className="input"
           margin="normal"
           type="text"
           floatingLabelText="email"
@@ -53,6 +55,7 @@ class AuthForm extends Component {
         /><br />
         <TextField 
           id="password"
+          className="input"
           margin="normal"
           type="password"
           floatingLabelText="password"
@@ -96,7 +99,6 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit (evt) {
       evt.preventDefault()
-      console.log(this.state, 'state in dispatch')
       const formName = evt.target.name
       const email = this.state.email
       const password = this.state.password
