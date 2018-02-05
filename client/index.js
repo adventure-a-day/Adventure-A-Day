@@ -22,7 +22,7 @@ axios
     store.dispatch(getUser(user))
     ReactDOM.render(
       <Provider store={store}>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <MuiThemeProvider theme={getMuiTheme(darkBaseTheme)}>
           <Routes />
         </MuiThemeProvider>
       </Provider>,
