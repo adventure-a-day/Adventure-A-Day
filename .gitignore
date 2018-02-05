@@ -5,5 +5,5 @@ secrets.js
 .DS_Store
 npm-debug.log
 yarn-error.log
-/* serviceAccountKey.json */
-/* config.js */
+serviceAccountKey.json
+config.js
