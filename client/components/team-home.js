@@ -4,27 +4,32 @@ import { connect } from "react-redux"
 import { withRouter, BrowserRouter as Router } from "react-router-dom"
 import AddTeamMember from "./AddTeamMember"
 
-const TeamHome = props => (
-  <div>
+const TeamHome = props => {
+  const {clues, teamMembers} = props;
+  console.log('teamMembers', teamMembers)
+  return (
+    <div>
     <AddTeamMember />
-    <h1>Assigned Tasks</h1>
+    <h1>Team Adventures</h1>
     <ul>
-      {props.clues.assignedClues &&
-        props.clues.assignedClues.map(clue => (
-          <li key={clue.clue.id}>{clue.clue.prompt}</li>
+      {clues.assignedClues &&
+        clues.assignedClues.map(clue => (
+          <li key={clue.clue.id}>{teamMembers.length && teamMembers.filter(member => member.id === clue.userId)[0].userName}: {clue.clue.prompt}</li>
         ))}
     </ul>
-    <h1>Completed Tasks</h1>
+    <h1>Completed Adventures</h1>
     <ul>
-      {props.clues.completedClues &&
-        props.clues.completedClues.map(clue => (
+      {clues.completedClues &&
+        clues.completedClues.map(clue => (
           <li key={clue.clue.id}>{clue.clue.prompt}</li>
         ))}
     </ul>
   </div>
-)
+  )
+}
 
-const mapState = ({ clues }) => ({ clues })
+
+const mapState = ({ clues, teamMembers }) => ({ clues, teamMembers })
 
 const mapDispatch = (dispatch, ownProps) => ({})
 
