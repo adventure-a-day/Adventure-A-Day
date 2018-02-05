@@ -20,7 +20,7 @@ const reducer = combineReducers({
   teamMembers,
   clues,
   teamMessages,
-  addMemberMessage
+  addMemberMessage,
   currentLocation
 })
 const middleware = composeWithDevTools(
