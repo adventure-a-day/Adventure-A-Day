@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 import { logout } from "../store"
-import { PushBtn, TeamSelect, BottomNavbar, LocationTracker } from "./index"
+import { PushBtn, TeamSelect, BottomNavbar, LocationTracker, MyMapComponent } from "./index"
 
 /**
  * COMPONENT
@@ -23,7 +23,7 @@ const Main = props => {
       <div id="footer">
         <BottomNavbar />
       </div>
-      <LocationTracker />       
+      <MyMapComponent />       
       {children}
     </div>
   )
