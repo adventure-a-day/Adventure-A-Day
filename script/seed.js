@@ -17,6 +17,7 @@ const {
   Mission,
   Clue,
   Message,
+  Photo,
   UserTeamClueStatus
 } = require("../server/db/models")
 
@@ -27,8 +28,8 @@ async function seed() {
   // executed until that promise resolves!
 
   const missions = await Promise.all([
-    Mission.create({ name: "Fierce Females in NY FiDi" }),
-    Mission.create({ name: "Testing an open-ended mission" })
+    Mission.create({ name: "Daily Adventure" }),
+    // Mission.create({ name: "Testing an open-ended mission" })
   ])
 
   const teams = await Promise.all([
@@ -39,159 +40,106 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({ email: "cody@email.com", password: "123", userName: "cody" }),
-    User.create({
-      email: "murphy@email.com",
-      password: "123",
-      userName: "murphy"
-    })
+    User.create({ email: "murphy@email.com", password: "123", userName: "murphy" }),
+    User.create({ email: "chloe@email.com", password: "123", userName: "chloe" }),
+    User.create({ email: "zoe@email.com", password: "123", userName: "zoe" }),
+    User.create({ email: "miley@email.com", password: "123", userName: "miley" }),
+    User.create({ email: "luna@email.com", password: "123", userName: "luna" }),
+    User.create({ email: "molly@email.com", password: "123", userName: "molly" }),
+    User.create({ email: "jake@email.com", password: "123", userName: "jake" }),
+    User.create({ email: "harry@email.com", password: "123", userName: "harry" })
   ])
 
   const clues = await Promise.all([
     Clue.create({
-      prompt: "She stands fearless in the face of money maniacs!",
-      hint1: "No BULL-y can make her stand down!",
-      hint2: "She might be small, but her STATU-rE is strong...",
-      gps: [40.7056, 74.0134],
-      region: "NYC FiDi",
-      answer: "Fearless girl",
+      prompt: "Take a picture of... a cartoon doodle you drew",
       missionId: 1,
       labels: [
-        "statue",
-        "landmark",
-        "monument",
-        "sculpture",
-        "building",
-        "architecture",
-        "memorial",
-        "tourist attraction",
-        "window",
-        "facade"
-      ],
-      webLabels: [
-        "Fearless Girl",
-        "Charging Bull",
-        "Wall Street",
-        "Statue",
-        "Bronze sculpture"
+        "cartoon",
+        "text",
+        "illustration",
+        "art",
+        "font",
+        "drawing",
+        "design"
       ]
     }),
     Clue.create({
-      prompt: "If you’re feeling buggy, this school is for you...",
-      hint1: "If you want to answer this clue, you’d better get HOPPin’!",
-      hint2:
-        "The clock is ticking… but one hand is moving the wrong way! Who set the clocks like that?!",
-      gps: [40.7051, 74.0092],
-      region: "NYC FiDi",
-      answer: "Grace Hopper Program",
+      prompt: "Take a picture of... some local artwork you found",
       missionId: 1,
       labels: [
-        "Text",
-        "Logo",
-        "Product",
-        "Font",
-        "Line",
-        "Area",
-        "Brand",
-        "Product Design",
-        "Graphics",
-        "Product",
-        "Diagram",
-        "Graphic Design"
-      ],
-      webLabels: [
-        "The Grace Hopper Program",
-        "Fullstack Academy",
-        "Fullstack Academy of Code",
-        "Fullstack Academy of Code",
-        "Coding bootcamp",
-        "Software engineering",
-        "Computer programming",
-        "JavaScript",
-        "Programmer",
-        "Computer program",
-        "Node.js",
-        "Woman",
-        "Learning",
-        "Grace Hopper",
-        "New York City"
+        "street art",
+        "art",
+        "wall",
+        "graffiti",
+        "painting",
+        "photo",
+        "art gallery",
+        "visual arts"
       ]
     }),
     Clue.create({
-      prompt:
-        "Muriel “Mickie” Siebert was the first woman to purchase a seat here in 1967",
-      hint1: "You won’t get anything for free here, but you can strike a deal!",
-      hint2: "This is a place where money is traded and hearts are broken...",
-      gps: [40.70756, 74.010789],
-      region: "NYC FiDi",
-      answer: "NY Stock Exchange",
+      prompt: "Take a picture of... your shoes today",
       missionId: 1,
       labels: [
-        "building",
-        "classical architecture",
-        "landmark",
+        "shoe",
+        "shoes"
+      ]
+    }),
+    Clue.create({
+      prompt: "Take a picture of... yourself in nature",
+      missionId: 1,
+      labels: [
+        "grass",
+        "plant",
         "city",
-        "tourist attraction",
-        "commercial building"
-      ],
-      webLabels: [
-        "NYSE",
-        "Wall Street",
-        "Stock",
-        "Stock Exchange",
-        "Exchange",
-        "Trader",
-        "Finance",
-        "Stock market"
+        "park",
+        "garden",
+        "meadow",
+        "tree",
+        "plant",
+        "green",
+        "nature",
+        "leaf",
+        "vegetation",
+        "sunlight",
+        "forest",
+        "landscape",
+        "flower",
+        "grove",
+        "flora",
+        "water",
+        "sky"
       ]
     }),
     Clue.create({
-      prompt:
-        "Here you can learn about Wall Street pioneers like Isabel Benham, Abigail Adams and Hetty Green",
-      hint1: "There haven’t been many women in Finance throughout history...",
-      hint2: "Put the fun in finance!",
-      gps: [40.7064, 74.0093],
-      region: "NYC FiDi",
-      answer: "Museum of American Finance",
+      prompt: "Take a picture of... an animal (the cuter the better!)",
       missionId: 1,
       labels: [
-        "Crowd",
-        "City",
-        "Downtown",
-        "Urban Area",
-        "Street",
-        "Metropolitan Area",
-        "Building",
-        "Pedestrian",
-        "Demonstration",
-        "Car",
-        "Event",
-        "Protest",
-        "Town Square",
-        "Recreation",
-        "Vehicle"
-      ],
-      webLabels: [
-        "Museum of American Finance",
-        "Federal Hall",
-        "Street",
-        "Protest",
-        "Demonstration",
-        "Finance",
-        "Museum",
-        "Car",
-        "Shopping",
-        "Meeting",
-        "Gift shop",
-        "Recreation",
-        "New York City",
-        "United States"
+        "wildlife",
+        "zoo",
+        "terrestrial animal",
+        "dog",
+        "cat",
+        "puppy",
+        "kitten",
+        "pet"
+      ]
+    }),
+    Clue.create({
+      prompt: "Take a picture of... your favorite eatery or one you want to try",
+      missionId: 1,
+      labels: [
+        "restaurant",
+        "cafe",
+        "coffeehouse",
+        "building",
+        "bar"
       ]
     })
-    // Clue.create({
-    //   prompt: "Find a new coffee shop and take a picture with the barista!",
-    //   hint1: "Can't wait to caffeinate",
-    //   hint2: "Time's running out!"
-    // })
+
+    // you and a friend
+    // breakfast/coffee
   ])
 
   const messages = await Promise.all([
@@ -219,6 +167,12 @@ async function seed() {
     }),
     Message.create({ text: "...", teamId: 1, userId: 1 })
   ])
+
+  const photos = await Promise.all([
+    Photo.create({ url: "https://s3.amazonaws.com/where-in-the-world-gh/dog.jpg", teamId: 1, userId: 1 }),
+    Photo.create({ url: "https://s3.amazonaws.com/where-in-the-world-gh/cereal.jpg", teamId: 1, userId: 2 })
+  ])
+
   //'unassigned', 'assigned', 'completed'
   const userTeamClueStatuses = await Promise.all([
     UserTeamClueStatus.create({ status: "unassigned" })
@@ -257,17 +211,23 @@ async function seed() {
 
   const teamMembers = await Promise.all([
     Team.findById(1).then(foundTeam => {
-      return foundTeam.setUsers([1, 2])
+      return foundTeam.setUsers([1, 2, 3])
+    }),
+    Team.findById(2).then(foundTeam => {
+      return foundTeam.setUsers([1, 4, 5, 6])
+    }),
+    Team.findById(3).then(foundTeam => {
+      return foundTeam.setUsers([7, 8, 9])
     })
   ])
 
   const teamMissions = await Promise.all([
     Mission.findById(1).then(found => {
-      return found.setTeams([1, 2])
-    }),
-    Mission.findById(2).then(found => {
-      return found.setTeams([3])
+      return found.setTeams([1, 2, 3])
     })
+    // Mission.findById(2).then(found => {
+    //   return found.setTeams([3])
+    // })
   ])
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
@@ -275,7 +235,7 @@ async function seed() {
   console.log(
     `seeded ${users.length} users, ${teams.length} teams, ${
       missions.length
-    } missions, ${clues.length} clues`
+    } missions, ${clues.length} clues, ${photos.length} photos`
   )
   console.log(`seeded successfully`)
 }
