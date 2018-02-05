@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {TextField, RaisedButton} from 'material-ui'
@@ -78,6 +79,9 @@ class AuthForm extends Component {
         <div>{message}</div>
         <div>
           <RaisedButton style={{margin: 12}} label={displayName} type="submit" />
+        or { name === 'login'
+          ? <Link to="/signup">Sign Up</Link>
+          : <Link to="login">Log In</Link>}
         </div>
         </form>
       </div>
