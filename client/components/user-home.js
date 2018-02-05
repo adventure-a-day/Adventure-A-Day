@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
+import {MapView} from '../components'
 
 const assignedClues = [
   {prompt: 'a doodle cartoon you drew', status: 'not completed'},
@@ -37,7 +38,7 @@ export const UserHome = (props) => {
                 <FlatButton label="Team Page" />
               </CardActions>
               <CardText expandable={true}>
-                {clues.prompt}
+                <MapView />
               </CardText>
             </Card>
           )}) : 

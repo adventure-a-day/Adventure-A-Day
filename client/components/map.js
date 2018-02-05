@@ -1,4 +1,4 @@
-import React from "react"
+import React, {Component} from "react"
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
@@ -20,9 +20,9 @@ const MyMapComponent = compose(
   </GoogleMap>
 )
 
-class MyFancyComponent extends React.PureComponent {
+class MapView extends Component {
   state = {
-    isMarkerShown: false,
+    isMarkerShown: true,
   }
 
   componentDidMount() {
@@ -50,4 +50,4 @@ class MyFancyComponent extends React.PureComponent {
   }
 }
 
-export default MyMapComponent
+export default MapView

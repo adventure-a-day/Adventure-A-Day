@@ -15,4 +15,4 @@ export { default as PushBtn } from "./pushBtn"
 export { default as SolveClue } from './solve-clue'
 export {default as GalleryView} from './gallery-view'
 export {default as BottomNavbar} from './bottom-nav'
-export {default as MyMapComponent} from './map'
+export {default as MapView} from './map'

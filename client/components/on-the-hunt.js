@@ -1,8 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
-// let geocoder = new google.maps.Geocoder;
-// let infowindow = new google.maps.InfoWindow;
 import {setCurrentLocation} from '../store'
 /**
  * COMPONENT
@@ -20,6 +18,7 @@ export class LocationTracker extends Component {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
               };
+              console.log('pos', pos)
               this.props.setCurrentLocation([pos.lat, pos.lng])
             })
           }
