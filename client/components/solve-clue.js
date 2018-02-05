@@ -45,11 +45,6 @@ class SolveClue extends Component {
                         <div>
                             <PhotoInput />
                         </div>
-                        <div>
-                            <button onClick={this.handleClick}>Give me a hint!</button>
-                        </div>
-                        {this.state.hints && this.state.hints.map(hint => <div key={hint}>{hint}</div>)}
-
                     </div>
                     )
                     : <h2>Please remember to select a team</h2>

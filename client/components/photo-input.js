@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
+import history from '../history'
 import config from "./config"
 import axios from "axios"
 let AWS = require("aws-sdk")
@@ -73,14 +74,22 @@ class PhotoInput extends Component {
 
   render() {
     return (
-      <div className="main-content">
+      <div>
         <form
           onSubmit={evt => this.handleSubmit(evt, this.props.currentTeam.id, this.props.user.id)}
         >
           <input type="file" accept="image/*" id="file-input" name="file" />
           <button type="submit">Submit</button>
-        </form>
-        <h4>{this.state.message}</h4>
+        </form> { 
+          (this.state.imageUrl.length > 0) &&  ( 
+            <div>
+              <img src={this.state.imageUrl} height="300" width="400"></img>
+              <h4>{this.state.message}</h4>
+              <button onClick={() => history.push(`/team/${this.props.currentTeam.id}/home`) }>Team Home</button>
+            </div>
+          ) 
+        }
+       
       </div>
     )
   }
