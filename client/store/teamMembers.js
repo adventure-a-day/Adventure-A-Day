@@ -1,9 +1,11 @@
 import axios from "axios"
+import { gotAddMemberMessage } from "../store"
 
 /**
  * ACTION TYPES
  */
 const GOT_TEAM_MEMBERS = "GOT_TEAM_MEMBERS"
+const ADDED_TEAM_MEMBER = "ADDED_TEAM_MEMBER"
 
 /**
  * ACTION CREATORS
@@ -11,6 +13,11 @@ const GOT_TEAM_MEMBERS = "GOT_TEAM_MEMBERS"
 export const gotAllTeamMembers = teamMembers => ({
   type: GOT_TEAM_MEMBERS,
   teamMembers
+})
+
+const addedTeamMember = teamMember => ({
+  type: ADDED_TEAM_MEMBER,
+  teamMember
 })
 
 /**
@@ -26,6 +33,16 @@ export const fetchTeamMembers = teamId => {
       .catch(err => console.log(err))
 }
 
+export const postNewTeamMember = (targetUser, teamId) => dispatch =>
+  axios.post(`/api/teams/${teamId}/teamMembers`, { targetUser }).then(res => {
+    if (typeof res.data === "string") {
+      dispatch(gotAddMemberMessage(res.data))
+    } else {
+      dispatch(gotAddMemberMessage("Team Member Added!"))
+      dispatch(addedTeamMember(res.data))
+    }
+  })
+
 /**
  * REDUCER
  */
@@ -33,6 +50,8 @@ export default function(state = [], action) {
   switch (action.type) {
     case GOT_TEAM_MEMBERS:
       return action.teamMembers
+    case ADDED_TEAM_MEMBER:
+      return [...state, action.teamMembers]
     default:
       return state
   }

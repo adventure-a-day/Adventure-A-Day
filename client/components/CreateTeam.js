@@ -1,10 +1,12 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import { withRouter } from "react-router-dom"
 import { postNewTeam } from "../store"
 
 const CreateTeam = props => (
   <form onSubmit={props.handleCreate}>
-    <input type="text" name="teamName" />
+    <label>Create A Team: </label>
+    <input type="text" name="teamName" placeholder="Enter team name..." />
     <button>Create</button>
   </form>
 )
@@ -18,4 +20,4 @@ const mapDispatch = dispatch => ({
   }
 })
 
-export default connect(mapState, mapDispatch)(CreateTeam)
+export default withRouter(connect(mapState, mapDispatch)(CreateTeam))

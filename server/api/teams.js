@@ -49,20 +49,20 @@ router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
         if (foundUser.hasTeam(req.params.teamid)) {
           throw new Error("User Already Added")
         }
-        return foundUser.addTeam(req.params.teamId)
+        foundUser.addTeam(req.params.teamId)
+        res.json(foundUser)
       } else {
         let err = new Error("User Not Found")
         err.status = 404
         throw err
       }
     })
-    .then(() => res.send("User Added"))
     .catch(next)
 })
 
 router.delete("/:teamId", isMemberOfTeam, (req, res, next) => {
   const teamId = req.params.teamId
   Team.destroy({ where: { id: teamId } })
-    .then(deleteSuccess => res.sendStatus(204))
+    .then(() => res.sendStatus(204))
     .catch(next)
 })
