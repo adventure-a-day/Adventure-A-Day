@@ -1,9 +1,12 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { withRouter } from "react-router-dom"
+
+import { withRouter, BrowserRouter as Router } from "react-router-dom"
+import AddTeamMember from "./AddTeamMember"
 
 const TeamHome = props => (
   <div>
+    <AddTeamMember />
     <h1>Assigned Tasks</h1>
     <ul>
       {props.clues.assignedClues &&
