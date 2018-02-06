@@ -4,13 +4,6 @@ import { render } from 'react-dom';
 import Gallery from 'react-photo-gallery';
 import Lightbox from 'react-images';
 import { fetchPhotos } from '../store'
-// const photos = [
-//   { src: '/test-photos/IMG_0165.jpg', width: 4, height: 3 },
-//   { src: '/test-photos/IMG_0269.jpg', width: 1, height: 1 },
-//   { src: '/test-photos/IMG_0305.jpg', width: 3, height: 4 },
-//   { src: 'https://s3.amazonaws.com/where-in-the-world-gh/girl.jpg', width: 3, height: 4 },
-// ];
-
 
 class GalleryView extends Component {
   constructor(props) {
@@ -48,12 +41,32 @@ class GalleryView extends Component {
       currentImage: this.state.currentImage + 1,
     });
   }
+  
   render(props) {
     const {photos, currentTeam} = this.props
     console.log(photos)
     return (
       <div>
-        {photos.photos && photos.photos.map(photo => <img src={photo.url} height="400" width="350"></img>)}
+        <h2>Success: </h2>
+        { photos.photos &&
+          photos.photos.filter(photo => photo.success === true).map(photo => {
+            return (
+              <div key={photo.id}>
+              <img key={photo.id} src={photo.url} height="200" width="200"></img>
+              </div>
+            )
+          })
+        }
+        <h2>Fail: </h2>
+        { photos.photos &&
+          photos.photos.filter(photo => photo.success === false).map(photo => {
+            return (
+              <div key={photo.id}>
+              <img key={photo.id} src={photo.url} height="200" width="200"></img>
+              </div>
+            )
+          })
+        }
       </div>
     )
   }

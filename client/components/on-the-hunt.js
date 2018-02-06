@@ -11,7 +11,7 @@ export class LocationTracker extends Component {
     }
 
     componentDidMount(props) {
-      console.log(this.props, 'updated props in component did mount2')
+      // console.log(this.props, 'updated props in component did mount2')
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
               let pos = {
@@ -19,6 +19,7 @@ export class LocationTracker extends Component {
                 lng: position.coords.longitude
               };
               console.log('pos', pos)
+              console.log('props after setting position', this.props)
               this.props.setCurrentLocation([pos.lat, pos.lng])
             })
           }
@@ -33,13 +34,13 @@ export class LocationTracker extends Component {
     }
 }
 
-const mapState = ({user}) => {user}
+const mapState = ({user}) => ({user})
 
 const mapDispatch = (dispatch) => {
   return {
     setCurrentLocation(coords) {
       console.log('setting currentLocation to ' + coords)
-      dispatch(setCurrentLocation(coords))
+      return dispatch(setCurrentLocation(coords))
     }
   }
 }

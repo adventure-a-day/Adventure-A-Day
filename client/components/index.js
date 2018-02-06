@@ -17,3 +17,4 @@ export {default as GalleryView} from './gallery-view'
 export {default as Team} from "./team.js"
 export {default as BottomNavbar} from './bottom-nav'
 export {default as MapView} from './map'
+

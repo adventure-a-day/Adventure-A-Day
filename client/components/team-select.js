@@ -40,7 +40,6 @@ const mapDispatch = (dispatch, ownProps) => {
       event.preventDefault()
       const teamId = event.target.value
       ownProps.history.push(`/team/${teamId}/home`)
-      // dispatch(setCurrentTeam(teamId))
     }
   }
 }

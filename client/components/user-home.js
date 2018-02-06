@@ -6,7 +6,7 @@ import CreateTeam from "./CreateTeam"
 import { Card, CardActions, CardHeader, CardText } from "material-ui/Card"
 import FlatButton from "material-ui/FlatButton"
 import Avatar from "material-ui/Avatar"
-import { MapView } from "../components"
+import { MapView} from "../components"
 import { fetchUserClues } from "../store"
 
 
@@ -36,7 +36,7 @@ class UserHome extends Component {
         {clues.userClues.length ? (
           clues.userClues.map(clue => {
             return (
-              <Card>
+              <Card key={clue.id}>
                 <CardHeader
                   title={`${clue.clue.prompt}`}
                   actAsExpander={true}
