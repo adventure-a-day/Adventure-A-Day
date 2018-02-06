@@ -37,10 +37,12 @@ git checkout -b deploy
 webpack -p
 
 # "force" add the otherwise gitignored build files
-git add -f public/bundle.js public/bundle.js.map
+git add -f public/bundle.js public/bundle.js.map serviceAccountKey.json client/components/config.js 
 
 # create a commit, even if nothing changed
 git commit --allow-empty -m 'Deploying'
 
 # push your local "deploy" branch to the "master" branch on heroku
 git push --force heroku deploy:master
+
+heroku run npm run seed
