@@ -49,9 +49,22 @@ router.post("/", (req, res, next) => {
 router.get("/:teamId/assign", isMemberOfTeam, (req, res, next) => {
   let team, users
   let assignedClues = []
-  Team.findById(req.params.teamId, {
-    include: [{ model: User.scope("subscriptions") }]
+  UserTeamClueStatus.findAll({
+    where: { teamId: req.params.teamId, status: "assigned" }
   })
+    .then(clues => {
+      if (clues.length) {
+        let err = new Error()
+        err.message = "Team Still has Adventures!"
+        err.status = 401
+        throw err
+      }
+    })
+    .then(
+      Team.findById(req.params.teamId, {
+        include: [{ model: User.scope("subscriptions") }]
+      })
+    )
     .then(foundTeam => {
       team = foundTeam
       users = { team }
@@ -83,10 +96,11 @@ router.get("/:teamId/assign", isMemberOfTeam, (req, res, next) => {
                   .catch(() => sub.destroy())
               )
             })
-            .catch(console.error)
+            .catch(next)
         })
       }
     })
+    .catch(next)
   res.json(assignedClues)
 })
 
