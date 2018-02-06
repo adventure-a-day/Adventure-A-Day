@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 import { logout, fetchTeams } from "../store"
-import { PushBtn, TeamSelect, LocationTracker, BottomNavbar } from "./index"
+import { PushBtn, TeamSelect, LocationTracker, BottomNavbar, Team } from "./index"
 
 /**
  * COMPONENT
@@ -24,7 +24,7 @@ class Main extends Component {
   render() {
 
     const { children, handleClick, isLoggedIn, teamId } = this.props
-
+    console.log('teamId', teamId)
     Notification.requestPermission()
 
     return (

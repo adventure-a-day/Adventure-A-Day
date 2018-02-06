@@ -9,7 +9,7 @@ body {
   color: #45385B;
 }
 
-h1, h2, h3,label, input, button {
+h1, h2, h3, h4, label, input, button, p {
   font-family: 'Josefin Sans', sans-serif;
 }
 a {
@@ -75,6 +75,25 @@ button {
   align-items: center;
 }
 
+.message {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+
+.message p, h4, img {
+  margin: 10px; 
+}
+
+.message img {
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+}
+
 #main-heading-container {
   position: absolute; 
   margin-top: 40px;
@@ -95,6 +114,21 @@ button {
 #user-header img {
   margin: 0 40px;
 }
+
+#chat-input {
+  width: 70%;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#message-submit {
+  height: 30px;
+  width: 5%;
+  background-color: #FF8C4C;
+  border-radius: 5px;
+}
+
 
 #footer div {
   background-color: #AC748F !important;
@@ -121,6 +155,10 @@ button {
   height: 100%;
 }
 
+#upload-photo {
+  border-radius: 10%;
+  background-color: #FF8C4C;
+}
 
 /* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
 

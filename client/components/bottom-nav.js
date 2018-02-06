@@ -59,7 +59,7 @@ class BottomNavbar extends Component {
 
 
   render() {
-    const {handleClick, isLoggedIn} = this.props
+    const {handleClick, isLoggedIn, currentTeam} = this.props
 
     return (
       <Paper zDepth={1}>
