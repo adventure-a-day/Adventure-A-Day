@@ -71,7 +71,10 @@ export const fetchNewAdventures = teamId => dispatch => {
   axios
     .get(`/teams/${teamId}/assign`)
     .then(res => res.data)
-    .then(assignedClues => dispatch(gotAssigned(assignedClues)))
+    .then(assignedClues => {
+      console.log(assignedClues)
+      dispatch(gotAssigned(assignedClues))
+    })
     .catch(err => console.error(err))
 }
 /**
