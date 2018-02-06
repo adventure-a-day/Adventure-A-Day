@@ -25,7 +25,7 @@ class AuthForm extends Component {
     super(props)
 
     this.state = {
-      username: '',
+      userName: '',
       email: '',
       password: '',
       password2: '',
@@ -120,7 +120,9 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name
       const email = this.state.email
       const password = this.state.password
+      const password2 = this.state.password2
       const userName = this.state.userName
+      console.log(userName)
       if (formName === 'login' || password === password2){
         dispatch(auth(email, password, userName, formName))
       } else {
