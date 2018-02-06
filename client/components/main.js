@@ -17,10 +17,6 @@ class Main extends Component {
     super(props)
   }
 
-  // componentDidMount(props) {
-  //   this.props.fetchTeams()
-  // }
-
   render() {
 
     const { children, handleClick, isLoggedIn } = this.props
