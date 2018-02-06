@@ -37,17 +37,21 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    cache.open(cacheName).then(cache => cache.match(event.request).then(response => {
-      return response || cache.open(networkFirst)
-        .then(cache => 
-          cache.match(event.request)
-          .then(response =>  {
-            fetch(event.request)
-              .then(fetchResponse => {
+    caches.open(cacheName).then(cache =>
+      cache.match(event.request).then(response => {
+        return (
+          response ||
+          cache.open(networkFirst).then(cache =>
+            cache.match(event.request).then(response => {
+              fetch(event.request).then(fetchResponse => {
                 cache.put(event.request, fetchResponse.clone())
                 return fetchResponse || response
-        }})))
-    })
+              })
+            })
+          )
+        )
+      })
+    )
   )
 })
 
