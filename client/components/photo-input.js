@@ -89,17 +89,19 @@ class PhotoInput extends Component {
         </form> { 
           (this.state.imageUrl.length > 0) &&  ( 
             <div>
-              <img src={this.state.imageUrl} height="300" width="400"></img>
               <h4>{this.state.message}</h4>
-              <button onClick={() => history.push(`/team/${this.props.currentTeam.id}/home`) }>Team Home</button>
+              <img src={this.state.imageUrl} height="300" width="300"></img>
             </div>
           ) 
-        }
-       
+        } 
       </div>
     )
   }
 }
+
+/*
+  <button onClick={() => history.push(`/team/${this.props.currentTeam.id}/home`) }>Team Home</button>
+*/
 
 /**
  * CONTAINER
