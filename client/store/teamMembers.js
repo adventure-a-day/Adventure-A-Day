@@ -43,7 +43,7 @@ export const postNewTeamMember = (targetUser, teamId) => dispatch =>
       dispatch(addedTeamMember(res.data))
     }
     })
-    .catch(err => console.error(err)})
+    .catch(err => console.error(err))
 
 /**
  * REDUCER
