@@ -34,14 +34,16 @@ export const fetchTeamMembers = teamId => {
 }
 
 export const postNewTeamMember = (targetUser, teamId) => dispatch =>
-  axios.post(`/api/teams/${teamId}/teamMembers`, { targetUser }).then(res => {
+  axios.post(`/api/teams/${teamId}/teamMembers`, { targetUser })
+    .then(res => {
     if (typeof res.data === "string") {
       dispatch(gotAddMemberMessage(res.data))
     } else {
       dispatch(gotAddMemberMessage("Team Member Added!"))
       dispatch(addedTeamMember(res.data))
     }
-  })
+    })
+    .catch(err => console.error(err)})
 
 /**
  * REDUCER
@@ -51,7 +53,7 @@ export default function(state = [], action) {
     case GOT_TEAM_MEMBERS:
       return action.teamMembers
     case ADDED_TEAM_MEMBER:
-      return [...state, action.teamMembers]
+      return [...state, action.teamMember]
     default:
       return state
   }

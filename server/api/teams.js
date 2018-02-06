@@ -46,15 +46,18 @@ router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
   })
     .then(foundUser => {
       if (foundUser) {
-        if (foundUser.hasTeam(req.params.teamid)) {
-          throw new Error("User Already Added")
-        }
-        foundUser.addTeam(req.params.teamId)
-        res.json(foundUser)
+        foundUser.hasTeam(req.params.teamId)
+          .then(hasTeam => {
+            if(hasTeam) {
+              res.send("User Already Added")
+            } else {
+              foundUser.addTeam(req.params.teamId)
+              res.json(foundUser)
+            }
+          })
+          .catch(next)
       } else {
-        let err = new Error("User Not Found")
-        err.status = 404
-        throw err
+        res.send("User Not Found")
       }
     })
     .catch(next)
