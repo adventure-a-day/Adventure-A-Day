@@ -39,7 +39,7 @@ router.post("/", (req, res, next) => {
       res.json(createdTeam)
       Clue.findAll({ where: { missionId } }).then(clues => {
         clues.forEach(clue =>
-          UserTeamClueStatus.create({ clueId: clue.id, teamId: createdTeam.Id })
+          UserTeamClueStatus.create({ clueId: clue.id, teamId: createdTeam.id })
         )
       })
     })
