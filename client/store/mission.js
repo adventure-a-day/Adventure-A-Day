@@ -4,30 +4,27 @@ import history from "../history"
 /**
  * ACTION TYPES
  */
-const GET_MISSION = "GET_MISSION"
+const GET_ALL_MISSIONS = "GET_ALL_MISSIONS"
 // const DELETE_MISSION = 'DELETE_MISSION' **This will be useful later
 /**
  * INITIAL STATE
  */
-const defaultMission = {}
+const defaultMissions = []
 
 /**
  * ACTION CREATORS
  */
-export const getMission = mission => ({ type: GET_MISSION, mission })
-// const deleteMission = () => ({type: DELETE_MISSION})
+export const getAllMissions = missions => ({ type: GET_ALL_MISSIONS, missions })
 
 /**
  * THUNK CREATORS
  */
-export const fetchMission = missionId => {
+export const fetchMissions = () => {
   return dispatch =>
     axios
-      .get(`/api/missions/${missionId}`)
-      //this returns the current team's mission and all clues associated with that mission
-      //this still needs to load the userTeamClueStatus(es) to affect front-end rendering
-      .then(foundMission => {
-        dispatch(getMission(foundMission.data))
+      .get(`/api/missions/`)
+      .then(missions => {
+        dispatch(getAllMissions(missions.data))
       })
       .catch(err => console.log(err))
 }
@@ -35,10 +32,10 @@ export const fetchMission = missionId => {
 /**
  * REDUCER
  */
-export default function(state = defaultMission, action) {
+export default function(state = defaultMissions, action) {
   switch (action.type) {
-    case GET_MISSION:
-      return action.mission
+    case GET_ALL_MISSIONS:
+      return action.missions
     default:
       return state
   }

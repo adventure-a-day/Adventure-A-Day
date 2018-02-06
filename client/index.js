@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
-import store, { me } from "./store"
+import store, { me, fetchMissions } from "./store"
 import Routes from "./routes"
 import register from "./serviceWorker.js"
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
@@ -14,6 +14,7 @@ register()
 import "./socket"
 
 store.dispatch(me())
+store.dispatch(fetchMissions())
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider theme={getMuiTheme(darkBaseTheme)}>

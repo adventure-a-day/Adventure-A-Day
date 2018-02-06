@@ -1,7 +1,8 @@
 const router = require("express").Router()
 const Op = require("sequelize").Op
 const isMemberOfTeam = require("../isMemberOfTeam")
-const { Team, User } = require("../db/models")
+const { Team, User, Clue, UserTeamClueStatus } = require("../db/models")
+const webpush = require("../webpush")
 module.exports = router
 
 router.get("/", (req, res, next) => {
@@ -29,14 +30,64 @@ router.get("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
 })
 
 router.post("/", (req, res, next) => {
-  // in req.body: name
-  Team.create({ name: req.body.name })
+  // in req.body: name, mission
+  const { missionId, name } = req.body
+  Team.create({ name, activeMission: true })
     .then(createdTeam => {
       createdTeam.addUser(req.user)
-      createdTeam.addMission(1)
+      createdTeam.addMission(missionId || 1)
       res.json(createdTeam)
+      Clue.findAll({ where: { missionId } }).then(clues => {
+        clues.forEach(clue =>
+          UserTeamClueStatus.create({ clueId: clue.id, teamId: createdTeam.id })
+        )
+      })
     })
     .catch(next)
+})
+
+router.get("/:teamId/assign", isMemberOfTeam, (req, res, next) => {
+  let team, users
+  let assignedClues = []
+  Team.findById(req.params.teamId, {
+    include: [{ model: User.scope("subscriptions") }]
+  })
+    .then(foundTeam => {
+      team = foundTeam
+      users = { team }
+      UserTeamClueStatus.findAll({
+        where: { status: "unassigned", teamId: team.id },
+        include: [Clue]
+      })
+    })
+    .then(clues => {
+      if (clues.length >= users.length) {
+        users.forEach(user => {
+          let clueIndex = Math.floor(Math.random() * clues.length)
+          const clue = clues[clueIndex]
+          clues = clues.filter((clu, index) => index !== clueIndex)
+          clue
+            .update({ userId: user.id, status: "assigned" })
+            .then(() => {
+              assignedClues.push(clue)
+              user.subscriptions.forEach(sub =>
+                webpush
+                  .sendNotification(
+                    sub.info,
+                    JSON.stringify({
+                      title: "New Task Received!",
+                      body: clue.clue.prompt,
+                      clue: clue.clue
+                    })
+                  )
+                  .catch(() => sub.destroy())
+              )
+            })
+            .catch(console.error)
+        })
+      }
+    })
+  res.json(assignedClues)
 })
 
 router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
@@ -46,9 +97,10 @@ router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
   })
     .then(foundUser => {
       if (foundUser) {
-        foundUser.hasTeam(req.params.teamId)
+        foundUser
+          .hasTeam(req.params.teamId)
           .then(hasTeam => {
-            if(hasTeam) {
+            if (hasTeam) {
               res.send("User Already Added")
             } else {
               foundUser.addTeam(req.params.teamId)
