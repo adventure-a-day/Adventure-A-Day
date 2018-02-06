@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 import { logout, fetchTeams } from "../store"
-import { PushBtn, TeamSelect, BottomNavbar, LocationTracker } from "./index"
+import { PushBtn, TeamSelect, LocationTracker, BottomNavbar } from "./index"
 
 /**
  * COMPONENT

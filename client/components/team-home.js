@@ -6,7 +6,6 @@ import AddTeamMember from "./AddTeamMember"
 
 const TeamHome = props => {
   const {clues, teamMembers} = props;
-  console.log('teamMembers', teamMembers)
   return (
     <div>
     <AddTeamMember />

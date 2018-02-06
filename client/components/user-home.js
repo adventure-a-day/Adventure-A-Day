@@ -6,7 +6,7 @@ import CreateTeam from "./CreateTeam"
 import { Card, CardActions, CardHeader, CardText } from "material-ui/Card"
 import FlatButton from "material-ui/FlatButton"
 import Avatar from "material-ui/Avatar"
-import { MapView } from "../components"
+import { MapView} from "../components"
 import { fetchUserClues } from "../store"
 
 
