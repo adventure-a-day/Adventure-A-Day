@@ -85,7 +85,7 @@ class PhotoInput extends Component {
           onSubmit={evt => this.handleSubmit(evt, this.props.currentTeam.id, this.props.user.id)}
         >
           <input type="file" accept="image/*" id="file-input" name="file" />
-          <button type="submit">Submit</button>
+          <button type="submit" id="upload-photo">Submit</button>
         </form> { 
           (this.state.imageUrl.length > 0) &&  ( 
             <div>
