@@ -17,8 +17,8 @@ class Team extends Component {
     const {currentTeam} = this.props
     return(
       <div>
-        <IconButton onClick={() => history.push(`/team/${currentTeam.id}/home`)}>Team Home
-          <FontIcon className="material-icons" >arrow_back</FontIcon>
+        <IconButton onClick={() => history.push(`/team/${currentTeam.id}/home`)}>
+          <FontIcon className="material-icons" >keyboard_arrow_left</FontIcon>
         </IconButton>
         <IconMenu
         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
