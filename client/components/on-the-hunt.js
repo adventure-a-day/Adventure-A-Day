@@ -18,9 +18,6 @@ export class LocationTracker extends Component {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
               };
-              // console.log('pos', pos)
-              // console.log('props after setting position', this.props)
-              // this.props.setCurrentLocation([pos.lat, pos.lng])
             })
           }
       }
