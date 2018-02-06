@@ -7,6 +7,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import FontIcon from 'material-ui/FontIcon'
 
 class Team extends Component {
   componentDidMount(props) {
@@ -16,11 +17,15 @@ class Team extends Component {
     const {currentTeam} = this.props
     return(
       <div>
+        <IconButton onClick={() => history.push(`/team/${currentTeam.id}/home`)}>Team Home
+          <FontIcon className="material-icons" >arrow_back</FontIcon>
+        </IconButton>
         <IconMenu
         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
-      >
+      > 
+        <MenuItem primaryText="Team Home" onClick={() => history.push(`/team/${currentTeam.id}/home`)}/>
         <MenuItem primaryText="Messages" onClick={() => history.push(`/team/${currentTeam.id}/messages`)}/>
         <MenuItem primaryText="Gallery" onClick={() => history.push(`/team/${currentTeam.id}/gallery`)}/>
       </IconMenu>
