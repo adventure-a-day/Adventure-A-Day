@@ -169,8 +169,8 @@ async function seed() {
   ])
 
   const photos = await Promise.all([
-    Photo.create({ url: "https://s3.amazonaws.com/where-in-the-world-gh/dog.jpg", teamId: 1, userId: 1 }),
-    Photo.create({ url: "https://s3.amazonaws.com/where-in-the-world-gh/cereal.jpg", teamId: 1, userId: 2 })
+    Photo.create({ url: "https://s3.amazonaws.com/where-in-the-world-gh/dog.jpg", success: true, teamId: 1, userId: 1 }),
+    Photo.create({ url: "https://s3.amazonaws.com/where-in-the-world-gh/cereal.jpg", success: false, teamId: 1, userId: 2 })
   ])
 
   //'unassigned', 'assigned', 'completed'

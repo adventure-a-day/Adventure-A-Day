@@ -36,7 +36,7 @@ class UserHome extends Component {
         {clues.userClues.length ? (
           clues.userClues.map(clue => {
             return (
-              <Card>
+              <Card key={clue.id}>
                 <CardHeader
                   title={`${clue.clue.prompt}`}
                   actAsExpander={true}

@@ -14,7 +14,9 @@ class PhotoInput extends Component {
     super(props)
     this.state = {
       imageUrl: "",
-      message: ""    }
+      message: "",
+      success: false
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -36,33 +38,45 @@ class PhotoInput extends Component {
         imageUrl = "https://s3.amazonaws.com/where-in-the-world-gh/" + photoName
         this.setState({ imageUrl })
 
-        s3.config.credentials = config
+        // s3.config.credentials = config
 
-        let params = {Bucket: bucketName, Key: keyName, Body: body}
-        s3.putObject(params, function(err, data) {
-          if(err) {
-            console.log("ERROR: ", err)
-          }
-          else {
-            console.log('Successfully uploaded photo to AWS!')
-          }
-        })
+        // let params = {Bucket: bucketName, Key: keyName, Body: body}
+        // s3.putObject(params, function(err, data) {
+        //   if(err) {
+        //     console.log("ERROR: ", err)
+        //   }
+        //   else {
+        //     console.log('Successfully uploaded photo to AWS!')
+        //   }
+        // })
 
+        // verify photo using Google Cloud Vision
         axios
           .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
           .then(res => {
             this.setState({
-              message: res.data
+              message: res.data.message,
+              success: res.data.success
             })
+
+            // add photo to database
+            axios
+              .post(`/api/photos/${teamId}`, { url: imageUrl, success: this.state.success, teamId: teamId, userId: userId })
+              .then(res => {
+                console.log(res.data)
+              })
+              .catch(err => console.log(err))
+
           })
           .catch(err => console.log(err))
 
-        axios
-          .post(`/api/photos/${teamId}`, { url: imageUrl, teamId: teamId, userId: userId })
-          .then(res => {
-            console.log(res.data)
-          })
-          .catch(err => console.log(err))
+        // add photo to database
+        // axios
+        //   .post(`/api/photos/${teamId}`, { url: imageUrl, success: this.state.success, teamId: teamId, userId: userId })
+        //   .then(res => {
+        //     console.log(res.data)
+        //   })
+        //   .catch(err => console.log(err))
       
       }
 
