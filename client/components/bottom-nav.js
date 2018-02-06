@@ -22,6 +22,8 @@ const nearbyIcon = <IconLocationOn />;
 const notificationsOn = <FontIcon className="material-icons">notifications_active</FontIcon>;
 const notificationsOff = <FontIcon className="material-icons">notifications_off</FontIcon>;
 const exitIcon = <FontIcon className="material-icons">exit_to_app</FontIcon>;
+const accountIcon = <FontIcon className="material-icons">account_box</FontIcon>;
+//^^ I'm having syntax errors trying to insert this to prompt the user to log in
 /**
  * A simple example of `BottomNavigation`, with three labels and icons
  * provided. The selected `BottomNavigationItem` is determined by application
@@ -88,8 +90,6 @@ class BottomNavbar extends Component {
           :
               <div></div>
           }
-        
-          
          
         </BottomNavigation>
       </Paper>
