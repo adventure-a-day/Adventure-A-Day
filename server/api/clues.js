@@ -53,8 +53,8 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
             )
           if(match) foundMatch.push(match)
         })
-        if (foundMatch.length >= 2) {
-          res.send("Found a match!")
+        if (foundMatch.length >= 1) {
+          res.send({ message: "Found a match!", success: true })
           clue.update({ status: "completed" })
           Team.findById(req.teamId, {
             include: [User.scope("subscriptions")]
@@ -72,10 +72,10 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
             })
           })
         } else {
-          res.send("Better try harder!")
+          res.send({ message: "Better try harder!", success: false })
         }
       } else {
-        res.send("Picture Unrecognizeable")
+        res.send({ message: "Picture Unrecognizeable", success: false })
       }
     })
     .catch(next)

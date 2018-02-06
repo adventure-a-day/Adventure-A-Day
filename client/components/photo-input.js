@@ -14,7 +14,9 @@ class PhotoInput extends Component {
     super(props)
     this.state = {
       imageUrl: "",
-      message: ""    }
+      message: "",
+      success: false
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -48,19 +50,23 @@ class PhotoInput extends Component {
           }
         })
 
+        // verify photo using Google Cloud Vision
         axios
           .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
           .then(res => {
             this.setState({
-              message: res.data
+              message: res.data.message,
+              success: res.data.success
             })
-          })
-          .catch(err => console.log(err))
 
-        axios
-          .post(`/api/photos/${teamId}`, { url: imageUrl, teamId: teamId, userId: userId })
-          .then(res => {
-            console.log(res.data)
+            // add photo to database
+            axios
+              .post(`/api/photos/${teamId}`, { url: imageUrl, success: this.state.success, teamId: teamId, userId: userId })
+              .then(res => {
+                console.log(res.data)
+              })
+              .catch(err => console.log(err))
+
           })
           .catch(err => console.log(err))
       
