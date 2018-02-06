@@ -17,13 +17,6 @@ a {
 }
 
 
- @media (max-width: 768px) {
-   .main-content {
-     padding: 20px 8px;
-   }
- }
- 
-
 .form-group label {
   flex: none;
   display: block;
@@ -232,6 +225,35 @@ button {
   justify-content: space-between;
 }
 
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-20px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+#title {
+	padding: 70px 10px 0px;
+}
+.cloud {
+  width: 180px;
+	height: 150px;
+	box-sizing: border-box;
+	transform: translatey(0px);
+  animation: float 6s ease-in-out infinite;
+}
+
+#one {
+	position: absolute;
+	top: 500px;
+	left: 300px;
+}
+
 /* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
 
 /* Portrait and Landscape */
@@ -243,6 +265,9 @@ button {
     position:fixed;
     bottom:0px;
     width:100%;
+    }
+    #title {
+    	padding: 10px;
     }
 }
  
