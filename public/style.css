@@ -3,11 +3,15 @@
 }
 
 body {
+  height: 100vh;
   font-family: 'Roboto', sans-serif;
-  /* background-image: url('/public/Neon-City-Pattern.png');
-  background-repeat: repeat-y; */
+  background: linear-gradient(#FFF4BC, #FED571, #FF8C4C, #B72C3C, #AC748F);
+  color: #45385B;
 }
 
+h1, h2, h3,label, input, button {
+  font-family: 'Josefin Sans', sans-serif;
+}
 a {
   text-decoration: none;
 }
@@ -79,6 +83,22 @@ button {
 #banner-header {
   height: 150px;
   width: 360px;
+}
+#user-header {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff; 
+  margin: 20px 0;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;  
+}
+
+#user-header img {
+  margin: 0 40px;
+}
+
+#footer div {
+  background-color: #AC748F !important;
+  color: #FFF4BC !important;
 }
 
 .header-text {

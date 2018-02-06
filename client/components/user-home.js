@@ -26,12 +26,15 @@ class UserHome extends Component {
     const { userName, clues, photo, teams } = this.props
     return (
       <div>
-        <div>
-          <h3>Welcome, {userName}</h3>
+        <h1>Adventure A Day</h1>
+        <div id="user-header">
           <span>
-            <Avatar src={photo} />
-          </span>
+              <Avatar src={photo} />
+            </span>
+            <div> 
+          <h3>Adventure Awaits... {userName}</h3>
           <CreateTeam />
+          </div>
         </div>
         {clues.userClues.length ? (
           clues.userClues.map(clue => {
@@ -39,8 +42,7 @@ class UserHome extends Component {
               <Card key={clue.id}>
                 <CardHeader
                   title={`${clue.clue.prompt}`}
-                  actAsExpander={true}
-                  showExpandableButton={true}
+                  
                 />
                 <CardActions>
                   <Link to={`/team/${clue.teamId}/solve-clue`}><FlatButton label="Solve" /></Link>
@@ -89,3 +91,9 @@ export default connect(mapState, mapDispatch)(UserHome)
 UserHome.propTypes = {
   email: PropTypes.string
 }
+
+
+/**
+ * actAsExpander={true}
+                  showExpandableButton={true}
+ */
