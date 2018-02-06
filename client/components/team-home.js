@@ -4,18 +4,22 @@ import { connect } from "react-redux"
 import { withRouter, BrowserRouter as Router } from "react-router-dom"
 import AddTeamMember from "./AddTeamMember"
 
+
 const TeamHome = props => {
   const {clues, teamMembers} = props;
   return (
     <div>
     <AddTeamMember />
     <h1>Team Adventures</h1>
-    <ul>
+    <div className="card-container">
       {clues.assignedClues &&
         clues.assignedClues.map(clue => (
-          <li key={clue.clue.id}>{teamMembers.length && teamMembers.filter(member => member.id === clue.userId)[0].userName}: {clue.clue.prompt}</li>
+          <div key={clue.clue.id} className="card" id={clue.clue.id}>
+            <div className="side">{teamMembers.length && teamMembers.filter(member => member.id === clue.userId)[0].userName}</div> 
+            <div className="side back">{clue.clue.prompt}</div>
+          </div>
         ))}
-    </ul>
+    </div>
     <h1>Completed Adventures</h1>
     <ul>
       {clues.completedClues &&

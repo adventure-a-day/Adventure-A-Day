@@ -9,7 +9,7 @@ body {
   color: #45385B;
 }
 
-h1, h2, h3, h4, label, input, button, p {
+h1, h2, h3, h4, label, input, button, p, div {
   font-family: 'Josefin Sans', sans-serif;
 }
 a {
@@ -94,6 +94,45 @@ button {
   width: 45px;
 }
 
+.card-container {
+  cursor: pointer;
+  perspective: 600;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  font-size: 16px;
+}
+.card {
+  height: 200px;
+  transform-style: preserve-3d;
+  transition: all 1s ease-in-out;
+  width: 200px;
+  
+  
+}
+.card:hover {
+  transform: rotateY(180deg);
+}
+.card .side {
+  backface-visibility: hidden;
+  align-items:  center;
+  border-radius: 20%;
+  height: 100%;
+  width: 100%;
+  background-color: #FFF4BC;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card .back {
+  background-color: #FFF4BC;
+  text-align: center;
+  transform: rotateY(180deg);
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
 #main-heading-container {
   position: absolute; 
   margin-top: 40px;
@@ -129,6 +168,27 @@ button {
   border-radius: 5px;
 }
 
+#add-member-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#add-member-sub-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#add-member-input {
+  height: 30px;
+  width: 230px;
+}
+
+#add-member-submit {
+  height: 30px;
+  width: 90px;
+  background-color: #FF8C4C;
+}
 
 #footer div {
   background-color: #AC748F !important;
