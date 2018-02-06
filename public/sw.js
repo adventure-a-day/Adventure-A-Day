@@ -1,12 +1,13 @@
 var cacheName = "where-in-the-world"
+const networkFirst = "where-in-the-world-network-first"
 
 var filesToCache = [
-  "./",
-  "./style.css",
-  "./favicon.ico",
-  "./bundle.js.map",
-  "./bundle.js",
-  "./images/earth-48x48.png"
+  "/",
+  "/style.css",
+  "/favicon.ico",
+  "/bundle.js.map",
+  "/bundle.js",
+  "/images/earth-48x48.png"
 ]
 
 // Install The Service Worker
@@ -36,8 +37,16 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request)
+    cache.open(cacheName).then(cache => cache.match(event.request).then(response => {
+      return response || cache.open(networkFirst)
+        .then(cache => 
+          cache.match(event.request)
+          .then(response =>  {
+            fetch(event.request)
+              .then(fetchResponse => {
+                cache.put(event.request, fetchResponse.clone())
+                return fetchResponse || response
+        }})))
     })
   )
 })
