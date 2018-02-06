@@ -54,7 +54,7 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
           if(match) foundMatch.push(match)
         })
         if (foundMatch.length >= 1) {
-          res.send({ message: "Found a match!", success: true })
+          res.send({ message: "Good job! Go to the gallery to view your team's photos.", success: true })
           clue.update({ status: "completed" })
           Team.findById(req.teamId, {
             include: [User.scope("subscriptions")]
@@ -72,10 +72,10 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
             })
           })
         } else {
-          res.send({ message: "Better try harder!", success: false })
+          res.send({ message: "This photo is not a match. Please keep searching and take a new photo!", success: false })
         }
       } else {
-        res.send({ message: "Picture Unrecognizeable", success: false })
+        res.send({ message: "This photo is unrecognizeable. Please keep searching and take a new photo!", success: false })
       }
     })
     .catch(next)

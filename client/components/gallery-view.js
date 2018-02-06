@@ -44,10 +44,10 @@ class GalleryView extends Component {
   
   render(props) {
     const {photos, currentTeam} = this.props
-    console.log(photos)
+
     return (
       <div>
-        <h2>Success: </h2>
+        <h2>Successful Photo Matches: </h2>
         { photos.photos &&
           photos.photos.filter(photo => photo.success === true).map(photo => {
             return (
@@ -57,7 +57,7 @@ class GalleryView extends Component {
             )
           })
         }
-        <h2>Fail: </h2>
+        <h2>Unsuccessful Photo Attempts: </h2>
         { photos.photos &&
           photos.photos.filter(photo => photo.success === false).map(photo => {
             return (
