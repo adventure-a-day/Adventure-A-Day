@@ -26,7 +26,7 @@ export const me = () => dispatch =>
   axios
     .get("/auth/me")
     .then(res => {
-      dispatch(fetchTeams())
+      if (res.data) { dispatch(fetchTeams()) }
       dispatch(getUser(res.data || defaultUser))
     })
     .catch(err => console.log(err))

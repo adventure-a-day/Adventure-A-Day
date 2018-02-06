@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
-import { logout, fetchTeams } from "../store"
+import { logout } from "../store"
 import { PushBtn, TeamSelect, LocationTracker, BottomNavbar } from "./index"
 
 /**
@@ -17,13 +17,13 @@ class Main extends Component {
     super(props)
   }
 
-  componentDidMount(props) {
-    this.props.fetchTeams()
-  }
+  // componentDidMount(props) {
+  //   this.props.fetchTeams()
+  // }
 
   render() {
 
-    const { children, handleClick, isLoggedIn, teamId } = this.props
+    const { children, handleClick, isLoggedIn } = this.props
 
     Notification.requestPermission()
 
@@ -46,16 +46,12 @@ const mapState = state => {
   //mapping "isLoggedIn" here is currently redundant, but may be useful for future purposes
   return {
     isLoggedIn: !!state.user.id,
-    teamId: state.currentTeam.id || null
+    // teamId: state.currentTeam.id || null
   }
 }
 
 const mapDispatch = dispatch => {
-  return {
-    fetchTeams() {
-      dispatch(fetchTeams)
-    }
-  }
+  return { }
 }
 
 // The `withRouter` wrapper makes sure that updates are not blocked
