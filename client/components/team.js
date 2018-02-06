@@ -16,19 +16,21 @@ class Team extends Component {
   render(props) {
     const {currentTeam} = this.props
     return(
-      <div>
-        <IconButton onClick={() => history.push(`/team/${currentTeam.id}/home`)}>
-          <FontIcon className="material-icons" >keyboard_arrow_left</FontIcon>
-        </IconButton>
-        <IconMenu
-        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-        anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-      > 
-        <MenuItem primaryText="Team Home" onClick={() => history.push(`/team/${currentTeam.id}/home`)}/>
-        <MenuItem primaryText="Messages" onClick={() => history.push(`/team/${currentTeam.id}/messages`)}/>
-        <MenuItem primaryText="Gallery" onClick={() => history.push(`/team/${currentTeam.id}/gallery`)}/>
-      </IconMenu>
+      <div id="team-navbar-container">
+        <div id="team-navbar">
+          <IconButton onClick={() => history.push(`/team/${currentTeam.id}/home`)}>
+            <FontIcon className="material-icons" >keyboard_arrow_left</FontIcon>
+          </IconButton>
+          <IconMenu
+          iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+          anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+        > 
+          <MenuItem primaryText="Team Home" onClick={() => history.push(`/team/${currentTeam.id}/home`)}/>
+          <MenuItem primaryText="Messages" onClick={() => history.push(`/team/${currentTeam.id}/messages`)}/>
+          <MenuItem primaryText="Gallery" onClick={() => history.push(`/team/${currentTeam.id}/gallery`)}/>
+        </IconMenu>
+      </div>
     </div>
     )
   }

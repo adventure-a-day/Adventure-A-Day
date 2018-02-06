@@ -171,6 +171,7 @@ button {
 #add-member-container {
   display: flex;
   justify-content: flex-end;
+  margin: 25px;
 }
 
 #add-member-sub-container {
@@ -188,6 +189,12 @@ button {
   height: 30px;
   width: 90px;
   background-color: #FF8C4C;
+  border-radius: 5px;
+}
+
+#footer {
+  position: fixed !important;
+  width: 100vh !important;
 }
 
 #footer div {
@@ -218,6 +225,11 @@ button {
 #upload-photo {
   border-radius: 10%;
   background-color: #FF8C4C;
+}
+
+#team-navbar {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
