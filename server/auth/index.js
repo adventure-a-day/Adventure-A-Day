@@ -1,9 +1,11 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
+const Op = require('sequelize').Op
 module.exports = router
 
 router.post('/login', (req, res, next) => {
-  User.findOne({where: {email: req.body.email}})
+  const targetUser = req.body.email
+  User.findOne({where: {[Op.or]: [{userName: targetUser}, {email: targetUser}] }})
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')
