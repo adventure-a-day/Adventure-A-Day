@@ -43,14 +43,21 @@ class UserHome extends Component {
             currentClue = clues.userClues.find(clue => (clue.teamId === team.id && clue.status === "assigned"))
             return (
               <Card key={team.id}>
-                <CardHeader
-                  title={`${team.name}`}
-                />
+                {
+                  !!currentClue ? (
+                    <CardHeader
+                      title={`${team.name}`}
+                      subtitle={`${currentClue.clue.prompt}`}
+                    />
+                  )
+                  : (
+                    <CardHeader title={`${team.name}`} />
+                )}
                 <CardActions>
                   <Link to={`/team/${team.id}/home`}><FlatButton label="View Team" /></Link>
                   {
                     clues.userClues.length && (
-                      clues.userClues.map(clue => {
+                      clues.userClues.filter(clue => clue.teamId === team.id).map(clue => {
                         return (
                           <Link to={`/team/${clue.teamId}/solve-clue`} key={clue.id}><FlatButton label="Current Adventure" /></Link>
                         )
