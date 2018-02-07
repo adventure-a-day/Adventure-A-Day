@@ -1,16 +1,30 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { withRouter } from "react-router-dom"
+import { withRouter, Link } from "react-router-dom"
 import AddTeamMember from "./AddTeamMember"
 import NewAdventures from "./NewAdventures"
 
 const TeamHome = props => {
-  const { clues, teamMembers } = props
+  const { clues, teamMembers, user, currentTeam } = props
+  let userClue
   return (
     <div>
       <AddTeamMember />
       <NewAdventures />
+
+      { user && clues.assignedClues && (
+
+        ((clues.assignedClues.filter(clue => clue.userId === user.id)).length > 0) && (
+          <Link to={`/team/${currentTeam.id}/solve-clue`}><button>Complete Current Adventure</button></Link>
+        )
+
+
+        )
+
+
+      }
+
       <h1>Team Adventures</h1>
       <ul>
         {clues.assignedClues &&
@@ -45,7 +59,7 @@ const TeamHome = props => {
   )
 }
 
-const mapState = ({ clues, teamMembers }) => ({ clues, teamMembers })
+const mapState = ({ clues, teamMembers, user, currentTeam }) => ({ clues, teamMembers, user, currentTeam })
 
 const mapDispatch = (dispatch, ownProps) => ({})
 
