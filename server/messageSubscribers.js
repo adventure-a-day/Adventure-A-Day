@@ -17,7 +17,7 @@ module.exports = () => {
             // If the team lost their streak notify them and add their tasks back to the pool
             if (assignedClues.length) {
               assignedClues.forEach(clue =>
-                clue.update({ status: "unassigned" })
+                clue.update({ status: "unassigned", userId: null })
               )
               users.forEach(user =>
                 user.subscriptions.forEach(sub =>
@@ -63,23 +63,24 @@ module.exports = () => {
                   })
                   .catch(console.error)
               })
-            } else {
-              users.forEach(user => {
-                user.subscriptions.forEach(sub =>
-                  webpush
-                    .sendNotification(
-                      sub.info,
-                      JSON.stringify({
-                        title: "Congratulations!",
-                        body: "Your team completed the mission!"
-                      })
-                    )
-                    .catch(() => sub.destroy())
-                )
-              })
-              clues.forEach(clue => clue.destroy())
-              team.update({ activeMission: false })
             }
+            // else {
+            // users.forEach(user => {
+            //   user.subscriptions.forEach(sub =>
+            //     webpush
+            //       .sendNotification(
+            //         sub.info,
+            //         JSON.stringify({
+            //           title: "Congratulations!",
+            //           body: "Your team completed the mission!"
+            //         })
+            //       )
+            //       .catch(() => sub.destroy())
+            //   )
+            // })
+            // clues.forEach(clue => clue.destroy())
+            // team.update({ activeMission: false })
+            // }
           })
           .catch(console.error)
       })

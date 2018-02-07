@@ -19,6 +19,7 @@ const AddTeamMember = props => (
 const mapState = ({ addMemberMessage }) => ({ addMemberMessage })
 const mapDispatch = (dispatch, ownProps) => ({
   handleSubmit(evt) {
+    evt.preventDefault()
     const targetUser = evt.target.targetUser.value
     const { teamId } = ownProps.match.params
     dispatch(postNewTeamMember(targetUser, teamId))

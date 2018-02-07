@@ -32,13 +32,13 @@ export const fetchTeams = () => {
       .catch(err => console.log(err))
 }
 
-export const postNewTeam = name => dispatch => {
+export const postNewTeam = (name, missionId) => dispatch => {
   return axios
-    .post("/api/teams", { name })
+    .post("/api/teams", { name, missionId })
     .then(res => res.data)
     .then(team => {
       dispatch(createdNewTeam(team))
-      history.push(`/teams/${team.id}/home`)
+      history.push(`/team/${team.id}/home`)
     })
     .catch(err => console.error(err))
 }
