@@ -28,7 +28,8 @@ async function seed() {
   // executed until that promise resolves!
 
   const missions = await Promise.all([
-    Mission.create({ name: "Daily Adventures" }),
+    Mission.create({ id: 1, name: "General" }),
+    Mission.create({ id: 2, name: "Nature" })
     // Mission.create({ name: "Testing an open-ended mission" })
   ])
 
@@ -39,15 +40,60 @@ async function seed() {
   ])
 
   const users = await Promise.all([
-    User.create({ email: "cody@email.com", password: "123", userName: "cody" }),
-    User.create({ email: "murphy@email.com", password: "123", userName: "murphy" }),
-    User.create({ email: "chloe@email.com", password: "123", userName: "chloe" }),
-    User.create({ email: "zoe@email.com", password: "123", userName: "zoe" }),
-    User.create({ email: "miley@email.com", password: "123", userName: "miley" }),
-    User.create({ email: "luna@email.com", password: "123", userName: "luna" }),
-    User.create({ email: "molly@email.com", password: "123", userName: "molly" }),
-    User.create({ email: "jake@email.com", password: "123", userName: "jake" }),
-    User.create({ email: "harry@email.com", password: "123", userName: "harry" })
+    User.create({
+      id: 1,
+      email: "cody@email.com",
+      password: "123",
+      userName: "cody"
+    }),
+    User.create({
+      id: 2,
+      email: "murphy@email.com",
+      password: "123",
+      userName: "murphy"
+    }),
+    User.create({
+      id: 3,
+      email: "chloe@email.com",
+      password: "123",
+      userName: "chloe"
+    }),
+    User.create({
+      id: 4,
+      email: "zoe@email.com",
+      password: "123",
+      userName: "zoe"
+    }),
+    User.create({
+      id: 5,
+      email: "miley@email.com",
+      password: "123",
+      userName: "miley"
+    }),
+    User.create({
+      id: 6,
+      email: "luna@email.com",
+      password: "123",
+      userName: "luna"
+    }),
+    User.create({
+      id: 7,
+      email: "molly@email.com",
+      password: "123",
+      userName: "molly"
+    }),
+    User.create({
+      id: 8,
+      email: "jake@email.com",
+      password: "123",
+      userName: "jake"
+    }),
+    User.create({
+      id: 9,
+      email: "harry@email.com",
+      password: "123",
+      userName: "harry"
+    })
   ])
 
   const clues = await Promise.all([
@@ -81,10 +127,7 @@ async function seed() {
     Clue.create({
       prompt: "Take a picture of... your shoes today",
       missionId: 1,
-      labels: [
-        "shoe",
-        "shoes"
-      ]
+      labels: ["shoe", "shoes"]
     }),
     Clue.create({
       prompt: "Take a picture of... yourself in nature",
@@ -127,19 +170,40 @@ async function seed() {
       ]
     }),
     Clue.create({
-      prompt: "Take a picture of... your favorite eatery or one you want to try",
+      prompt:
+        "Take a picture of... your favorite eatery or one you want to try",
       missionId: 1,
+      labels: ["restaurant", "cafe", "coffeehouse", "building", "bar"]
+    }),
+
+    // NATURE THEME!
+    Clue.create({
+      prompt: "Take a picture of... flowers!",
+      missionId: 2,
       labels: [
-        "restaurant",
-        "cafe",
-        "coffeehouse",
-        "building",
-        "bar"
+        "flower",
+        "wildflower",
+        "plant",
+        "prairie"
       ]
     })
-
-    // you and a friend
-    // breakfast/coffee
+    Clue.create({
+      prompt: "Take a picture of... a beautiful spot by the water",
+      missionId: 2,
+      labels: [
+        "water",
+        "lake",
+        "body of water",
+        "reservoir",
+        "pond",
+        "river",
+        "bay",
+        "wetland",
+        "inlet",
+        "watercourse",
+        "coast"
+      ]
+    })
   ])
 
   const messages = await Promise.all([
@@ -169,8 +233,16 @@ async function seed() {
   ])
 
   const photos = await Promise.all([
-    Photo.create({ url: "https://s3.amazonaws.com/where-in-the-world-gh/dog.jpg", teamId: 1, userId: 1 }),
-    Photo.create({ url: "https://s3.amazonaws.com/where-in-the-world-gh/cereal.jpg", teamId: 1, userId: 2 })
+    Photo.create({
+      url: "https://s3.amazonaws.com/where-in-the-world-gh/dog.jpg",
+      teamId: 1,
+      userId: 1
+    }),
+    Photo.create({
+      url: "https://s3.amazonaws.com/where-in-the-world-gh/cereal.jpg",
+      teamId: 1,
+      userId: 2
+    })
   ])
 
   //'unassigned', 'assigned', 'completed'
