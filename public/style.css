@@ -3,6 +3,7 @@
 }
 
 body {
+	padding-top: 56px;
   height: 100vh;
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(#FFF4BC, #FED571, #FF8C4C, #B72C3C, #AC748F);
@@ -53,7 +54,7 @@ button {
   }
   #footer {
   	position: fixed;
-  	bottom: 50px;
+
   }
 }
 
@@ -156,14 +157,16 @@ button {
 
 #left {
 	position: fixed !important;
-	top: 4vh;
-	left: 1vw;
+	top: 10px;
+	left: -20px;
+	z-index: 100;
 }
 
 #right {
 	position: fixed !important;
-	top: 3vh;
-	left: 80vw;
+	top: 10px;
+	right: 0px;
+	z-index: 100;
 }
 
 #user-header img {
@@ -238,14 +241,19 @@ button {
   width: 100% !important;
   margin: 0px -8px 0px -8px;
   z-index: 50 !important;
+
 }
 
-#footer div {
+#footer>div>div {
   position: fixed !important;
+    top: 5px !important;
+
   background-color: #AC748F !important;
   color: #FFF4BC !important;
   z-index: 50 !important;
-
+  display: flex !important;
+}
+#footer button {
 }
 
 .header-text {
@@ -360,8 +368,8 @@ button {
   and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2) {
     #footer {
-    position:fixed;
-    bottom: 8%;
+    position:fixed !important;
+    bottom: 57px !important;
     width:100%;
     }
     #title {
