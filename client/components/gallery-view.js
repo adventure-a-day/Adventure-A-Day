@@ -46,8 +46,8 @@ class GalleryView extends Component {
     const {photos, currentTeam} = this.props
 
     return (
-      <div>
-        <h2>Successful Photo Matches: </h2>
+      <div id="photoGallery">
+        <h2 className="photoHeader">Successful Photo Matches: </h2>
         { photos.photos &&
           photos.photos.filter(photo => photo.success === true).map(photo => {
             return (
@@ -57,7 +57,7 @@ class GalleryView extends Component {
             )
           })
         }
-        <h2>Unsuccessful Photo Attempts: </h2>
+        <h2 className="photoHeader">Unsuccessful Photo Attempts: </h2>
         { photos.photos &&
           photos.photos.filter(photo => photo.success === false).map(photo => {
             return (
