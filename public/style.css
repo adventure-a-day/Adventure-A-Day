@@ -101,7 +101,6 @@ button {
   transition: all 1s ease-in-out;
   width: 200px;
   
-  
 }
 .card:hover {
   transform: rotateY(180deg);
@@ -237,6 +236,11 @@ button {
 	}
 }
 
+@keyframes moveSun {
+  from {bottom: 10vh;}
+  to {bottom: 18vh;}
+}
+
 #title {
 	padding: 70px 10px 0px;
 }
@@ -259,8 +263,9 @@ button {
 	width: 10vw;
 	padding: 5px;
 	position: absolute;
-	left: 445px;
-	bottom: 190px;
+  left: 445px;
+  bottom: 18vh;
+  animation: moveSun 2s ease-in;
 }
 
 #mtns {
