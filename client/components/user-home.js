@@ -41,6 +41,7 @@ class UserHome extends Component {
             <CreateTeam />
           </div>
         </div>
+        <div id="home-clues">
         { teams.length ? ( teams.map(team => {
             currentClue = clues.userClues.find(clue => (clue.teamId === team.id && clue.status === "assigned"))
             return (
@@ -75,6 +76,7 @@ class UserHome extends Component {
         ) : (
           <div>Sign up with a team to start your adventures!</div>
         )}
+        </div>
         <div className="clouds">
           <span><img id="leftCloud" src="/fluffyCloudsOne.png"></img></span>
           <span><img id="rightCloud" src="/fluffyCloudsTwo.png"></img></span>

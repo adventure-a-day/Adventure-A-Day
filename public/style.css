@@ -7,6 +7,7 @@ body {
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(#FFF4BC, #FED571, #FF8C4C, #B72C3C, #AC748F);
   color: #45385B;
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, label, input, button, p, div {
@@ -43,6 +44,16 @@ button {
     text-align: left;  
     padding-right: 0;
     padding-left: 0;   
+  }
+}
+
+@media (max-width: 400px) {
+	body {
+  	height: 100%;
+  }
+  #footer {
+  	position: fixed;
+  	bottom: 50px;
   }
 }
 
@@ -94,6 +105,7 @@ button {
   justify-content: space-around;
   text-align: center;
   font-size: 16px;
+  flex-wrap: wrap;
 }
 .card {
   height: 200px;
@@ -142,6 +154,18 @@ button {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;  
 }
 
+#left {
+	position: fixed !important;
+	top: 4vh;
+	left: 1vw;
+}
+
+#right {
+	position: fixed !important;
+	top: 3vh;
+	left: 80vw;
+}
+
 #user-header img {
   margin: 0 40px;
 }
@@ -151,7 +175,10 @@ button {
   height: 30px;
   border-radius: 5px;
   font-size: 14px;
+  margin-top: 10%;
+  margin-left: 4%;
 }
+
 
 #message-submit {
   height: 30px;
@@ -159,11 +186,30 @@ button {
   background-color: #FF8C4C;
   border-radius: 5px;
 }
+#photoGallery {
+	margin: 20%;
+}
+
+@media (max-width: 450px) {
+	#chat-input {
+		width: 50%;
+		padding: 5px;
+		margin-left: 15%;
+		margin-top: 15%;
+	}
+
+	#message-submit button {
+		width: 10px;
+  }
+  #photoGallery {
+    margin-top: 17%;
+    }
+}
 
 #add-member-container {
   display: flex;
   justify-content: flex-end;
-  margin: 25px;
+  margin: 15% 5% 0% 0%;
 }
 
 #add-member-sub-container {
@@ -184,14 +230,22 @@ button {
   border-radius: 5px;
 }
 
+#photoGallery {
+	margin-top: 12%;
+}
+
 #footer {
-  position: fixed !important;
-  width: 100vw !important;
+  width: 100% !important;
+  margin: 0px -8px 0px -8px;
+  z-index: 50 !important;
 }
 
 #footer div {
+  position: fixed !important;
   background-color: #AC748F !important;
   color: #FFF4BC !important;
+  z-index: 50 !important;
+
 }
 
 .header-text {
@@ -261,7 +315,7 @@ button {
 	width: 250px;
 	position: fixed;
 	left: 3vw;
-	z-index: 1;
+	z-index: -1;
 	animation: moveLeft 5s ease-in; 
 }
 
@@ -270,7 +324,7 @@ button {
 	width: 200px;
 	position: fixed;
 	right: 2vw;
-	z-index: 1;
+	z-index: -1;
 	animation: moveRight 5s ease-in;
 }
 
@@ -281,13 +335,13 @@ button {
 }
 
 #sunImg {
-	height: 10vh;
 	width: 10vw;
 	padding: 5px;
 	position: fixed;
   left: 50vw;
   bottom: 20vh;
   animation: moveSun 2s ease-in;
+  z-index: -2;
 }
 
 #mtns {
@@ -295,6 +349,7 @@ button {
 	margin: -10px;
 	position: fixed;
 	bottom: 0px;
+	z-index: -2;
 }
 
 /* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
@@ -306,10 +361,11 @@ button {
   and (-webkit-min-device-pixel-ratio: 2) {
     #footer {
     position:fixed;
-    bottom:0px;
+    bottom: 8%;
     width:100%;
     }
     #title {
     	padding: 10px;
     }
 }
+

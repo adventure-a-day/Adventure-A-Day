@@ -24,14 +24,16 @@ class Team extends Component {
     return (
       <div id="team-navbar-container">
         <div id="team-navbar">
+
           <IconButton
+            id="left"
             onClick={() => history.push(`/team/${currentTeam.id}/home`)}
           >
             <FontIcon className="material-icons">keyboard_arrow_left</FontIcon>
           </IconButton>
           <IconMenu
             iconButtonElement={
-              <IconButton>
+              <IconButton id="right">
                 <MoreVertIcon />
               </IconButton>
             }
