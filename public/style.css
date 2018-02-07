@@ -53,7 +53,7 @@ button {
   }
   #footer {
   	position: fixed;
-  	bottom: 50px;
+
   }
 }
 
@@ -238,6 +238,7 @@ button {
   width: 100% !important;
   margin: 0px -8px 0px -8px;
   z-index: 50 !important;
+  
 }
 
 #footer div {
@@ -245,7 +246,7 @@ button {
   background-color: #AC748F !important;
   color: #FFF4BC !important;
   z-index: 50 !important;
-
+  display: flex !important;
 }
 
 .header-text {
@@ -361,7 +362,7 @@ button {
   and (-webkit-min-device-pixel-ratio: 2) {
     #footer {
     position:fixed;
-    bottom: 8%;
+    bottom: 57px;
     width:100%;
     }
     #title {
