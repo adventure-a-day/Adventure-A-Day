@@ -105,7 +105,8 @@ router.get("/:teamId/assign", isMemberOfTeam, (req, res, next) => {
     })
     .then(() =>
       UserTeamClueStatus.findAll({
-        where: { teamId: team.id, status: "assigned" }
+        where: { teamId: team.id, status: "assigned" },
+        include: [Clue]
       })
     )
     .then(assignedClues => res.json(assignedClues))
