@@ -69,7 +69,7 @@ export const fetchUserClues = () => {
 
 export const fetchNewAdventures = teamId => dispatch => {
   axios
-    .get(`/teams/${teamId}/assign`)
+    .get(`/api/teams/${teamId}/assign`)
     .then(res => res.data)
     .then(assignedClues => {
       console.log(assignedClues)

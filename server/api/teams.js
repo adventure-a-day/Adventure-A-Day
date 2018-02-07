@@ -48,41 +48,40 @@ router.post("/", (req, res, next) => {
 
 router.get("/:teamId/assign", isMemberOfTeam, (req, res, next) => {
   let team, users
-  let assignedClues = []
   UserTeamClueStatus.findAll({
     where: { teamId: req.params.teamId, status: "assigned" }
   })
-    .then(clues => {
-      if (clues.length) {
+    .then(alreadyAssigned => {
+      if (alreadyAssigned.length) {
         let err = new Error()
         err.message = "Team Still has Adventures!"
         err.status = 401
         throw err
       }
     })
-    .then(
+    .then(() =>
       Team.findById(req.params.teamId, {
         include: [{ model: User.scope("subscriptions") }]
       })
     )
     .then(foundTeam => {
       team = foundTeam
-      users = { team }
-      UserTeamClueStatus.findAll({
+      users = foundTeam.users
+      return UserTeamClueStatus.findAll({
         where: { status: "unassigned", teamId: team.id },
         include: [Clue]
       })
     })
     .then(clues => {
       if (clues.length >= users.length) {
+        let cluePromises = []
         users.forEach(user => {
           let clueIndex = Math.floor(Math.random() * clues.length)
           const clue = clues[clueIndex]
           clues = clues.filter((clu, index) => index !== clueIndex)
-          clue
+          const cluePromise = clue
             .update({ userId: user.id, status: "assigned" })
             .then(() => {
-              assignedClues.push(clue)
               user.subscriptions.forEach(sub =>
                 webpush
                   .sendNotification(
@@ -97,11 +96,20 @@ router.get("/:teamId/assign", isMemberOfTeam, (req, res, next) => {
               )
             })
             .catch(next)
+          cluePromises.push(cluePromise)
         })
+        return Promise.all(cluePromises)
+      } else {
+        throw Error("AAAAHHHHHHHH")
       }
     })
+    .then(() =>
+      UserTeamClueStatus.findAll({
+        where: { teamId: team.id, status: "assigned" }
+      })
+    )
+    .then(assignedClues => res.json(assignedClues))
     .catch(next)
-  res.json(assignedClues)
 })
 
 router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {

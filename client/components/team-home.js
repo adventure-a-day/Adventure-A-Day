@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { withRouter, BrowserRouter as Router } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 import AddTeamMember from "./AddTeamMember"
 import NewAdventures from "./NewAdventures"
 
