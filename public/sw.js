@@ -55,6 +55,9 @@ self.addEventListener("push", event => {
     body: data.body,
     icon: "/images/earth-48x48.png"
   }
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => client.postMessage("UPDATING"))
+  })
 
   event.waitUntil(self.registration.showNotification(title, body))
 })

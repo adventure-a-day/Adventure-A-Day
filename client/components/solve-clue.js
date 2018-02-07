@@ -4,37 +4,10 @@ import { withRouter, Link } from 'react-router-dom'
 import history from '../history'
 import { PhotoInput } from './index'
 
-class SolveClue extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            hints: [],
-            assignedClue: {}
-        }
+const SolveClue = props => {
+    const { user, clues } = props
+    let assignedClue = clues.assignedClues && clues.assignedClues.filter(clue => clue.userId === user.id)[0]
 
-        this.handleClick = this.handleClick.bind(this)
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.clues.assignedClues !== nextProps.clues.assignedClues) {
-            const assignedClue = nextProps.clues.assignedClues && nextProps.clues.assignedClues.filter(clue => clue.userId === nextProps.user.id)[0]
-            this.setState({ assignedClue: assignedClue })
-        }
-    }
-
-    handleClick(event) {
-        event.preventDefault()
-        if (this.state.hints.length === 0) {
-            this.setState({ hints: [this.state.assignedClue.clue.hint1] })
-        } else {
-            this.setState({ hints: [this.state.assignedClue.clue.hint1, this.state.assignedClue.clue.hint2] })
-        }
-    }
-
-
-    render(props) {
-        const { assignedClue } = this.state
         return (
             <div>
                 <h1>Solve the Clue!</h1>
@@ -51,7 +24,6 @@ class SolveClue extends Component {
                 }
             </div>
         )
-    }
 }
 
 const mapState = ({ clues, user }) => {
