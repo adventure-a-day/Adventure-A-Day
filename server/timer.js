@@ -1,6 +1,6 @@
 // Change the interval and time to go off here
 // 24 hours = 86400000 milliseconds
-const INTERVAL_TIME = 30000
+const INTERVAL_TIME = 60000
 const HOUR = 12
 const MINUTE = 0
 
