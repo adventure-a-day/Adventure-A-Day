@@ -58,7 +58,10 @@ class UserHome extends Component {
         ) : (
           <div>Sign up with a team to start your adventures!</div>
         )}
-        
+        <div className="clouds">
+          <span><img id="leftCloud" src="/fluffyCloudsOne.png"></img></span>
+          <span><img id="rightCloud" src="/fluffyCloudsTwo.png"></img></span>
+        </div>
         <div id="sun"><img id="sunImg" src="/sun.png"></img></div>
         <div id="mountains"><img id="mtns" src="/blue-mountains.png"></img></div>
       </div>

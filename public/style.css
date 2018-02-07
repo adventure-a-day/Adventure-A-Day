@@ -238,22 +238,44 @@ button {
 
 @keyframes moveSun {
   from {bottom: 10vh;}
-  to {bottom: 18vh;}
+  to {bottom: 20vh;}
 }
+
+@keyframes moveLeft {
+  from {left: -10vw;}
+  to {left: 3vh;}
+}
+
+@keyframes moveRight {
+  from {right: -10vw;}
+  to {right: 2vw;}
+}
+
 
 #title {
 	padding: 70px 10px 0px;
 }
-.cloud {
-  width: 180px;
+
+#leftCloud {
 	height: 150px;
-	box-sizing: border-box;
-	transform: translatey(0px);
-  animation: float 6s ease-in-out infinite;
+	width: 250px;
+	position: fixed;
+	left: 3vw;
+	z-index: 1;
+	animation: moveLeft 5s ease-in; 
+}
+
+#rightCloud {
+	height: 160px;
+	width: 200px;
+	position: fixed;
+	right: 2vw;
+	z-index: 1;
+	animation: moveRight 5s ease-in;
 }
 
 #one {
-	position: absolute;
+	position: fixed;
 	top: 500px;
 	left: 300px;
 }
@@ -262,9 +284,9 @@ button {
 	height: 10vh;
 	width: 10vw;
 	padding: 5px;
-	position: absolute;
-  left: 445px;
-  bottom: 18vh;
+	position: fixed;
+  left: 50vw;
+  bottom: 20vh;
   animation: moveSun 2s ease-in;
 }
 
