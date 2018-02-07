@@ -29,7 +29,9 @@ class UserHome extends Component {
     // console.log("Clues: ", clues)
     return (
       <div>
+        <div id="title">
         <h1>Adventure A Day</h1>
+        </div>
         <div id="user-header">
           <span>
             <Avatar src={photo} />
@@ -73,6 +75,12 @@ class UserHome extends Component {
         ) : (
           <div>Sign up with a team to start your adventures!</div>
         )}
+        <div id="clouds">
+          <span><img className="cloud" id="one" src="/cloud-glow.png"></img></span>
+          <span><img className="cloud" id="two" src="/cloud-glow.png"></img></span>
+          <span><img className="cloud" id="three" src="/cloud.png"></img></span>
+        </div>
+        <div id="mountains"><img id="mtns" src="/mountains-v2.png"></img></div>
       </div>
     )
   }
@@ -129,3 +137,7 @@ UserHome.propTypes = {
  * actAsExpander={true}
                   showExpandableButton={true}
  */
+
+ /**
+  * 
+  */

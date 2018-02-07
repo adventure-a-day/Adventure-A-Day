@@ -5,6 +5,7 @@ import { withRouter, Link } from "react-router-dom"
 import AddTeamMember from "./AddTeamMember"
 import NewAdventures from "./NewAdventures"
 
+
 const TeamHome = props => {
   const { clues, teamMembers, user, currentTeam } = props
   let userClue
@@ -26,7 +27,7 @@ const TeamHome = props => {
       }
 
       <h1>Team Adventures</h1>
-      <ul>
+      <div className="card-container">
         {clues.assignedClues &&
           clues.assignedClues.map(clue => {
             let user
@@ -34,14 +35,15 @@ const TeamHome = props => {
               user = teamMembers.filter(member => member.id === clue.userId)[0]
             }
             return (
-              <li key={clue.clue.id}>
-                {user && user.userName}: {clue.clue.prompt}
-              </li>
+              <div key={clue.clue.id} className="card" id={clue.clue.id}>
+                <div className="side">{user && user.userName}</div>
+                <div className="side back">{clue.clue.prompt}</div>
+              </div>
             )
           })}
-      </ul>
+      </div>
       <h1>Completed Adventures</h1>
-      <ul>
+      <div className="card-container">
         {clues.completedClues &&
           clues.completedClues.map(clue => {
             let user
@@ -49,12 +51,13 @@ const TeamHome = props => {
               user = teamMembers.filter(member => member.id === clue.userId)[0]
             }
             return (
-              <li key={clue.clue.id}>
-                {user && user.userName}: {clue.clue.prompt}
-              </li>
+              <div key={clue.clue.id} className="card" id={clue.clue.id}>
+                <div className="side">{user && user.userName}</div>
+                <div className="side back">{clue.clue.prompt}</div>
+              </div>
             )
           })}
-      </ul>
+      </div>
     </div>
   )
 }
