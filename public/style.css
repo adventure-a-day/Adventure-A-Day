@@ -187,7 +187,7 @@ button {
 
 #footer {
   position: fixed !important;
-  width: 100vh !important;
+  width: 100vw !important;
 }
 
 #footer div {
@@ -254,6 +254,22 @@ button {
 	left: 300px;
 }
 
+#sunImg {
+	height: 10vh;
+	width: 10vw;
+	padding: 5px;
+	position: absolute;
+	left: 445px;
+	bottom: 190px;
+}
+
+#mtns {
+	width: 100vw;
+	margin: -10px;
+	position: fixed;
+	bottom: 0px;
+}
+
 /* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
 
 /* Portrait and Landscape */
@@ -270,12 +286,3 @@ button {
     	padding: 10px;
     }
 }
- 
-
-
-
-
-
-
-
-
