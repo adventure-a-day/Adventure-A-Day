@@ -60,13 +60,23 @@ export const fetchCompleted = teamId => {
 export const fetchUserClues = () => {
   return dispatch =>
     axios
-      .get('/api/clues')
+      .get("/api/clues")
       .then(userClues => {
         dispatch(gotUserClues(userClues.data))
       })
       .catch(err => console.log(err))
 }
 
+export const fetchNewAdventures = teamId => dispatch => {
+  axios
+    .get(`/api/teams/${teamId}/assign`)
+    .then(res => res.data)
+    .then(assignedClues => {
+      console.log(assignedClues)
+      dispatch(gotAssigned(assignedClues))
+    })
+    .catch(err => console.error(err))
+}
 /**
  * REDUCER
  */

@@ -48,28 +48,40 @@ router.post("/", (req, res, next) => {
 
 router.get("/:teamId/assign", isMemberOfTeam, (req, res, next) => {
   let team, users
-  let assignedClues = []
-  Team.findById(req.params.teamId, {
-    include: [{ model: User.scope("subscriptions") }]
+  UserTeamClueStatus.findAll({
+    where: { teamId: req.params.teamId, status: "assigned" }
   })
+    .then(alreadyAssigned => {
+      if (alreadyAssigned.length) {
+        let err = new Error()
+        err.message = "Team Still has Adventures!"
+        err.status = 401
+        throw err
+      }
+    })
+    .then(() =>
+      Team.findById(req.params.teamId, {
+        include: [{ model: User.scope("subscriptions") }]
+      })
+    )
     .then(foundTeam => {
       team = foundTeam
-      users = { team }
-      UserTeamClueStatus.findAll({
+      users = foundTeam.users
+      return UserTeamClueStatus.findAll({
         where: { status: "unassigned", teamId: team.id },
         include: [Clue]
       })
     })
     .then(clues => {
       if (clues.length >= users.length) {
+        let cluePromises = []
         users.forEach(user => {
           let clueIndex = Math.floor(Math.random() * clues.length)
           const clue = clues[clueIndex]
           clues = clues.filter((clu, index) => index !== clueIndex)
-          clue
+          const cluePromise = clue
             .update({ userId: user.id, status: "assigned" })
             .then(() => {
-              assignedClues.push(clue)
               user.subscriptions.forEach(sub =>
                 webpush
                   .sendNotification(
@@ -83,11 +95,22 @@ router.get("/:teamId/assign", isMemberOfTeam, (req, res, next) => {
                   .catch(() => sub.destroy())
               )
             })
-            .catch(console.error)
+            .catch(next)
+          cluePromises.push(cluePromise)
         })
+        return Promise.all(cluePromises)
+      } else {
+        throw Error("AAAAHHHHHHHH")
       }
     })
-  res.json(assignedClues)
+    .then(() =>
+      UserTeamClueStatus.findAll({
+        where: { teamId: team.id, status: "assigned" },
+        include: [Clue]
+      })
+    )
+    .then(assignedClues => res.json(assignedClues))
+    .catch(next)
 })
 
 router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {

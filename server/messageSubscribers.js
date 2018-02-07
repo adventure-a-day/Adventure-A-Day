@@ -17,7 +17,7 @@ module.exports = () => {
             // If the team lost their streak notify them and add their tasks back to the pool
             if (assignedClues.length) {
               assignedClues.forEach(clue =>
-                clue.update({ status: "unassigned" })
+                clue.update({ status: "unassigned", userId: null })
               )
               users.forEach(user =>
                 user.subscriptions.forEach(sub =>
