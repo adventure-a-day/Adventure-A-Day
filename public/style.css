@@ -7,8 +7,7 @@ body {
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(#FFF4BC, #FED571, #FF8C4C, #B72C3C, #AC748F);
   color: #45385B;
-  z-index: -2;
-  display: flex;
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, label, input, button, p, div {
@@ -238,12 +237,15 @@ button {
 #footer {
   width: 100% !important;
   margin: 0px -8px 0px -8px;
+  z-index: 50 !important;
 }
 
 #footer div {
   position: fixed !important;
   background-color: #AC748F !important;
   color: #FFF4BC !important;
+  z-index: 50 !important;
+
 }
 
 .header-text {
@@ -359,7 +361,7 @@ button {
   and (-webkit-min-device-pixel-ratio: 2) {
     #footer {
     position:fixed;
-    bottom:0px;
+    bottom: 8%;
     width:100%;
     }
     #title {
