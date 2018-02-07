@@ -17,11 +17,13 @@ const homeIcon =  <i className="material-icons">home</i>
 const iconStyles = {
     marginRight: 24,
 };
-const settingsIcon = <FontIcon className="material-icons">settings</FontIcon>;
+const settingsIcon = <FontIcon className="material-icons" color='#FFF4BC'>settings</FontIcon>;
 const nearbyIcon = <IconLocationOn />;
-const notificationsOn = <FontIcon className="material-icons">notifications_active</FontIcon>;
-const notificationsOff = <FontIcon className="material-icons">notifications_off</FontIcon>;
-const exitIcon = <FontIcon className="material-icons">exit_to_app</FontIcon>;
+const notificationsOn = <FontIcon className="material-icons" color='#FFF4BC'>notifications_active</FontIcon>;
+const notificationsOff = <FontIcon className="material-icons" color='#FFF4BC'>notifications_off</FontIcon>;
+const exitIcon = <FontIcon className="material-icons" color='#FFF4BC'>exit_to_app</FontIcon>;
+const accountIcon = <FontIcon className="material-icons" color='#FFF4BC'>account_box</FontIcon>;
+//^^ I'm having syntax errors trying to insert this to prompt the user to log in
 /**
  * A simple example of `BottomNavigation`, with three labels and icons
  * provided. The selected `BottomNavigationItem` is determined by application
@@ -57,7 +59,7 @@ class BottomNavbar extends Component {
 
 
   render() {
-    const {handleClick, isLoggedIn} = this.props
+    const {handleClick, isLoggedIn, currentTeam} = this.props
 
     return (
       <Paper zDepth={1}>
@@ -88,8 +90,6 @@ class BottomNavbar extends Component {
           :
               <div></div>
           }
-        
-          
          
         </BottomNavigation>
       </Paper>

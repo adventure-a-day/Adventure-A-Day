@@ -1,5 +1,11 @@
 import socket from "../socket"
-import { fetchTeamMessages, fetchAssigned, fetchCompleted, fetchTeamMembers } from "./index"
+import axios from "axios"
+import {
+  fetchTeamMessages,
+  fetchAssigned,
+  fetchCompleted,
+  fetchTeamMembers
+} from "./index"
 
 /**
  * ACTION TYPES
@@ -16,13 +22,19 @@ const defaultTeam = {}
  */
 export const setChosenTeam = team => ({ type: SET_CHOSEN_TEAM, team })
 
-export const setCurrentTeam = team => dispatch => {
-  dispatch(setChosenTeam(team))
-  dispatch(fetchAssigned(team.id))
-  dispatch(fetchCompleted(team.id))
-  dispatch(fetchTeamMembers(team.id))
-  dispatch(fetchTeamMessages(team.id))
-  socket.emit("room", team.id)
+export const setCurrentTeam = teamId => dispatch => {
+  axios
+    .get(`/api/teams/${teamId}`)
+    .then(res => res.data)
+    .then(team => {
+      dispatch(setChosenTeam(team))
+      dispatch(fetchAssigned(teamId))
+      dispatch(fetchCompleted(teamId))
+      dispatch(fetchTeamMembers(teamId))
+      dispatch(fetchTeamMessages(teamId))
+      socket.emit("room", teamId)
+    })
+    .catch(err => console.error(err))
 }
 
 /**

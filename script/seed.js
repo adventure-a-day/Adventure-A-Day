@@ -236,12 +236,14 @@ async function seed() {
     Photo.create({
       url: "https://s3.amazonaws.com/where-in-the-world-gh/dog.jpg",
       teamId: 1,
-      userId: 1
+      userId: 1,
+      success: true
     }),
     Photo.create({
       url: "https://s3.amazonaws.com/where-in-the-world-gh/cereal.jpg",
       teamId: 1,
-      userId: 2
+      userId: 2,
+      success: true
     })
   ])
 
@@ -278,7 +280,130 @@ async function seed() {
       })
       .then(clue => {
         clue.setClue(4)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(1)
+        return clue
       })
+      .then(clue => {
+        clue.setClue(5)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(1)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(6)
+      }),
+
+
+
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(2)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(1)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(2)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(2)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(2)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(3)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(2)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(4)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(2)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(5)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(2)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(6)
+      }),
+
+
+
+
+
+
+      UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(3)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(1)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(3)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(2)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(3)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(3)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(3)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(4)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(3)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(5)
+      }),
+    UserTeamClueStatus.create({ status: "unassigned" })
+      .then(clue => {
+        clue.setTeam(3)
+        return clue
+      })
+      .then(clue => {
+        clue.setClue(6)
+      })
+
+
   ])
 
   const teamMembers = await Promise.all([

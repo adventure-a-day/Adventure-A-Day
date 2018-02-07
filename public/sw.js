@@ -1,12 +1,17 @@
 var cacheName = "where-in-the-world"
 
 var filesToCache = [
-  "./",
-  "./style.css",
-  "./favicon.ico",
-  "./bundle.js.map",
-  "./bundle.js",
-  "./images/earth-48x48.png"
+  "/",
+  "/style.css",
+  "/favicon.ico",
+  "/bundle.js.map",
+  "/bundle.js",
+  "/images/earth-48x48.png",
+  "/blue-mountains.png",
+  "/fluffyCloudsOne.png",
+  "/fluffyCloudsTwo.png",
+  "/sun.png"
+
 ]
 
 // Install The Service Worker
@@ -50,6 +55,9 @@ self.addEventListener("push", event => {
     body: data.body,
     icon: "/images/earth-48x48.png"
   }
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => client.postMessage("UPDATING"))
+  })
 
   event.waitUntil(self.registration.showNotification(title, body))
 })

@@ -17,6 +17,14 @@ router.param("teamId", (req, res, next, teamId) => {
     .catch(next)
 })
 
+router.get('/', (req, res, next) => {
+    UserTeamClueStatus.findAll({ where: { userId: req.user.id, status: "assigned" }, include: [Clue] })
+    .then(clues => {
+      res.json(clues)
+    })
+    .catch(next)
+})
+
 router.get("/:teamId/completedClues", isMemberOfTeam, (req, res, next) => {
   const completed = req.clues.filter(clue => clue.status === "completed")
   res.json(completed)
@@ -45,8 +53,8 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
             )
           if(match) foundMatch.push(match)
         })
-        if (foundMatch.length >= 2) {
-          res.send("Found a match!")
+        if (foundMatch.length >= 1) {
+          res.send({ message: "Good job! Go to the gallery to view your team's photos.", success: true })
           clue.update({ status: "completed" })
           Team.findById(req.teamId, {
             include: [User.scope("subscriptions")]
@@ -64,10 +72,10 @@ router.post("/:teamId/verifyClue", (req, res, next) => {
             })
           })
         } else {
-          res.send("Better try harder!")
+          res.send({ message: "This photo is not a match. Please keep searching and take a new photo!", success: false })
         }
       } else {
-        res.send("Picture Unrecognizeable")
+        res.send({ message: "This photo is unrecognizeable. Please keep searching and take a new photo!", success: false })
       }
     })
     .catch(next)

@@ -3,18 +3,22 @@
 //that team id as the "currentTeam" on state
 
 import React from "react"
+import { withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 import { setCurrentTeam } from "../store"
 
 const Teams = props => {
   const { teams, setChosenTeam } = props
   return (
-    <select defaultValue="Select Team..." onChange={setChosenTeam}>
+    <select
+      value={props.currentTeam.id || "Select Team..."}
+      onChange={setChosenTeam}
+    >
       <option disabled>Select Team...</option>
       {teams &&
         teams.map(team => {
           return (
-            <option value={JSON.stringify(team)} key={team.id}>
+            <option value={team.id} key={team.id}>
               {team.name}
             </option>
           )
@@ -23,20 +27,21 @@ const Teams = props => {
   )
 }
 
-const mapState = ({ teams }) => {
+const mapState = ({ teams, currentTeam }) => {
   return {
-    teams: teams
+    teams: teams,
+    currentTeam
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     setChosenTeam(event) {
       event.preventDefault()
-      const team = JSON.parse(event.target.value)
-      dispatch(setCurrentTeam(team))
+      const teamId = event.target.value
+      ownProps.history.push(`/team/${teamId}/home`)
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(Teams)
+export default withRouter(connect(mapState, mapDispatch)(Teams))

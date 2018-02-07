@@ -7,10 +7,10 @@ const Messages = props => {
   const { teamMessages, teamMembers, currentTeam, user, handleSubmit } = props
 
   return (
-    <div className="main-content">
+    <div>
       <form onSubmit={evt => handleSubmit(evt, currentTeam.id, user.id)}>
-        <input name="text" type="text" placeholder="Chat Away!" />
-        <button type="submit" className="btn-success">
+        <input name="text" id="chat-input" type="text" placeholder="Chat Away!" />
+        <button type="submit" className="btn-success" id="message-submit">
           Submit
         </button>
       </form>
@@ -19,7 +19,7 @@ const Messages = props => {
           foundUser => foundUser.id === message.userId
         )
         return (
-          <div key={message.id}>
+          <div className="message" key={message.id}>
             {teamMember && <img src={teamMember.photo} />}
             {teamMember && <h4>{teamMember.userName}</h4>}
             <p>{message.text}</p>

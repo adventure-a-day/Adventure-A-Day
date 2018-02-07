@@ -30,7 +30,7 @@ const User = db.define(
     photo: {
       type: Sequelize.STRING,
       defaultValue:
-        "https://files.slack.com/files-pri/T024FPYBQ-F91CM3D6K/cody-avatar-50x60.png"
+        "https://s3.amazonaws.com/where-in-the-world-gh/cody-avatar.png"
     }
   },
   {

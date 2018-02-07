@@ -1,9 +1,9 @@
-import React from "react"
+import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
-import { withRouter, Link } from "react-router-dom"
-import { logout } from "../store"
-import { PushBtn, TeamSelect, BottomNavbar, LocationTracker } from "./index"
+import { withRouter } from "react-router-dom"
+import { LocationTracker, BottomNavbar } from "./index"
+import { fetchUserClues } from "../store"
 
 /**
  * COMPONENT
@@ -12,35 +12,53 @@ import { PushBtn, TeamSelect, BottomNavbar, LocationTracker } from "./index"
  *  rendered out by the component's `children`.
  */
 
+class Main extends Component {
+  componentDidMount() {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.addEventListener("message", event => {
+        console.log("Client Received Message: " + event.data)
+        this.props.handlePush()
+      })
+    }
+  }
 
-const Main = props => {
-  const { children, handleClick, isLoggedIn } = props
+  render() {
+    const { children, handleClick, isLoggedIn } = this.props
 
-  Notification.requestPermission()
+    Notification.requestPermission()
 
-  return (
-    <div>
-      <div id="footer">
-        <BottomNavbar />
+    return (
+      <div>
+        <div id="footer">
+          <BottomNavbar />
+        </div>
+        <LocationTracker />
+        {children}
       </div>
-      <LocationTracker />      
-      {children}
-    </div>
-  )
+    )
+  }
 }
 
 /**
  * CONTAINER
  */
-const mapState = state => { //mapping "isLoggedIn" here is currently redundant, but may be useful for future purposes
+const mapState = state => {
+  //mapping "isLoggedIn" here is currently redundant, but may be useful for future purposes
   return {
     isLoggedIn: !!state.user.id
+    // teamId: state.currentTeam.id || null
   }
 }
 
+const mapDispatch = dispatch => ({
+  handlePush() {
+    dispatch(fetchUserClues())
+  }
+})
+
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState)(Main))
+export default withRouter(connect(mapState, mapDispatch)(Main))
 
 /**
  * PROP TYPES
