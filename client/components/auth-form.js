@@ -1,19 +1,19 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import {auth} from '../store'
-import {TextField, RaisedButton} from 'material-ui'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { Link } from "react-router-dom"
+import PropTypes from "prop-types"
+import { auth } from "../store"
+import { TextField, RaisedButton } from "material-ui"
 
 const styles = theme => ({
   container: {
-    display: 'center',
-    flexWrap: 'wrap'
+    display: "center",
+    flexWrap: "wrap"
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
+    width: 200
   }
 })
 
@@ -25,69 +25,91 @@ class AuthForm extends Component {
     super(props)
 
     this.state = {
-      userName: '',
-      email: '',
-      password: '',
-      password2: '',
-      message: ''
+      userName: "",
+      email: "",
+      password: "",
+      password2: "",
+      message: ""
     }
   }
 
   render(props) {
-    const {name, displayName, error, handleSubmit} = this.props
-    const emailInput = name === 'signup' ? 'email' : 'email or username'
+    const { name, displayName, error, handleSubmit } = this.props
+    const emailInput = name === "signup" ? "email" : "email or username"
     const { message } = this.state
     return (
       <div>
-        <form onSubmit={handleSubmit.bind(this)} name={name} className="form-group">
-          {name === 'signup' && <div><TextField
-            id="username"
+        <form
+          onSubmit={handleSubmit.bind(this)}
+          name={name}
+          className="form-group"
+        >
+          {name === "signup" && (
+            <div>
+              <TextField
+                id="username"
+                className="input"
+                margin="normal"
+                type="text"
+                floatingLabelText="username"
+                value={this.state.userName}
+                onChange={(e, input) => this.setState({ userName: input })}
+              />
+              <br />
+            </div>
+          )}
+          <TextField
+            id="email"
             className="input"
             margin="normal"
             type="text"
-            floatingLabelText="username"
-            value={this.state.name}
-            onChange={(e, input) => this.setState({username: input})}
-          /><br /></div>}
-        <TextField
-          id="email"
-          className="input"
-          margin="normal"
-          type="text"
-          floatingLabelText={emailInput}
-          value={this.state.email}
-          onChange={(e, input) => this.setState({email: input})}
-        /><br />
-        <TextField
-          id="password"
-          className="input"
-          margin="normal"
-          type="password"
-          floatingLabelText="password"
-          value={this.state.password}
-          onChange={(e, input) => this.setState({password: input})}
-        /><br />
-        {name === 'signup' && <div><TextField
-          id="password2"
-          className="input"
-          margin="normal"
-          type="password"
-          floatingLabelText="re-enter password"
-          value={this.state.password2}
-          onChange={(e, input) => this.setState({password2: input})}
-        /><br /></div>}
-        <div>{message}</div>
-        <div>
-          <RaisedButton style={{margin: 12}} label={displayName} type="submit" />
-        or { name === 'login'
-          ? <Link to="/signup">Sign Up</Link>
-          : <Link to="login">Log In</Link>}
-        </div>
+            floatingLabelText={emailInput}
+            value={this.state.email}
+            onChange={(e, input) => this.setState({ email: input })}
+          />
+          <br />
+          <TextField
+            id="password"
+            className="input"
+            margin="normal"
+            type="password"
+            floatingLabelText="password"
+            value={this.state.password}
+            onChange={(e, input) => this.setState({ password: input })}
+          />
+          <br />
+          {name === "signup" && (
+            <div>
+              <TextField
+                id="password2"
+                className="input"
+                margin="normal"
+                type="password"
+                floatingLabelText="re-enter password"
+                value={this.state.password2}
+                onChange={(e, input) => this.setState({ password2: input })}
+              />
+              <br />
+            </div>
+          )}
+          <div>{message}</div>
+          <div>
+            <RaisedButton
+              style={{ margin: 12 }}
+              label={displayName}
+              type="submit"
+            />
+            or{" "}
+            {name === "login" ? (
+              <Link to="/signup">Sign Up</Link>
+            ) : (
+              <Link to="login">Log In</Link>
+            )}
+          </div>
         </form>
       </div>
-     )
+    )
   }
-
 }
 
 /**
@@ -97,25 +119,25 @@ class AuthForm extends Component {
  *   function, and share the same Component. This is a good example of how we
  *   can stay DRY with interfaces that are very similar to each other!
  */
-const mapLogin = (state) => {
+const mapLogin = state => {
   return {
-    name: 'login',
-    displayName: 'Login',
+    name: "login",
+    displayName: "Login",
     error: state.user.error
   }
 }
 
-const mapSignup = (state) => {
+const mapSignup = state => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
+    name: "signup",
+    displayName: "Sign Up",
     error: state.user.error
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
-    handleSubmit (evt) {
+    handleSubmit(evt) {
       evt.preventDefault()
       const formName = evt.target.name
       const email = this.state.email
@@ -123,7 +145,7 @@ const mapDispatch = (dispatch) => {
       const password2 = this.state.password2
       const userName = this.state.userName
       console.log(userName)
-      if (formName === 'login' || password === password2){
+      if (formName === "login" || password === password2) {
         dispatch(auth(email, password, userName, formName))
       } else {
         this.setState({ message: "Passwords Do Not Match" })
@@ -144,4 +166,3 @@ AuthForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object
 }
-
