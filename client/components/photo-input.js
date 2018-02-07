@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
 import config from "./config"
 import axios from "axios"
+import { fetchAssigned, fetchCompleted } from '../store'
 let AWS = require("aws-sdk")
 
 /**
@@ -49,9 +50,11 @@ class PhotoInput extends Component {
         })
 
         // verify photo using Google Cloud Vision
+        let message
         axios
           .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
           .then(res => {
+            message = res.data.message
             this.setState({
               message: res.data.message,
               success: res.data.success
@@ -67,14 +70,24 @@ class PhotoInput extends Component {
               })
               .then(res => {
                 console.log(res.data)
+                this.props.fetchAllClues()
+                if (message === "Good job! Go to the gallery to view your team's photos.") {
+                  this.props.history.push(`/team/${teamId}/home`)
+                }
+                // else {
+                //   //
+                // }
+                // //this.props.history.push(`/team/${teamId}/home`)
               })
               .catch(err => console.log(err))
           })
           .catch(err => console.log(err))
+
       }
 
       reader.readAsDataURL(file)
     }
+
   }
 
   render() {
@@ -113,6 +126,11 @@ const mapState = ({ currentTeam, user }) => ({
   user
 })
 
-const mapDispatch = dispatch => ({})
+const mapDispatch = (dispatch, ownProps) => ({
+  fetchAllClues() {
+    dispatch(fetchCompleted(ownProps.match.params.teamId))
+    dispatch(fetchAssigned(ownProps.match.params.teamId))
+  }
+})
 
 export default withRouter(connect(mapState, mapDispatch)(PhotoInput))
