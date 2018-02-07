@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
-import { withRouter, Link } from "react-router-dom"
-import { logout } from "../store"
-import { PushBtn, TeamSelect, LocationTracker, BottomNavbar } from "./index"
+import { withRouter } from "react-router-dom"
+import { LocationTracker, BottomNavbar } from "./index"
+import { fetchUserClues } from "../store"
 
 /**
  * COMPONENT
@@ -13,12 +13,16 @@ import { PushBtn, TeamSelect, LocationTracker, BottomNavbar } from "./index"
  */
 
 class Main extends Component {
-  constructor(props) {
-    super(props)
+  componentDidMount() {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.addEventListener("message", event => {
+        console.log("Client Received Message: " + event.data)
+        this.props.handlePush()
+      })
+    }
   }
 
   render() {
-
     const { children, handleClick, isLoggedIn } = this.props
 
     Notification.requestPermission()
@@ -41,14 +45,16 @@ class Main extends Component {
 const mapState = state => {
   //mapping "isLoggedIn" here is currently redundant, but may be useful for future purposes
   return {
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.id
     // teamId: state.currentTeam.id || null
   }
 }
 
-const mapDispatch = dispatch => {
-  return { }
-}
+const mapDispatch = dispatch => ({
+  handlePush() {
+    dispatch(fetchUserClues())
+  }
+})
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
