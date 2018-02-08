@@ -115,9 +115,12 @@ router.get("/:teamId/assign", isMemberOfTeam, (req, res, next) => {
 
 router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
   const { targetUser } = req.body
-  User.findOne({
-    where: { [Op.or]: [{ email: targetUser }, { userName: targetUser }] }
-  })
+  User.scope("subscriptions")
+    .findOne({
+      where: {
+        [Op.or]: [{ email: targetUser }, { userName: targetUser }]
+      }
+    })
     .then(foundUser => {
       if (foundUser) {
         foundUser
@@ -128,6 +131,18 @@ router.post("/:teamId/teamMembers", isMemberOfTeam, (req, res, next) => {
             } else {
               foundUser.addTeam(req.params.teamId)
               res.json(foundUser)
+              foundUser.subscriptions.forEach(sub => {
+                webpush
+                  .sendNotification(
+                    sub.info,
+                    JSON.stringify({
+                      title: `You've been added to a new team`,
+                      body: null,
+                      clue: null
+                    })
+                  )
+                  .catch(() => sub.destroy())
+              })
             }
           })
           .catch(next)

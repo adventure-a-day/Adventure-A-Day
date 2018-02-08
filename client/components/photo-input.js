@@ -70,14 +70,11 @@ class PhotoInput extends Component {
               })
               .then(res => {
                 console.log(res.data)
-                this.props.fetchAllClues()
+                //this.props.fetchAllClues()
                 if (message === "Good job! Go to the gallery to view your team's photos.") {
+                  this.props.fetchAllClues()
                   this.props.history.push(`/team/${teamId}/home`)
                 }
-                // else {
-                //   //
-                // }
-                // //this.props.history.push(`/team/${teamId}/home`)
               })
               .catch(err => console.log(err))
           })

@@ -1,7 +1,7 @@
 {
-  "name": "Where in the World",
-  "short_name": "WitW",
-  "description": "A Scavenger Hunt PWA",
+  "name": "Adventure A Day",
+  "short_name": "Advent a Day",
+  "description": "Photo socializing with a propmt",
   "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -35,7 +35,7 @@
     }
   ],
   "author": {
-    "name": "Where In The World",
+    "name": "Adventure A Day",
     "github": "https://github.com/where-in-the-world",
     "source-repo": "https://github.com/where-in-the-world/where-in-the-world"
   },

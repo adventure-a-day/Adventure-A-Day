@@ -75,7 +75,10 @@ export const fetchNewAdventures = teamId => dispatch => {
       console.log(assignedClues)
       dispatch(gotAssigned(assignedClues))
     })
-    .catch(err => console.error(err))
+    .catch(() => {
+      dispatch(fetchCompleted(teamId))
+      dispatch(fetchAssigned(teamId))
+    })
 }
 /**
  * REDUCER
