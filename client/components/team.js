@@ -1,13 +1,12 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { setCurrentTeam } from "../store"
-// import AppBar from 'material-ui/AppBar';
 import history from "../history"
-import IconMenu from "material-ui/IconMenu"
-import MenuItem from "material-ui/MenuItem"
-import IconButton from "material-ui/IconButton"
-import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert"
-import FontIcon from "material-ui/FontIcon"
+import fontawesome from '@fortawesome/fontawesome'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { home, images, comments  } from '@fortawesome/fontawesome-free-solid'
+
+
 
 class Team extends Component {
   componentDidMount() {
@@ -22,10 +21,40 @@ class Team extends Component {
   render() {
     const { currentTeam } = this.props
     return (
-      <div id="team-navbar-container">
-        <div id="team-navbar">
+      <div id="teamNavbarContainer">
+      <h2>{currentTeam.name}</h2>
+        <div id="teamNavbar">
+          <div className="teamMenuContainer" id="teamHome" onClick={() => history.push(`/team/${currentTeam.id}/home`)}>
+            <FontAwesomeIcon icon="home"/>
+            <div>Team Home</div>
+          </div>
+          <div className="teamMenuContainer" id="teamMenu" onClick={() => history.push(`/team/${currentTeam.id}/gallery`)}>
+            <FontAwesomeIcon icon="images"/>
+            <div>Gallery</div>
+          </div>
+          <div className="teamMenuContainer" id="teamMssg" onClick={() => history.push(`/team/${currentTeam.id}/messages`)}>
+            <FontAwesomeIcon icon="comments"/>
+            <div>Chat</div>
+          </div>
+         
+        </div>
+       
+      </div>
+    )
+  }
+}
 
-          <IconButton
+const mapState = ({ currentTeam }) => ({ currentTeam })
+const mapDispatch = dispatch => ({
+  handleTeam(teamId) {
+    dispatch(setCurrentTeam(teamId))
+  }
+})
+
+export default connect(mapState, mapDispatch)(Team)
+
+/**
+ *  <IconButton
             id="left"
             onClick={() => history.push(`/team/${currentTeam.id}/home`)}
           >
@@ -53,18 +82,4 @@ class Team extends Component {
               onClick={() => history.push(`/team/${currentTeam.id}/gallery`)}
             />
           </IconMenu>
-        </div>
-        <h2>{currentTeam.name}</h2>
-      </div>
-    )
-  }
-}
-
-const mapState = ({ currentTeam }) => ({ currentTeam })
-const mapDispatch = dispatch => ({
-  handleTeam(teamId) {
-    dispatch(setCurrentTeam(teamId))
-  }
-})
-
-export default connect(mapState, mapDispatch)(Team)
+ */

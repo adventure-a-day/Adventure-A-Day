@@ -49,7 +49,7 @@ class UserHome extends Component {
                 {
                   !!currentClue ? (
                     <CardHeader
-                      title={`${team.name}`}
+                      title={`Your adventure for: ${team.name}`}
                       subtitle={`${currentClue.clue.prompt}`}
                     />
                   )
@@ -68,8 +68,6 @@ class UserHome extends Component {
                     )
                   }
                 </CardActions>
-                <CardText expandable={true}>
-                </CardText>
               </Card>
             )
           })

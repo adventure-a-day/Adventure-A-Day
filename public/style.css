@@ -3,7 +3,7 @@
 }
 
 body {
-	padding-top: 56px;
+  padding-top: 56px;
   height: 100vh;
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(#FFF4BC, #FED571, #FF8C4C, #B72C3C, #AC748F);
@@ -51,10 +51,6 @@ button {
 @media (max-width: 400px) {
 	body {
   	height: 100%;
-  }
-  #footer {
-  	position: fixed;
-
   }
 }
 
@@ -109,10 +105,10 @@ button {
   flex-wrap: wrap;
 }
 .card {
-  height: 200px;
+  height: 150px;
+  width: 150px;
   transform-style: preserve-3d;
   transition: all 1s ease-in-out;
-  width: 200px;
   
 }
 .card:hover {
@@ -121,10 +117,10 @@ button {
 .card .side {
   backface-visibility: hidden;
   align-items:  center;
-  border-radius: 20%;
   height: 100%;
   width: 100%;
   background-color: #FFF4BC;
+  shadow: 1px 2px 4px rgba(0, 0, 0, .5);
   position: absolute;
   display: flex;
   align-items: center;
@@ -132,6 +128,7 @@ button {
 }
 .card .back {
   background-color: #FFF4BC;
+  shadow: 1px 2px 4px rgba(0, 0, 0, .5);
   text-align: center;
   transform: rotateY(180deg);
   height: 100%;
@@ -237,25 +234,43 @@ button {
 	margin-top: 12%;
 }
 
-#footer {
+.footer {
+  display: flex;
+  flex-direction: row;
   width: 100% !important;
-  margin: 0px -8px 0px -8px;
   z-index: 50 !important;
-
-}
-
-#footer>div>div {
-  position: fixed !important;
-    top: 5px !important;
-
   background-color: #AC748F !important;
-  color: #FFF4BC !important;
-  z-index: 50 !important;
-  display: flex !important;
-}
-#footer button {
+  align-items: center;
+  position: fixed;
+  top: 1px;
+  left: 0px;
+  height: 56px;
+  justify-content: space-around;
 }
 
+
+.navIcon {
+	align-self: center;
+	margin: 11px;
+}
+
+.navContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+}
+#iconContainer {
+	display: flex;
+	flex-direction: row;
+	align-self: flex-end;
+}
+
+#homeIcon {
+  height: 23px;
+}
+
+#
 .header-text {
   height: 150px;
   width: 250px;
@@ -270,6 +285,24 @@ button {
   margin-top: 75px;
 }
 
+#teamNavbarContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#teamNavbar {
+	display: flex;
+}
+
+#teamHome, #teamMenu, #teamMssg {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 8px; 
+}
+
 /* Always set the map height explicitly to define the size of the div
 * element that contains the map. */
 #map {
@@ -281,10 +314,7 @@ button {
   background-color: #FF8C4C;
 }
 
-#team-navbar {
-  display: flex;
-  justify-content: space-between;
-}
+
 
 @keyframes float {
 	0% {
@@ -299,13 +329,13 @@ button {
 }
 
 @keyframes moveSun {
-  from {bottom: 10vh;}
-  to {bottom: 20vh;}
+  from {bottom: 10%;}
+  to {bottom: 25%;}
 }
 
 @keyframes moveLeft {
-  from {left: -10vw;}
-  to {left: 3vh;}
+  from {left: -10%;}
+  to {left: 10%;}
 }
 
 @keyframes moveRight {
@@ -322,7 +352,8 @@ button {
 	height: 150px;
 	width: 250px;
 	position: fixed;
-	left: 3vw;
+	left: 10%;
+	bottom: 15%;
 	z-index: -1;
 	animation: moveLeft 5s ease-in; 
 }
@@ -332,6 +363,7 @@ button {
 	width: 200px;
 	position: fixed;
 	right: 2vw;
+	bottom: 15%;
 	z-index: -1;
 	animation: moveRight 5s ease-in;
 }
@@ -344,10 +376,9 @@ button {
 
 #sunImg {
 	width: 10vw;
-	padding: 5px;
-	position: fixed;
+  position: fixed;
   left: 50vw;
-  bottom: 20vh;
+  bottom: 25%;
   animation: moveSun 2s ease-in;
   z-index: -2;
 }
@@ -359,6 +390,8 @@ button {
 	bottom: 0px;
 	z-index: -2;
 }
+
+
 
 /* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
 
