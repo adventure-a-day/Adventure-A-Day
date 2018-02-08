@@ -30,70 +30,66 @@ async function seed() {
   const missions = await Promise.all([
     Mission.create({ id: 1, name: "General" }),
     Mission.create({ id: 2, name: "Nature" })
-    // Mission.create({ name: "Testing an open-ended mission" })
   ])
 
-  const teams = await Promise.all([
-    Team.create({ name: "The best team!", activeMission: true }),
-    Team.create({ name: "Yeeeeeeaahhhh team", activeMission: true }),
-    Team.create({ name: "You wish you were on our team", activeMission: true })
-  ])
+  // const teams = await Promise.all([
+  //   Team.create({ name: "The best team!", activeMission: true })
+    // Team.create({ name: "Yeeeeeeaahhhh team", activeMission: true }),
+    // Team.create({ name: "You wish you were on our team", activeMission: true })
+  // ])
 
   const users = await Promise.all([
     User.create({
-      id: 1,
-      email: "cody@email.com",
+      email: "erika@gmail.com",
       password: "123",
-      userName: "cody"
+      userName: "Erika"
     }),
     User.create({
-      id: 2,
-      email: "murphy@email.com",
+      email: "jasmina@gmail.com",
       password: "123",
-      userName: "murphy"
+      userName: "Jasmina"
     }),
     User.create({
-      id: 3,
-      email: "chloe@email.com",
+      email: "katharine@gmail.com",
       password: "123",
-      userName: "chloe"
-    }),
-    User.create({
-      id: 4,
-      email: "zoe@email.com",
-      password: "123",
-      userName: "zoe"
-    }),
-    User.create({
-      id: 5,
-      email: "miley@email.com",
-      password: "123",
-      userName: "miley"
-    }),
-    User.create({
-      id: 6,
-      email: "luna@email.com",
-      password: "123",
-      userName: "luna"
-    }),
-    User.create({
-      id: 7,
-      email: "molly@email.com",
-      password: "123",
-      userName: "molly"
-    }),
-    User.create({
-      id: 8,
-      email: "jake@email.com",
-      password: "123",
-      userName: "jake"
-    }),
-    User.create({
-      id: 9,
-      email: "harry@email.com",
-      password: "123",
-      userName: "harry"
+      userName: "Katharine"
     })
+    // User.create({
+    //   id: 4,
+    //   email: "zoe@gmail.com",
+    //   password: "123",
+    //   userName: "zoe"
+    // }),
+    // User.create({
+    //   id: 5,
+    //   email: "miley@gmail.com",
+    //   password: "123",
+    //   userName: "miley"
+    // }),
+    // User.create({
+    //   id: 6,
+    //   email: "luna@gmail.com",
+    //   password: "123",
+    //   userName: "luna"
+    // }),
+    // User.create({
+    //   id: 7,
+    //   email: "molly@gmail.com",
+    //   password: "123",
+    //   userName: "molly"
+    // }),
+    // User.create({
+    //   id: 8,
+    //   email: "jake@gmail.com",
+    //   password: "123",
+    //   userName: "jake"
+    // }),
+    // User.create({
+    //   id: 9,
+    //   email: "harry@gmail.com",
+    //   password: "123",
+    //   userName: "harry"
+    // })
   ])
 
   const clues = await Promise.all([
@@ -223,111 +219,112 @@ async function seed() {
     })
   ])
 
-  const messages = await Promise.all([
-    Message.create({
-      text: "Hey hey! Welcome to the party!",
-      teamId: 1,
-      userId: 1
-    }),
-    Message.create({
-      text: "I'm going to win. Mwahaha!",
-      teamId: 1,
-      userId: 2
-    }),
-    Message.create({ text: "I love games", teamId: 1, userId: 1 }),
-    Message.create({
-      text:
-        "What do you call a crowd of chess players bragging about their wins in a hotel lobby?",
-      teamId: 1,
-      userId: 2
-    }),
-    Message.create({
-      text: "Chess nuts boasting in an open foyer.",
-      teamId: 1,
-      userId: 2
-    }),
-    Message.create({ text: "...", teamId: 1, userId: 1 })
-  ])
+  // const messages = await Promise.all([
+  //   Message.create({
+  //     text: "Hey hey! Welcome to the party!",
+  //     teamId: 1,
+  //     userId: 1
+  //   }),
+  //   Message.create({
+  //     text: "I'm going to win. Mwahaha!",
+  //     teamId: 1,
+  //     userId: 2
+  //   }),
+  //   Message.create({ text: "I love games", teamId: 1, userId: 1 }),
+  //   Message.create({
+  //     text:
+  //       "What do you call a crowd of chess players bragging about their wins in a hotel lobby?",
+  //     teamId: 1,
+  //     userId: 2
+  //   }),
+  //   Message.create({
+  //     text: "Chess nuts boasting in an open foyer.",
+  //     teamId: 1,
+  //     userId: 2
+  //   }),
+  //   Message.create({ text: "...", teamId: 1, userId: 1 })
+  // ])
 
-  const photos = await Promise.all([
-    Photo.create({
-      url: "https://s3.amazonaws.com/where-in-the-world-gh/dog.jpg",
-      teamId: 1,
-      userId: 1,
-      success: true
-    }),
-    Photo.create({
-      url: "https://s3.amazonaws.com/where-in-the-world-gh/cereal.jpg",
-      teamId: 1,
-      userId: 2,
-      success: true
-    })
-  ])
+  // const photos = await Promise.all([
+  //   Photo.create({
+  //     url: "https://s3.amazonaws.com/where-in-the-world-gh/dog.jpg",
+  //     teamId: 1,
+  //     userId: 1,
+  //     success: true
+  //   }),
+  //   Photo.create({
+  //     url: "https://s3.amazonaws.com/where-in-the-world-gh/cereal.jpg",
+  //     teamId: 1,
+  //     userId: 2,
+  //     success: true
+  //   })
+  // ])
 
   //'unassigned', 'assigned', 'completed'
-  const userTeamClueStatuses = await Promise.all([
-    UserTeamClueStatus.create({ status: "unassigned" })
-      .then(clue => {
-        clue.setTeam(1)
-        return clue
-      })
-      .then(clue => {
-        clue.setClue(1)
-      }),
-    UserTeamClueStatus.create({ status: "unassigned" })
-      .then(clue => {
-        clue.setTeam(1)
-        return clue
-      })
-      .then(clue => {
-        clue.setClue(2)
-      }),
-    UserTeamClueStatus.create({ status: "unassigned" })
-      .then(clue => {
-        clue.setTeam(1)
-        return clue
-      })
-      .then(clue => {
-        clue.setClue(3)
-      }),
-    UserTeamClueStatus.create({ status: "unassigned" })
-      .then(clue => {
-        clue.setTeam(1)
-        return clue
-      })
-      .then(clue => {
-        clue.setClue(4)
-      })
-  ])
+  // const userTeamClueStatuses = await Promise.all([
+  //   UserTeamClueStatus.create({ status: "unassigned" })
+  //     .then(clue => {
+  //       clue.setTeam(1)
+  //       return clue
+  //     })
+  //     .then(clue => {
+  //       clue.setClue(1)
+  //     }),
+  //   UserTeamClueStatus.create({ status: "unassigned" })
+  //     .then(clue => {
+  //       clue.setTeam(1)
+  //       return clue
+  //     })
+  //     .then(clue => {
+  //       clue.setClue(2)
+  //     }),
+  //   UserTeamClueStatus.create({ status: "unassigned" })
+  //     .then(clue => {
+  //       clue.setTeam(1)
+  //       return clue
+  //     })
+  //     .then(clue => {
+  //       clue.setClue(3)
+  //     }),
+    // UserTeamClueStatus.create({ status: "unassigned" })
+    //   .then(clue => {
+    //     clue.setTeam(1)
+    //     return clue
+    //   })
+    //   .then(clue => {
+    //     clue.setClue(4)
+    //   })
+  // ])
 
-  const teamMembers = await Promise.all([
-    Team.findById(1).then(foundTeam => {
-      return foundTeam.setUsers([1, 2, 3])
-    }),
-    Team.findById(2).then(foundTeam => {
-      return foundTeam.setUsers([1, 4, 5, 6])
-    }),
-    Team.findById(3).then(foundTeam => {
-      return foundTeam.setUsers([7, 8, 9])
-    })
-  ])
+  // const teamMembers = await Promise.all([
+  //   Team.findById(1).then(foundTeam => {
+  //     return foundTeam.setUsers([1, 2, 3])
+  //   })
+  //   // Team.findById(2).then(foundTeam => {
+  //   //   return foundTeam.setUsers([1, 4, 5, 6])
+  //   // }),
+  //   // Team.findById(3).then(foundTeam => {
+  //   //   return foundTeam.setUsers([7, 8, 9])
+  //   // })
+  // ])
 
-  const teamMissions = await Promise.all([
-    Mission.findById(1).then(found => {
-      return found.setTeams([1, 2, 3])
-    })
-    // Mission.findById(2).then(found => {
-    //   return found.setTeams([3])
-    // })
-  ])
+  // const teamMissions = await Promise.all([
+  //   Mission.findById(1).then(found => {
+  //     return found.setTeams([1])
+  //     //return found.setTeams([1, 2, 3])
+  //   })
+  //   // Mission.findById(2).then(found => {
+  //   //   return found.setTeams([3])
+  //   // })
+  // ])
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(
-    `seeded ${users.length} users, ${teams.length} teams, ${
-      missions.length
-    } missions, ${clues.length} clues, ${photos.length} photos`
-  )
+  // console.log(
+  //   `seeded ${users.length} users, ${teams.length} teams, ${
+  //     missions.length
+  //   } missions, ${clues.length} clues, ${photos.length} photos`
+  // )
   console.log(`seeded successfully`)
 }
 
