@@ -24,11 +24,7 @@ class Team extends Component {
     return (
       <div id="team-navbar-container">
         <div id="team-navbar">
-
-          <IconButton
-            id="left"
-            onClick={() => history.push(`/team/${currentTeam.id}/home`)}
-          >
+          <IconButton id="left" onClick={() => history.goBack()}>
             <FontIcon className="material-icons">keyboard_arrow_left</FontIcon>
           </IconButton>
           <IconMenu
