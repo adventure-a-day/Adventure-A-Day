@@ -4,26 +4,13 @@ import { connect } from 'react-redux';
 import history from '../history'
 import { withRouter, Link } from "react-router-dom"
 const { subscribePush, unsubscribePush } = require("../pushSubscribe")
-import FontIcon from 'material-ui/FontIcon';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
-import Paper from 'material-ui/Paper';
-import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
-import {red500, greenA200} from 'material-ui/styles/colors';
+import fontawesome from '@fortawesome/fontawesome'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { bell  } from '@fortawesome/fontawesome-free-solid'
 import {logout } from '../store';
 import {PushBtn} from './index';
 
-const homeIcon =  <i className="material-icons">home</i>
 
-const iconStyles = {
-    marginRight: 24,
-};
-const settingsIcon = <FontIcon className="material-icons" color='#FFF4BC'>settings</FontIcon>;
-const nearbyIcon = <IconLocationOn />;
-const notificationsOn = <FontIcon className="material-icons" color='#FFF4BC'>notifications_active</FontIcon>;
-const notificationsOff = <FontIcon className="material-icons" color='#FFF4BC'>notifications_off</FontIcon>;
-const exitIcon = <FontIcon className="material-icons" color='#FFF4BC'>exit_to_app</FontIcon>;
-const accountIcon = <FontIcon className="material-icons" color='#FFF4BC'>account_box</FontIcon>;
-//^^ I'm having syntax errors trying to insert this to prompt the user to log in
 /**
  * A simple example of `BottomNavigation`, with three labels and icons
  * provided. The selected `BottomNavigationItem` is determined by application
@@ -62,37 +49,39 @@ class BottomNavbar extends Component {
     const {handleClick, isLoggedIn, currentTeam} = this.props
 
     return (
-      <Paper zDepth={1}>
-        <BottomNavigation selectedIndex={this.state.selectedIndex}>
-          <BottomNavigationItem
-            icon={homeIcon}
-            onClick={() => history.push('/')}
-          />
-          <BottomNavigationItem
-            icon={exitIcon}
-            onClick={() => handleClick()}
-          />
-          {this.state.supportsPush ?
-            this.state.isSubscribed === true ?  
-                <BottomNavigationItem icon={notificationsOn}
-                  onClick={() => unsubscribePush()
-                    .then(() => this.setState({ isSubscribed: false }))
-                    .catch(err => console.log("Unsubscribe Failed\n", err))
-                }
-                /> 
-            :
-            <BottomNavigationItem
-            icon={notificationsOff}
-            onClick={() => subscribePush()
-              .then(() => this.setState({ isSubscribed: true }))
-              .catch(err => console.log("Subscribe Failed\n", err))}
-            />
-          :
-              <div></div>
+      <div id="footerContainer">
+        <footer className="footer">
+          <div className="navContainer">
+            <img src="/earth.png" id="homeIcon" onClick={() => {history.push('/')}}></img>
+            <div>Home</div>
+          </div>
+          
+          <div className="navContainer">
+            <FontAwesomeIcon className="navIcon" icon="sign-out-alt" onClick={handleClick}/>
+            <div>Sign Out</div>
+          </div>
+          {
+            this.state.supportsPush ?
+              this.state.isSubscribed === true ?
+              <div className="navContainer" onClick={() => unsubscribePush()
+                .then(() => this.setState({ isSubscribed: false }))
+                .catch(err => console.log("Unsubscribe Failed\n", err))}>
+                <FontAwesomeIcon className="navIcon" icon="bell" />
+                <div>Notifications On</div>
+              </div>
+              :
+              <div className="navContainer" onClick={() => subscribePush()
+                .then(() => this.setState({ isSubscribed: true }))
+                .catch(err => console.log("Subscribe Failed\n", err))}>
+                <FontAwesomeIcon className="navIcon" icon="bell-slash" />
+                <div>Notifications Off</div>
+              </div>
+              : <div></div>
           }
-         
-        </BottomNavigation>
-      </Paper>
+    
+          
+        </footer>
+      </div>
     );
   }
 }
@@ -128,17 +117,3 @@ BottomNavbar.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired
 }
 
-/**
- *  <BottomNavigationItem
-            label="Find me"
-            icon={nearbyIcon}
-            onClick={() => this.select(2)}
-          />
- */
-
- /**
-  * <BottomNavigationItem
-            icon={settingsIcon}
-            onClick={}
-          />
-  */
