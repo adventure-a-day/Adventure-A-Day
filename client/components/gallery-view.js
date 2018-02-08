@@ -51,9 +51,7 @@ class GalleryView extends Component {
         { photos.photos &&
           photos.photos.filter(photo => photo.success === true).map(photo => {
             return (
-              <div key={photo.id}>
-              <img key={photo.id} src={photo.url} height="200" width="200"></img>
-              </div>
+              <img id="photo" key={photo.id} src={photo.url} height="200" width="200"></img>
             )
           })
         }
@@ -61,9 +59,7 @@ class GalleryView extends Component {
         { photos.photos &&
           photos.photos.filter(photo => photo.success === false).map(photo => {
             return (
-              <div key={photo.id}>
               <img key={photo.id} src={photo.url} height="200" width="200"></img>
-              </div>
             )
           })
         }
