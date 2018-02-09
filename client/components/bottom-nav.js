@@ -50,23 +50,18 @@ class BottomNavbar extends Component {
     return (
       <div id="footerContainer">
         <footer className="footer">
-          <button className="navContainer">
-            <img
-              src="/earth.png"
-              id="homeIcon"
-              onClick={() => {
-                history.push("/")
-              }}
-            />
+          <button
+            onClick={() => {
+              history.push("/")
+            }}
+            className="navContainer"
+          >
+            <img src="/earth.png" id="homeIcon" />
             <div>Home</div>
           </button>
 
-          <button className="navContainer">
-            <FontAwesomeIcon
-              className="navIcon"
-              icon="sign-out-alt"
-              onClick={handleClick}
-            />
+          <button onClick={handleClick} className="navContainer">
+            <FontAwesomeIcon className="navIcon" icon="sign-out-alt" />
             <div>Sign Out</div>
           </button>
           {this.state.supportsPush ? (
