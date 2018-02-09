@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
 import { LocationTracker, BottomNavbar } from "./index"
-import { fetchUserClues } from "../store"
+import { fetchUserClues, fetchTeams } from "../store"
 
 /**
  * COMPONENT
@@ -53,6 +53,7 @@ const mapState = state => {
 const mapDispatch = dispatch => ({
   handlePush() {
     dispatch(fetchUserClues())
+    dispatch(fetchTeams())
   }
 })
 
