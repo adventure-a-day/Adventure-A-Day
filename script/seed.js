@@ -40,56 +40,17 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({
-      email: "erika@gmail.com",
+      email: "sierra@gmail.com",
       password: "123",
-      userName: "Erika"
+      userName: "Sierra",
+      photo: "https://s3.amazonaws.com/where-in-the-world-gh/sierra.jpg"
     }),
     User.create({
-      email: "jasmina@gmail.com",
+      email: "ko-hsin@gmail.com",
       password: "123",
-      userName: "Jasmina"
-    }),
-    User.create({
-      email: "katharine@gmail.com",
-      password: "123",
-      userName: "Katharine"
+      userName: "Ko-Hsin",
+      photo: "https://s3.amazonaws.com/where-in-the-world-gh/ko-hsin.jpg"
     })
-    // User.create({
-    //   id: 4,
-    //   email: "zoe@gmail.com",
-    //   password: "123",
-    //   userName: "zoe"
-    // }),
-    // User.create({
-    //   id: 5,
-    //   email: "miley@gmail.com",
-    //   password: "123",
-    //   userName: "miley"
-    // }),
-    // User.create({
-    //   id: 6,
-    //   email: "luna@gmail.com",
-    //   password: "123",
-    //   userName: "luna"
-    // }),
-    // User.create({
-    //   id: 7,
-    //   email: "molly@gmail.com",
-    //   password: "123",
-    //   userName: "molly"
-    // }),
-    // User.create({
-    //   id: 8,
-    //   email: "jake@gmail.com",
-    //   password: "123",
-    //   userName: "jake"
-    // }),
-    // User.create({
-    //   id: 9,
-    //   email: "harry@gmail.com",
-    //   password: "123",
-    //   userName: "harry"
-    // })
   ])
 
   const clues = await Promise.all([

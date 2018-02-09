@@ -36,7 +36,6 @@ class PhotoInput extends Component {
 
         let photoName = file.name.split(" ").join("+")
         imageUrl = "https://s3.amazonaws.com/where-in-the-world-gh/" + photoName
-        this.setState({ imageUrl })
 
         s3.config.credentials = config
 
@@ -45,47 +44,48 @@ class PhotoInput extends Component {
           if (err) {
             console.log("ERROR: ", err)
           } else {
+            this.setState({ imageUrl })
             console.log("Successfully uploaded photo to AWS!")
-          }
-        })
 
-        // verify photo using Google Cloud Vision
-        let message
-        axios
-          .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
-          .then(res => {
-            message = res.data.message
-            this.setState({
-              message: res.data.message,
-              success: res.data.success
-            })
-
-            // add photo to database
+            // verify photo using Google Cloud Vision
             axios
-              .post(`/api/photos/${teamId}`, {
-                url: imageUrl,
-                success: this.state.success,
-                teamId: teamId,
-                userId: userId
-              })
+              .post(`/api/clues/${teamId}/verifyClue`, { imageUrl })
               .then(res => {
-                console.log(res.data)
-                //this.props.fetchAllClues()
-                if (message === "Good job! Go to the gallery to view your team's photos.") {
-                  this.props.fetchAllClues()
-                  this.props.history.push(`/team/${teamId}/home`)
-                }
+                this.setState({
+                  message: res.data.message,
+                  success: res.data.success
+                })
+                // add photo to database
+                axios
+                  .post(`/api/photos/${teamId}`, {
+                    url: imageUrl,
+                    success: this.state.success,
+                    teamId: teamId,
+                    userId: userId
+                  })
+                  .then(res => {
+                    console.log(res.data)
+                    //this.props.fetchAllClues()
+                    if (this.state.message === "Good job! Go to the gallery to view your team's photos.") {
+                      this.props.fetchAllClues()
+                      this.props.history.push(`/team/${teamId}/home`)
+                    }
+                  })
+                  .catch(err => console.log(err))
+
               })
               .catch(err => console.log(err))
-          })
-          .catch(err => console.log(err))
 
-      }
+          } // close else-statement
 
+        }) // close s3
+
+      } // close reader
       reader.readAsDataURL(file)
-    }
 
-  }
+    } // close if-statement
+
+  } // close handleSubmit
 
   render() {
     return (
