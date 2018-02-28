@@ -1,4 +1,6 @@
 const path = require("path")
+const fs = require("fs")
+const https = require("https")
 const express = require("express")
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
@@ -99,10 +101,12 @@ const createApp = () => {
 }
 
 const startListening = () => {
+  const key = fs.readFileSync("./keys/privkey.pem"),
+    cert = fs.readFileSync("./keys/cert.pem")
   // start listening (and create a 'server' object representing our server)
-  const server = app.listen(PORT, () =>
-    console.log(`Mixing it up on port ${PORT}`)
-  )
+  const server = https
+    .createServer({ key, cert }, app)
+    .listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
 
   // set up our socket control center
   const io = socketio(server)
