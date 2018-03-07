@@ -101,12 +101,15 @@ const createApp = () => {
 }
 
 const startListening = () => {
-  const key = fs.readFileSync("./keys/privkey.pem"),
-    cert = fs.readFileSync("./keys/cert.pem")
+  const key = fs.readFileSync("./server/keys/privkey.pem"),
+    cert = fs.readFileSync("./server/keys/cert.pem")
   // start listening (and create a 'server' object representing our server)
-  const server = https
-    .createServer({ key, cert }, app)
-    .listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
+  const server =
+    process.env.NODE_ENV === "production"
+      ? https
+          .createServer({ key, cert }, app)
+          .listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
+      : app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
 
   // set up our socket control center
   const io = socketio(server)

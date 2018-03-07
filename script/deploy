@@ -23,6 +23,13 @@ set -e
 function cleanup_at_exit {
   # return to your master branch
   git checkout master
+
+  # copy files back
+  mkdir ./server/keys
+  mv ./copies/serviceAccountKey.json ./serviceAccountKey.json 
+  mv ./copies/config.js ./client/components/config.js
+  mv ./copies/cert.pem ./server/keys/cert.pem
+  mv ./copies/privkey.pem ./server/keys/privkey.pem
   
   # remove the deploy branch
   git branch -D deploy
@@ -39,11 +46,11 @@ webpack -p
 # make copies of files being force committed
 cp ./serviceAccountKey.json ./copies/serviceAccountKey.json
 cp ./client/components/config.js ./copies/config.js
-cp ./keys/cert.pem ./copies/cert.pem
-cp ./keys/privkey.pem ./copies/privkey.pem
+cp ./server/keys/cert.pem ./copies/cert.pem
+cp ./server/keys/privkey.pem ./copies/privkey.pem
 
 # "force" add the otherwise gitignored build files
-git add -f public/bundle.js public/bundle.js.map serviceAccountKey.json client/components/config.js 
+git add -f public/bundle.js public/bundle.js.map serviceAccountKey.json client/components/config.js server/keys/cert.pem server/keys/privkey.pem
 
 # create a commit, even if nothing changed
 git commit --allow-empty -m 'Deploying'
@@ -51,10 +58,5 @@ git commit --allow-empty -m 'Deploying'
 # push your local "deploy" branch to the "master" branch on heroku
 git push --force heroku deploy:master
 
-# copy files back
-cp ./copies/serviceAccountKey.json ./serviceAccountKey.json 
-cp ./copies/config.js ./client/components/config.js
-cp ./copies/cert.pem ./keys/cert.pem
-cp ./copies/privkey.pem ./keys/privkey.pem
 
 heroku run npm run seed
