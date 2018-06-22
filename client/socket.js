@@ -1,6 +1,7 @@
 import io from "socket.io-client"
 import store, { gotNewMessage } from "./store"
 
+
 const socket = io(window.location.origin)
 
 socket.on("connect", () => {
@@ -10,3 +11,4 @@ socket.on("connect", () => {
 })
 
 export default socket
+
