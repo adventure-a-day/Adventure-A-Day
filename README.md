@@ -20,7 +20,8 @@ git clone https://github.com/where-in-the-world/where-in-the-world.git
   * However, it's **very** important that you **not** push it to Github! Otherwise, *prying eyes* will find your secret API keys!
   * It might look like this:
 
-secrets.js: 
+```js
+// secrets.js
 const path = require("path")
 process.env.GOOGLE_API_KEY = "YOUR_GOOGLE_API_KEY"
 process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(
@@ -30,9 +31,10 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS = path.join(
 process.env.PUBLIC_VAPID_KEY =
   "YOUR_PUBLIC_VAPID_KEY"
 process.env.PRIVATE_VAPID_KEY = "YOUR_PRIVATE_VAPID_KEY"
-
+```
 3. Also in the root directory, create a file called called serviceAccountKey.json:
-serviceAccountKey.json: 
+```json
+// serviceAccountKey.json 
 {
     "type": "service_account",
     "project_id": "YOUR_PROJECT_ID",
@@ -45,12 +47,16 @@ serviceAccountKey.json:
     "auth_provider_x509_cert_url": "eg. https://www.googleapis.com/oauth2/v1/certs",
     "client_x509_cert_url": "eg. https://www.googleapis.com/robot/v1/metadata/x509/vision-quickstart%40YOUR_PROJECT-193220.iam.gserviceaccount.com"
   }
-4. In client/components, create a file called config.js
+```
+4. In `client/components`, create a file called `config.js`
 
 In this file, add your amazon keys and make sure to export it: 
+```js
+// config.js
 const config = { "accessKeyId": "YOUR_ACCESS_KEY_ID", "secretAccessKey": "YOUR_SECRET_ACCESS_KEY", "region": "YOUR_REGION" }
 
 module.exports = config
+```
 
 ## Acclimate your development environment
 
